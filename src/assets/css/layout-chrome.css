@@ -5,8 +5,8 @@
 .util a:hover{text-decoration:underline}
 .util span{white-space:nowrap}
 .util .sp{margin-left:auto}
-.header{position:sticky;top:0;z-index:50;background:rgba(246,243,238,.94);border-bottom:1px solid transparent;transition:transform .35s var(--ease),border-color .3s,background .3s}
-@supports (backdrop-filter:blur(1px)){.header{background:rgba(246,243,238,.86);backdrop-filter:saturate(1.2) blur(10px)}}
+.header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid transparent;transition:transform .35s var(--ease),border-color .3s,background .3s}
+@supports (backdrop-filter:blur(1px)){.header{background:var(--paper)}}
 .header.is-stuck{border-color:var(--rule)}
 .header.is-hidden{transform:translateY(-100%)}
 .header__inner{display:flex;align-items:center;gap:24px;height:var(--hdr)}
