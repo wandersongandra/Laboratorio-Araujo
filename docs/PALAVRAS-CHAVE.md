@@ -245,10 +245,10 @@ Regras para cada artigo novo:
 
 ## 8. Onde mexer no código
 
-- Palavras-chave por página: campos `primary`/`secondary` em `_build/content/servicos.py` e `blog.py`. Os dos artigos vão para `keywords` do JSON-LD.
+- Palavras-chave por página: campos `primary`/`secondary` em `src/content/servicos.py` e `blog.py`. Os dos artigos vão para `keywords` do JSON-LD.
 - Artigos:
     - `related_posts` define o "Leia também";
     - `refs` define a seção "Referências" e o `citation` do JSON-LD.
-- Área atendida (JSON-LD): constante `AREA` em `_build/build.py`.
-- `knowsAbout`: função `business()` em `_build/build.py`.
+- Área atendida (JSON-LD): constante `AREA` em `scripts/build/site.py`.
+- `knowsAbout`: função `business()` em `scripts/build/site.py`.
 - Modelo de requisição: `python3 tools/requisicao_pdf.py`, depois rodar o build. É o único PDF permitido em `tools/qa_sem_precos.py`, e o texto dele também é verificado.

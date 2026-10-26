@@ -88,7 +88,7 @@ as capas dos artigos se repetem nas listagens, como "Outros serviços" e "Artigo
 | 4ff7 | chat (curadas) | Bancada e impressão 3D | `modelo-com-coroas-nas-maos` | Conferência das coroas no modelo | Capa do artigo "Requisição para laboratório" |
 | 0043 | chat (curadas) | Bancada e impressão 3D | `modelos-troquelizados-trabalhos-posteriores` | Trabalhos posteriores sobre modelos troquelizados | Figura da seção "O laboratório" na home |
 
-**Faixa "Na bancada" da home** (`FAIXA_REAL` em `_build/content/fotos_reais.py`): d282, d005,
+**Faixa "Na bancada" da home** (`FAIXA_REAL` em `src/content/fotos_reais.py`): d282, d005,
 d002, d123, d006, 0f03, d130, d085, 369d, d156, d166 e ee07.
 
 **Imagens de compartilhamento (`assets/img/og/`, geradas por `tools/og.py`):**
@@ -167,7 +167,7 @@ banco (e a antiga `aparelho-ortodontico`) saíram do site e estão guardadas em
 
 ## Como o site usa as fotos (técnico)
 
-- Catálogo: `_build/content/fotos_reais.py`. Cada foto tem:
+- Catálogo: `src/content/fotos_reais.py`. Cada foto tem:
   - `id`, `src`, `pasta`, `cat` e `slug`;
   - `alt` e `cap`;
   - o recorte prévio `pre`, a região do trabalho `reg`, as variantes `var`, `fill` e `maxw`.
@@ -178,7 +178,7 @@ banco (e a antiga `aparelho-ortodontico`) saíram do site e estão guardadas em
     - `g`: proporção livre, para a galeria e a faixa.
   - Larguras de 480, 800 e 1200 px, sem passar do tamanho do recorte.
   - Formatos: AVIF q62, WebP q82 e JPEG q84 (o JPEG só na menor e na maior largura).
-  - O resultado vai para `_build/static/assets/img/real/` e para o manifesto `_build/fotos_reais.json`.
+  - O resultado vai para `src/assets/img/real/` e para o manifesto `src/fotos_reais.json`.
 - HTML: `<picture>` com AVIF e WebP, e `<img>` JPEG como fallback, com `srcset`/`sizes`,
   `width`/`height` (CLS 0), texto alternativo descritivo e `loading="lazy"`.
   - A exceção é a imagem LCP: ela usa `fetchpriority="high"` e tem preload AVIF.
@@ -196,10 +196,10 @@ banco (e a antiga `aparelho-ortodontico`) saíram do site e estão guardadas em
 ### Trocar ou acrescentar uma foto real
 
 ```bash
-# 1. acrescente um item em _build/content/fotos_reais.py (DRIVE ou FOTOS) e, se for usado, em USO
+# 1. acrescente um item em src/content/fotos_reais.py (DRIVE ou FOTOS) e, se for usado, em USO
 FOTOS_DRIVE=/caminho/fotos-drive FOTOS_CHAT=/caminho/fotos-chat python3 tools/foto_real.py
 python3 tools/og.py          # só se mudar foto de topo de serviço/artigo ou a OG padrão
-python3 _build/build.py
+python -m scripts.build
 ```
 
 Para usar a foto num espaço, troque o `img`/`fig` em `content/servicos.py` ou `content/blog.py` por

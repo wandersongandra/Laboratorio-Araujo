@@ -21,7 +21,7 @@ npm run links                    # linkinator (links internos)
 | `npm run lint:html` | html-validate 9 (`html-validate:recommended` + regras em `.htmlvalidate.json`) | HTML válido e acessível no `dist/`; proíbe `style=""`; título ≤ 60 |
 | `npm run lint:css` | stylelint 16 + `stylelint-config-standard` | Sintaxe, duplicatas, propriedades inválidas |
 | `npm run lint:js` | ESLint 9 (`eslint.config.mjs`) | Erros de JS; proíbe `innerHTML`, `outerHTML`, `document.write`, `eval` |
-| `python3 -m pyflakes _build tools` | pyflakes | Erros no gerador e nos scripts |
+| `python -m pyflakes scripts src/content src/data tools` | pyflakes | Erros no gerador e nos scripts |
 | `python3 tools/qa_seo.py` | próprio | Título/descrição por página e duplicados, um `<h1>`, hierarquia de títulos, JSON-LD válido, links e imagens internos inexistentes, `alt` ausente |
 | `python3 tools/qa_sem_precos.py [--live URL]` | próprio | `dist/` sem "R$", "preço", "tabela-de-precos", ".pdf" nem `Offer`/`price` no JSON-LD (fora das exceções do script); com `--live`, `/tabela-de-precos/` → 301 `/contato/` e PDF antigo ≠ 200 |
 | `python3 tools/qa_paginas.py [URL]` | próprio + Playwright | Todas as URLs do sitemap + uma 404 em 1440, 1366 e 390 px: status HTTP, erros de JS, erros/avisos de console (inclusive CSP), rolagem horizontal |

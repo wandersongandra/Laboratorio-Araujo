@@ -9,7 +9,7 @@ deixar o navegador recusar qualquer coisa que não seja do próprio site.
 | Verificação | Resultado |
 |---|---|
 | [Mozilla HTTP Observatory](https://developer.mozilla.org/en-US/observatory/analyze?host=brilliant-cat-c5b6e9.netlify.app) (24/10 e 26/10/2026) | **A+**, 130/100, 12 de 12 testes |
-| Arquivos internos no ar (auditoria 26/10/2026: `_build/`, `docs/`, `package.json`, `.git/`, `.env`, `_headers`, `_redirects`, mapas de código, PDF antigo) | nenhum responde 200 (`tools/qa_rotas.py`) |
+| Arquivos internos no ar (auditoria 26/10/2026: fontes do gerador, `docs/`, `package.json`, `.git/`, `.env`, `_headers`, `_redirects`, mapas de código, PDF antigo) | nenhum responde 200 (`tools/qa_rotas.py`) |
 | Critérios do securityheaders.com (os 6 cabeçalhos, CSP sem `unsafe-inline`) | **A+** (todos presentes; o site deles exige chave de API, por isso a nota foi calculada pelos mesmos critérios) |
 | Erros de CSP no console (21 URLs × 3 larguras, no ar) | 0 |
 | `npm audit` (ferramentas de desenvolvimento) | 0 vulnerabilidades |
@@ -70,7 +70,7 @@ descreve isso; se entrar analytics, atualize a política (seção Cookies) e a C
 
 ### Adicionar Google Analytics 4 (se o dono quiser)
 
-1. Crie `_build/static/assets/js/ga.js` com o código de inicialização (`window.dataLayer = …;
+1. Crie `src/assets/js/ga.js` com o código de inicialização (`window.dataLayer = …;
    gtag('config', 'G-XXXX')`), **sem** script inline.
 2. Em `page()` (`build.py`), antes de `main.js`, inclua
    `<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXX"></script>` e
