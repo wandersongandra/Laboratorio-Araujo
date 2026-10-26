@@ -37,7 +37,11 @@ LAB: dict[str, object] = {
     "short_name": "LDA",
     "legal_name": "Laboratório Dental Araújo Ltda",
     "cnpj": "19.223.635/0001-86",
-    "founding_year": "1976",
+    "founding_year": "1975",
+    "founding_date": "1975-09-08",
+    "founders": ("Edison Araújo", "Pedro Paulo Araújo"),
+    "team_size": "mais de 40",
+    "structure": "sede própria no Ed. Mesbla, com 10 salas",
     "email": "dentalaraujo@yahoo.com.br",
     "slogan": "Há 50 anos no mercado. Pioneira na prótese dentária.",
     # Endereço (formatos usados no site; os dados são os mesmos).

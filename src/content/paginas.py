@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 FACTS = [
- ('Fundação', '1976, em Belo Horizonte (50 anos em 2026)'),
- ('Equipe', 'Mais de 35 especialistas em prótese dentária'),
- ('Estrutura', 'Cerca de 400 m² no Centro de BH'),
+ ('Fundação', '8 de setembro de 1975, em Belo Horizonte (50 anos)'),
+ ('Fundadores', 'Edison Araújo e Pedro Paulo Araújo'),
+ ('Equipe', 'Mais de 40 profissionais qualificados'),
+ ('Estrutura', 'Sede própria no Ed. Mesbla, com 10 salas'),
  ('Endereço', 'Av. Afonso Pena, 262, 16º andar, sala 1602, Ed. Mesbla, Centro, Belo Horizonte/MG, 30130-923'),
  ('Atendimento', 'Seg. a sex., das 8h às 11h30 e das 12h45 às 18h'),
  ('Área atendida', 'Coleta e entrega em BH, na Grande BH e em MG; atendimento para todo o Brasil'),

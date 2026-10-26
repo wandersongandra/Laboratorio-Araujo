@@ -68,10 +68,10 @@ RESUMO = {
 }
 
 RESUMO_SOBRE = [
-    'Fundado em 1976 no Centro de Belo Horizonte: 50 anos em 2026.',
-    'Mais de 35 técnicos em cerca de 400 m² no Edifício Mesbla.',
+    'Fundado em 8 de setembro de 1975 por Edison e Pedro Paulo Araújo.',
+    'Sede própria no Edifício Mesbla, com 10 salas e mais de 40 profissionais.',
     'Atende cirurgiões-dentistas e clínicas, em todas as áreas da prótese.',
-    'Coleta e entrega em Minas Gerais; casos recebidos de todo o Brasil.',
+    'Coleta e entrega em Minas Gerais; atendimento em todo o Brasil.',
 ]
 
 RESUMO_ENVIO = [

@@ -68,7 +68,7 @@ repeating-linear-gradient(90deg,#0E1B2C 0 1px,transparent 1px 60px) bottom/100% 
 
 
 def jobs():
-    j = [('og-image', tpl('Desde 1976', 'Laboratório de<br>prótese dentária<br><em>em Belo Horizonte</em>',
+    j = [('og-image', tpl('Desde 1975', 'Laboratório de<br>prótese dentária<br><em>em Belo Horizonte</em>',
                           'Zircônia, E-Max, protocolo, PPR e prótese total.<br>Coleta em MG · envios para todo o Brasil.',
                           'proteses-totais-cartao-lda')),
          ('og-trabalhos', tpl('Trabalhos', 'Fotos de trabalhos<br><em>do laboratório</em>',

@@ -1,7 +1,7 @@
 # Site do Laboratório Dental Araújo
 
 Site institucional e comercial do **Laboratório Dental Araújo (LDA)**, laboratório de prótese
-dentária em Belo Horizonte desde 1976 (Av. Afonso Pena, 262, sala 1602, Centro). O público é
+dentária em Belo Horizonte desde 1975 (Av. Afonso Pena, 262, sala 1602, Centro). O público é
 **cirurgião-dentista e clínica**: o site mostra os serviços (todos **sob orçamento**, sem
 preços publicados), explica como enviar casos de todo o Brasil e leva o contato para o WhatsApp de pedidos.
 

@@ -248,7 +248,7 @@ def footer():
       <div><h2>Laboratório</h2><nav aria-label="Institucional"><a href="/envio-para-todo-brasil/">Envio para todo o Brasil</a><a href="/sobre/">Sobre o laboratório</a><a href="/trabalhos/">Trabalhos (fotos)</a><a href="/perguntas-frequentes/">Perguntas frequentes</a><a href="/blog/">Blog</a><a href="/contato/#orcamento">Solicitar orçamento</a><a href="/contato/">Contato</a></nav></div>
       <div><h2>Leitura</h2><nav aria-label="Blog">{"".join(f'<a href="/blog/{p["slug"]}/">{p["h1"]}</a>' for p in POSTS_RECENTES)}</nav></div>
     </div>
-    <div class="footer__base"><span>© <span id="year">2026</span> {LEGAL_NAME} · CNPJ {CNPJ}</span><nav class="footer__legal" aria-label="Documentos legais"><a href="/politica-de-privacidade/">Política de privacidade</a><a href="/termos-de-uso/">Termos de uso</a></nav><span class="footer__sign"><span>Laboratório de prótese dentária em Belo Horizonte, MG, desde 1976</span><span class="footer__credit">Desenvolvido por <a href="https://www.gandra.tech/" target="_blank" rel="noopener">gandra.tech</a></span></span></div>
+    <div class="footer__base"><span>© <span id="year">2026</span> {LEGAL_NAME} · CNPJ {CNPJ}</span><nav class="footer__legal" aria-label="Documentos legais"><a href="/politica-de-privacidade/">Política de privacidade</a><a href="/termos-de-uso/">Termos de uso</a></nav><span class="footer__sign"><span>Laboratório de prótese dentária em Belo Horizonte, MG, desde 1975</span><span class="footer__credit">Desenvolvido por <a href="https://www.gandra.tech/" target="_blank" rel="noopener">gandra.tech</a></span></span></div>
   </div>
 </footer>'''
 
@@ -455,7 +455,7 @@ def aside_card(s=None):
     <a class="btn" href="{wa(msg)}" target="_blank" rel="noopener noreferrer" data-track="whatsapp_aside">{icon("chat")}Solicitar orçamento</a>
     <a class="btn btn--ghost" href="tel:+553132719766" data-track="phone_aside">{icon("phone")}(31) 3271-9766</a></div>
   <div class="abox"><p class="abox__h">O laboratório</p><ul>
-    <li>{icon("ruler")}Desde 1976 no Centro de BH</li><li>{icon("bench")}35+ técnicos · 400 m²</li><li>{icon("clock")}7 dias úteis por etapa, em média</li>
+    <li>{icon("ruler")}Desde 1975 no Centro de BH</li><li>{icon("bench")}40+ profissionais · 10 salas no Mesbla</li><li>{icon("clock")}7 dias úteis por etapa, em média</li>
     <li>{icon("shield")}Garantia de até 6 meses</li><li>{icon("truck")}Coleta em MG · envio para todo o Brasil</li></ul></div>
 </aside>'''
 
@@ -543,11 +543,11 @@ def business():
      "alternateName": ["LDA", "LDA Laboratório Dental Araújo"], "legalName": LEGAL_NAME,
      "taxID": CNPJ, "foundingDate": LAB["founding_year"],
      "slogan": LAB["slogan"],
-     "description": "Laboratório de prótese dentária em Belo Horizonte desde 1976, com mais de 35 especialistas e cerca de 400 m². Zircônia, E-Max, metalocerâmica, barra de protocolo, PPR, prótese total, prótese flexível, resinas, placas e ortodontia, com coleta e entrega em Minas Gerais e atendimento para todo o Brasil.",
+     "description": "Laboratório de prótese dentária em Belo Horizonte desde 1975, com mais de 40 profissionais e 10 salas no Edifício Mesbla. Zircônia, E-Max, metalocerâmica, barra de protocolo, PPR, prótese total, prótese flexível, resinas, placas e ortodontia, com coleta e entrega em Minas Gerais e atendimento para todo o Brasil.",
      "url": BASE + '/', "logo": BASE + "/assets/icons/icon-512.png",
      "image": [BASE + "/assets/img/og/og-image.jpg", img_url(HOME_FOTO, 'hwg'), img_url('real/impressoras-3d-laboratorio', 'hg')],
      "telephone": PHONE_1_SCHEMA, "email": EMAIL,
-     "numberOfEmployees": {"@type": "QuantitativeValue", "minValue": 35},
+     "numberOfEmployees": {"@type": "QuantitativeValue", "minValue": 40},
      "address": {"@type": "PostalAddress", "streetAddress": STREET_SCHEMA,
                  "addressLocality": LAB["address"]["city"], "addressRegion": LAB["address"]["region"],
                  "postalCode": LAB["address"]["postal"], "addressCountry": LAB["address"]["country"]},
@@ -701,13 +701,13 @@ def build_home():
   <div class="container hero__grid">
     <div class="hero__text">
       <span class="label intro">Laboratório de prótese dentária · Centro de BH</span>
-      <h1 id="h1" class="intro">Laboratório de prótese dentária em BH, <em>desde 1976</em></h1>
+      <h1 id="h1" class="intro">Laboratório de prótese dentária em BH, <em>desde 1975</em></h1>
       <p class="hero__lead intro-2">Zircônia, E-Max, protocolo, PPR e prótese total para dentistas de Belo Horizonte, da Grande BH e de todo o Brasil.</p>
       <div class="btns intro-2"><a class="btn btn--go" href="{wa(MSG_ORC)}" target="_blank" rel="noopener noreferrer" data-track="whatsapp_hero">{icon("chat")}Solicitar orçamento</a><a class="arrow" href="#processo">Como enviar um caso</a></div>
       <div class="specs intro-3">
-        <div><b><span class="cnt n2" data-count="50">50</span> anos</b><span>Desde 1976</span></div>
-        <div><b><span class="cnt n2" data-count="35">35</span>+</b><span>Especialistas</span></div>
-        <div><b><span class="cnt n3" data-count="400">400</span> m²</b><span>De laboratório</span></div>
+        <div><b><span class="cnt n2" data-count="50">50</span> anos</b><span>Desde 1975</span></div>
+        <div><b><span class="cnt n2" data-count="40">40</span>+</b><span>Profissionais</span></div>
+        <div><b><span class="cnt n2" data-count="10">10</span> salas</b><span>Ed. Mesbla · BH</span></div>
         <div><b>Brasil</b><span>Coleta em MG, envio de todo o país</span></div>
       </div>
     </div>
@@ -762,8 +762,8 @@ def build_home():
 {contact_section('06')}
 {cta_band()}'''
     p = dict(path='/', title='Laboratório de Prótese Dentária em BH | Dental Araújo',
-             og_title='Laboratório Dental Araújo | Prótese dentária em BH desde 1976',
-             desc='Laboratório de prótese dentária em Belo Horizonte desde 1976: zircônia, E-Max, protocolo, PPR e prótese total para dentistas de BH, MG e todo o Brasil.',
+             og_title='Laboratório Dental Araújo | Prótese dentária em BH desde 1975',
+             desc='Laboratório de prótese dentária em Belo Horizonte desde 1975: zircônia, E-Max, protocolo, PPR e prótese total para dentistas de BH, MG e todo o Brasil.',
              preload=HOME_FOTO, preload_pref='hwg', preload_media='(min-width:1025px)', trail=[('Início', '/')], img=HOME_FOTO)
     out('/', page(p, main, [webpage(p, BASE + '/')]), '1.0')
 
@@ -785,7 +785,7 @@ def build_hub():
   <div class="container page page--full">
     <div class="prose prose--s2 rv">
       <h2 id="como-title">Que tipos de prótese o laboratório faz?</h2>
-      <p>O <strong>Laboratório Dental Araújo</strong> atende cirurgiões-dentistas e clínicas desde 1976 e confecciona <strong>todos os tipos de prótese dentária</strong>: fixas em cerâmica pura (zircônia e E-Max) e metalocerâmica, restaurações metálicas, resinas e provisórios, próteses sobre implante (barra de protocolo, barra clips, guia cirúrgico), removíveis (PPR Roach, parciais em acrílico e Flexite, prótese total), placas oclusais e aparelhos ortodônticos e ortopédicos.</p>
+      <p>O <strong>Laboratório Dental Araújo</strong> atende cirurgiões-dentistas e clínicas desde 1975 e confecciona <strong>todos os tipos de prótese dentária</strong>: fixas em cerâmica pura (zircônia e E-Max) e metalocerâmica, restaurações metálicas, resinas e provisórios, próteses sobre implante (barra de protocolo, barra clips, guia cirúrgico), removíveis (PPR Roach, parciais em acrílico e Flexite, prótese total), placas oclusais e aparelhos ortodônticos e ortopédicos.</p>
       <h2>Como escolher o serviço certo para o caso</h2>
       <p>Cada página de serviço traz indicações gerais, o que enviar ao laboratório, prazos e garantia. Para comparar materiais, o blog tem guias sobre <a href="/blog/zirconia-ou-e-max-qual-indicar/">zircônia ou E-Max</a>, <a href="/blog/metaloceramica-ou-zirconia/">metalocerâmica ou zircônia</a> e <a href="/blog/ppr-ou-protese-flexivel/">PPR ou prótese flexível</a>. Se o caso não se encaixa em nenhuma das opções, descreva o trabalho pelo WhatsApp: o atendimento confirma se ele é feito e passa o orçamento.</p>
       <h2>Prazo, garantia e logística</h2>
@@ -852,9 +852,16 @@ def build_simple(path, title, desc, kicker, h1, lead, body, kind='WebPage', extr
 
 def build_sobre():
     body = '''
-<h2>Laboratório Dental Araújo: 50 anos de prótese dentária em BH</h2>
-<p>O <strong>Laboratório Dental Araújo</strong> foi fundado em <strong>1976</strong>, em Belo Horizonte, e completa 50 anos em 2026. Fomos um dos primeiros laboratórios de prótese dentária da cidade e acompanhamos a mudança dos materiais e das técnicas: da prótese total e da metalocerâmica à cerâmica pura e às reabilitações sobre implantes.</p>
-<p>Hoje o laboratório tem <strong>mais de 35 técnicos</strong> e uma estrutura de <strong>cerca de 400 m²</strong> no Edifício Mesbla, na Av. Afonso Pena, no Centro de BH. O endereço facilita a coleta na capital e na região metropolitana, e recebemos casos do interior de Minas Gerais e de outros estados.</p>
+<h2>Quem somos</h2>
+<p>Pedro Paulo e Edison, filhos de profissional de Odontologia e guiados pelo pai, deram início ao aprendizado da nobre arte de cuidar dos dentes de “gregos” e “troianos”.</p>
+<p>Nascidos em Barbacena, os dois irmãos logo demonstraram aptidão pelo trabalho.</p>
+<p>Com dezenove anos de idade, Edison começou o curso de aperfeiçoamento em prótese no Rio de Janeiro, trabalhou em um grande laboratório em Belo Horizonte e, depois de algum tempo, já seguro de seus conhecimentos, começou a colocar em prática o sonho de montar o próprio laboratório.</p>
+<p>Pedro Paulo trabalhava no setor bancário à época, mas aproveitava o tempo de que dispunha à noite para se dedicar ao laboratório.</p>
+<p>Desde <strong>8 de setembro de 1975</strong>, o laboratório já se encontrava com suas máquinas funcionando.</p>
+<p>Juntos, os dois irmãos — com a boa qualidade apresentada e os compromissos de entrega cumpridos — fizeram com que o crescimento a cada dia desse ao <strong>Laboratório Dental Araújo</strong> o prestígio desejado.</p>
+<p>Cinco anos após a inauguração, a empresa já empregava vinte profissionais.</p>
+<p>Hoje, 50 anos depois, o respeito aos clientes, a excepcional qualidade do trabalho, o profissionalismo e a dedicação — sede própria no Edifício Mesbla com 10 salas, modernas instalações, maquinário de última geração, mais de 40 empregados qualificados e atendimento em todo o Brasil — continuam nos credenciando a assinar nosso compromisso com os dentistas.</p>
+<p><strong>Edison Araújo</strong> e <strong>Pedro Paulo Araújo</strong>.</p>
 {FIG}
 <h2>O que fazemos</h2>
 <p>Trabalhamos em todas as áreas da prótese dentária: <a href="/servicos/zirconia-e-max/">zircônia e E-Max</a>, <a href="/servicos/metaloceramica/">metalocerâmica e RMF</a>, <a href="/servicos/resinas-e-provisorios/">resinas e provisórios</a>, <a href="/servicos/protese-sobre-implante/">prótese sobre implante e protocolo</a>, <a href="/servicos/protese-parcial-removivel-ppr/">PPR</a>, <a href="/servicos/protese-flexivel-flexite/">prótese flexível</a>, <a href="/servicos/protese-total/">prótese total</a> e <a href="/servicos/placas-de-bruxismo-e-ortodontia/">placas e ortodontia</a>.</p>
@@ -874,12 +881,12 @@ def build_sobre():
     body = body.replace('{FIG}', '')
     top = fig('real/impressoras-3d-laboratorio', FR_ID['d207']['alt'], FR_ID['d207']['cap'] + ' · <a href="/trabalhos/">ver trabalhos</a>', pref='hg')
     body = body.replace('{SLOT}', photo_slot('fachada-recepcao', 'Foto real: recepção ou fachada do Ed. Mesbla', 'photo-slot--wide'))
-    build_simple('/sobre/', 'Sobre o Laboratório Dental Araújo | Desde 1976 em BH',
-      'Conheça o Laboratório Dental Araújo: fundado em 1976 em Belo Horizonte, pioneiro em prótese dentária, com mais de 35 especialistas e cerca de 400 m².',
-      'Sobre · Desde 1976', 'Laboratório de prótese em BH <span class="hl">desde 1976</span>',
-      'Cinquenta anos no Centro de Belo Horizonte, mais de 35 técnicos e casos recebidos de todo o Brasil.',
+    build_simple('/sobre/', 'Sobre o Laboratório Dental Araújo | Desde 1975 em BH',
+      'Laboratório Dental Araújo: fundado em 1975 por Edison e Pedro Paulo Araújo, sede no Ed. Mesbla, mais de 40 profissionais e atendimento em todo o Brasil.',
+      'Sobre · Desde 1975', 'Laboratório de prótese em BH <span class="hl">desde 1975</span>',
+      'História dos fundadores, 50 anos de prótese dentária em Belo Horizonte e compromisso com o cirurgião-dentista.',
       body, kind='AboutPage', facts=True, name='Sobre', img_schema='real/impressoras-3d-laboratorio',
-      summary=RESUMO_SOBRE, top=top, open_titles=('Laboratório Dental Araújo: 50 anos de prótese dentária em BH',))
+      summary=RESUMO_SOBRE, top=top, open_titles=('Quem somos',))
 
 def build_envio():
     body = '''
@@ -1081,7 +1088,7 @@ def build_meta():
     (DIST / 'robots.txt').write_text(rb, encoding='utf-8')
     # llms.txt
     L = [f'# {NAME}', '',
-         '> Laboratório de prótese dentária em Belo Horizonte (MG), fundado em 1976, com mais de 35 especialistas e cerca de 400 m². Atende cirurgiões-dentistas e clínicas de BH, da Grande BH e de Minas Gerais (coleta e entrega) e de todo o Brasil (envio pelos Correios ou transportadora). Serviços sob orçamento, pelo WhatsApp ou telefone.', '',
+         '> Laboratório de prótese dentária em Belo Horizonte (MG), fundado em 1975, com mais de 40 profissionais e 10 salas no Edifício Mesbla. Atende cirurgiões-dentistas e clínicas de BH, da Grande BH e de Minas Gerais (coleta e entrega) e de todo o Brasil (envio pelos Correios ou transportadora). Serviços sob orçamento, pelo WhatsApp ou telefone.', '',
          'Público: somente cirurgiões-dentistas e clínicas. O laboratório não atende pacientes diretamente (Lei nº 6.710/1979, art. 4º).', '',
          'Valores: sob orçamento, pelo WhatsApp (31) 98652-1387 ou pelos telefones (31) 3271-9766 e (31) 3271-9688.', '',
          '## Fatos rápidos', ''] + [f'- {k}: {v}' for k, v in FACTS] + ['',

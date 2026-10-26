@@ -22,7 +22,7 @@ dict(
  blurb='Barra de protocolo até 6 elementos, barra clips, guia cirúrgico e coroa sobre implante.',
  body='''
 <h2>Laboratório de prótese protocolo em BH</h2>
-<p>O <strong>Laboratório Dental Araújo</strong> faz barras de protocolo para dentistas e clínicas desde que a reabilitação sobre implantes se popularizou no Brasil. Atuamos no Centro de Belo Horizonte desde 1976 e trabalhamos com uma equipe de mais de 35 especialistas. A <strong>prótese protocolo</strong> é uma das áreas que mais cresceram no laboratório. Recebemos o caso do consultório, acompanhamos cada etapa clínica e devolvemos o trabalho pronto para a próxima consulta, com coleta e entrega em Minas Gerais e envio para outros estados.</p>
+<p>O <strong>Laboratório Dental Araújo</strong> faz barras de protocolo para dentistas e clínicas desde que a reabilitação sobre implantes se popularizou no Brasil. Atuamos no Centro de Belo Horizonte desde 1975 e trabalhamos com uma equipe de mais de 40 profissionais. A <strong>prótese protocolo</strong> é uma das áreas que mais cresceram no laboratório. Recebemos o caso do consultório, acompanhamos cada etapa clínica e devolvemos o trabalho pronto para a próxima consulta, com coleta e entrega em Minas Gerais e envio para outros estados.</p>
 <p>A barra de protocolo é feita em duas faixas: <strong>até 4 elementos</strong> e <strong>de 5 a 6 elementos</strong>. O valor de cada caso é informado sob orçamento. Componentes protéticos e metais são orçados à parte, porque variam de acordo com o sistema de implante e a liga escolhida pelo profissional.</p>
 
 <h2>O que é a prótese protocolo e quando ela é indicada</h2>
@@ -78,7 +78,7 @@ dict(
  blurb='Facetas, coroas, restaurados e pontes em zircônia e E-Max, prontos com glaze.',
  body='''
 <h2>Coroa de zircônia e E-Max feitas em BH</h2>
-<p>O <strong>Laboratório Dental Araújo</strong>, no Centro de Belo Horizonte, faz <strong>coroas de zircônia</strong>, pontes de zircônia e peças em <strong>E-Max</strong> para cirurgiões-dentistas. Atuamos desde 1976, temos mais de 35 especialistas e todos os trabalhos de porcelana pura são entregues prontos: coping, aplicação de porcelana e glaze.</p>
+<p>O <strong>Laboratório Dental Araújo</strong>, no Centro de Belo Horizonte, faz <strong>coroas de zircônia</strong>, pontes de zircônia e peças em <strong>E-Max</strong> para cirurgiões-dentistas. Atuamos desde 1975, temos mais de 40 profissionais e todos os trabalhos de porcelana pura são entregues prontos: coping, aplicação de porcelana e glaze.</p>
 <p>Fazemos faceta ou coroa em E-Max, restaurado em E-Max, faceta ou coroa em zircônia, restaurado em zircônia e ponte fixa em zircônia. O valor é informado sob orçamento, de acordo com o material e o número de elementos.</p>
 
 <h2>Zircônia ou E-Max: como escolher o material</h2>
@@ -129,7 +129,7 @@ dict(
  title='Coroa Metalocerâmica e RMF em BH | Lab. Dental Araújo',
  desc='Coroa e ponte metalocerâmica, núcleo metálico fundido, restaurado metálico e coroa veneer feitos em BH pelo Laboratório Dental Araújo. Envio ao Brasil.',
  kicker='Metalocerâmica', h1='Coroa metalocerâmica e RMF: <span class="hl">laboratório em BH</span>',
- lead='Coroas e pontes metalocerâmicas prontas, restaurados metálicos, coroas totais metálicas, veneer e núcleos, com a experiência de quem faz prótese em Belo Horizonte desde 1976.',
+ lead='Coroas e pontes metalocerâmicas prontas, restaurados metálicos, coroas totais metálicas, veneer e núcleos, com a experiência de quem faz prótese em Belo Horizonte desde 1975.',
  img='real/estruturas-metalicas-sobre-modelos', img_alt='Estruturas metálicas (casquetes) sobre modelos de gesso articulados',
  fig='real/pontes-metaloceramicas', fig_alt='Pontes metalocerâmicas com a estrutura metálica visível por dentro das coroas', fig_cap='Pontes metalocerâmicas',
  primary='coroa metalocerâmica', secondary=['ponte metalocerâmica', 'núcleo metálico fundido', 'metalocerâmica sobre implante', 'restaurado metálico', 'coroa veneer'],
@@ -191,7 +191,7 @@ dict(
  blurb='PPR com armação Roach nacional, tipo Wisil, Dental D ou Flexidy.',
  body='''
 <h2>Laboratório de PPR em Belo Horizonte</h2>
-<p>O <strong>Laboratório Dental Araújo</strong> faz <strong>prótese parcial removível (PPR)</strong> para cirurgiões-dentistas desde 1976. A PPR continua sendo uma das reabilitações mais solicitadas: tem custo acessível, é reversível e devolve função e estética a pacientes parcialmente desdentados. Nossa equipe faz a armação, o plano de cera, a montagem dos dentes e a prensagem, e entrega a peça pronta.</p>
+<p>O <strong>Laboratório Dental Araújo</strong> faz <strong>prótese parcial removível (PPR)</strong> para cirurgiões-dentistas desde 1975. A PPR continua sendo uma das reabilitações mais solicitadas: tem custo acessível, é reversível e devolve função e estética a pacientes parcialmente desdentados. Nossa equipe faz a armação, o plano de cera, a montagem dos dentes e a prensagem, e entrega a peça pronta.</p>
 
 <h2>Tipos de PPR Roach</h2>
 <ul>
@@ -236,7 +236,7 @@ dict(
  title='Prótese Total Removível (PTR) em BH | Lab. Dental Araújo',
  desc='Prótese total removível simples, palato incolor, caracterizada (Coloform especial), dupla prensagem e STG, feita em BH pelo Lab. Dental Araújo.',
  kicker='Prótese total removível', h1='Prótese total: <span class="hl">laboratório em BH</span>',
- lead='Prótese total removível (PTR) simples, com palato incolor, Coloform especial, dupla prensagem ou pelo Sistema Tomas Gomes (STG), feita no Centro de Belo Horizonte desde 1976.',
+ lead='Prótese total removível (PTR) simples, com palato incolor, Coloform especial, dupla prensagem ou pelo Sistema Tomas Gomes (STG), feita no Centro de Belo Horizonte desde 1975.',
  img='real/proteses-totais-cartao-lda', img_alt='Par de próteses totais com gengiva caracterizada, ao lado do cartão do Laboratório Dental Araújo',
  fig='real/proteses-totais-em-oclusao', fig_alt='Par de próteses totais em oclusão, fotografado de frente', fig_cap='Próteses totais em oclusão',
  primary='prótese total removível', secondary=['PTR', 'prótese total caracterizada', 'prótese total palato incolor', 'prótese total STG', 'laboratório de prótese total BH'],
@@ -244,7 +244,7 @@ dict(
  blurb='PTR simples, palato incolor, Coloform, dupla prensagem e Sistema Tomas Gomes.',
  body='''
 <h2>Laboratório de prótese total em BH</h2>
-<p>A <strong>prótese total</strong> foi um dos primeiros trabalhos do <strong>Laboratório Dental Araújo</strong>, fundado em 1976 no Centro de Belo Horizonte, e segue entre os mais pedidos pelos dentistas parceiros. Com mais de 35 especialistas, cuidamos da chapa, da montagem dos dentes e da prensagem, e entregamos a prótese pronta, com acabamento e polimento.</p>
+<p>A <strong>prótese total</strong> foi um dos primeiros trabalhos do <strong>Laboratório Dental Araújo</strong>, fundado em 1975 no Centro de Belo Horizonte, e segue entre os mais pedidos pelos dentistas parceiros. Com mais de 40 profissionais, cuidamos da chapa, da montagem dos dentes e da prensagem, e entregamos a prótese pronta, com acabamento e polimento.</p>
 
 <h2>Opções de PTR</h2>
 <ul>
@@ -482,8 +482,8 @@ def porque(s):
     return f'''
 <h2>Por que dentistas escolhem o Laboratório Dental Araújo para {s["nav"][0].lower() + s["nav"][1:] if s["nav"][1:2].islower() else s["nav"]}</h2>
 <ul>
-<li><strong>Desde 1976:</strong> estamos no Centro de Belo Horizonte há 50 anos e fomos um dos primeiros laboratórios de prótese da cidade.</li>
-<li><strong>Equipe:</strong> mais de 35 técnicos em uma estrutura de cerca de 400 m² no Centro de BH.</li>
+<li><strong>Desde 1975:</strong> estamos no Centro de Belo Horizonte há 50 anos, com sede própria no Edifício Mesbla.</li>
+<li><strong>Equipe:</strong> mais de 40 profissionais qualificados, em 10 salas com maquinário de última geração.</li>
 <li><strong>Orçamento direto:</strong> peça pelo WhatsApp ou pelo telefone, informando o tipo de trabalho, o material e os elementos.</li>
 <li><strong>Logística:</strong> coleta e entrega em Minas Gerais e atendimento a dentistas de todo o Brasil.</li>
 <li><strong>Comunicação direta:</strong> atendimento por telefone e WhatsApp para alinhar cor, material, prazos e detalhes técnicos antes de começar o trabalho.</li>
