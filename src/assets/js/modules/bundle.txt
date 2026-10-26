@@ -11,3 +11,4 @@
 10-acordeao.js
 11-antes-depois.js
 12-galeria.js
+13-atmosfera.js

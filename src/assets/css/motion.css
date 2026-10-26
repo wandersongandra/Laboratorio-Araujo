@@ -25,6 +25,49 @@
   @keyframes rise{from{transform:translateY(22px)}to{transform:none}}
   @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
   @keyframes curtain{to{transform:scaleY(0)}}
+
+  /* Atmosfera: zoom lento, grão e luz. Inclinação vem do JS (--tx/--ty). */
+  .hero,.phero--photo{isolation:isolate}
+  .hero::before{
+    content:"";position:absolute;inset:-30%;pointer-events:none;z-index:0;opacity:.22;
+    background-image:
+      radial-gradient(circle at 18% 22%, rgb(14 27 44 / .35) 0 .6px, transparent .9px),
+      radial-gradient(circle at 72% 64%, rgb(14 27 44 / .28) 0 .6px, transparent .9px);
+    background-size:7px 7px, 11px 11px;
+    animation:grain 7s steps(5) infinite;
+    mix-blend-mode:multiply
+  }
+  .hero__grid,.phero__grid{position:relative;z-index:1}
+  .hero__media,.phero__media{
+    transform:perspective(1100px) rotateX(var(--ty, 0deg)) rotateY(var(--tx, 0deg));
+    transition:transform .55s var(--ease)
+  }
+  .hero__media .frame img,.phero__media .frame img{
+    animation:drift 26s ease-in-out infinite alternate;
+    transform-origin:center
+  }
+  .hero__media::after,.phero__media::after{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+    background:radial-gradient(340px circle at var(--px, 62%) var(--py, 28%), rgb(255 255 255 / .42), transparent 58%);
+    mix-blend-mode:soft-light
+  }
+  .hero__media .cap,.phero__media .cap{position:relative;z-index:3}
+  .hero h1 em,.phero h1 .hl{animation:inkwash 10s ease-in-out infinite alternate}
+  @keyframes drift{
+    from{transform:scale(1.05) translate3d(0,0,0)}
+    to{transform:scale(1.13) translate3d(-1.8%, -1%, 0)}
+  }
+  @keyframes grain{
+    0%{transform:translate(0,0)}
+    25%{transform:translate(-2%, 1%)}
+    50%{transform:translate(1%, -2%)}
+    75%{transform:translate(-1%, 2%)}
+    100%{transform:translate(0,0)}
+  }
+  @keyframes inkwash{
+    from{color:var(--blue-d)}
+    to{color:var(--navy)}
+  }
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
