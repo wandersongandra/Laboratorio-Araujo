@@ -68,6 +68,39 @@
     from{color:var(--blue-d)}
     to{color:var(--navy)}
   }
+
+  /* Segunda leva: leitura, brilho, cartões, mapa e WhatsApp */
+  .scroll-line{position:fixed;top:0;left:0;z-index:80;width:100%;height:2px;transform:scaleX(var(--p,0));transform-origin:0 50%;background:linear-gradient(90deg,var(--navy),var(--blue) 55%,var(--ochre));pointer-events:none}
+  .btn:not(.btn--ghost, .btn--line-light){position:relative;overflow:hidden}
+  .btn:not(.btn--ghost, .btn--line-light)::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 32%,rgb(255 255 255 / .38) 50%,transparent 68%);transform:translateX(-130%);pointer-events:none}
+  .btn:not(.btn--ghost, .btn--line-light):hover::before{animation:sheen .7s var(--ease)}
+  .card__img img{transition:transform 1s var(--ease)}
+  .card:hover .card__img img{transform:scale(1.08) rotate(-.4deg)}
+  .card:hover{transform:translateY(-3px)}
+  .js .shead__n{position:relative;border-top-color:transparent}
+  .js .shead__n::before{content:"";position:absolute;left:0;top:0;width:100%;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left center;transition:transform .8s var(--ease)}
+  .js .shead.in .shead__n::before{transform:scaleX(1)}
+  .specs>div{animation:rise .75s var(--ease) both}
+  .specs>div:nth-child(2){animation-delay:.08s}
+  .specs>div:nth-child(3){animation-delay:.16s}
+  .specs>div:nth-child(4){animation-delay:.24s}
+  .js .contact__info.in .clist li{animation:rise .65s var(--ease) both}
+  .js .contact__info.in .clist li:nth-child(2){animation-delay:.05s}
+  .js .contact__info.in .clist li:nth-child(3){animation-delay:.1s}
+  .js .contact__info.in .clist li:nth-child(4){animation-delay:.15s}
+  .js .contact__info.in .clist li:nth-child(5){animation-delay:.2s}
+  .js .contact__info.in .clist li:nth-child(6){animation-delay:.25s}
+  .js .contact__info.in .clist li:nth-child(7){animation-delay:.3s}
+  .map__pin{animation:bob 2.6s ease-in-out infinite}
+  .map__pin i::after{animation:pulse 2.6s ease-in-out infinite}
+  .wa::after{content:"";position:absolute;inset:-5px;border:1px solid var(--ochre);border-radius:inherit;animation:ping 2.6s ease-out infinite;pointer-events:none}
+  @keyframes sheen{to{transform:translateX(130%)}}
+  @keyframes bob{
+    0%,100%{transform:translate(-50%,-100%)}
+    50%{transform:translate(-50%,-114%)}
+  }
+  @keyframes pulse{50%{transform:scale(1.35);background:var(--blue)}}
+  @keyframes ping{70%,100%{transform:scale(1.14);opacity:0}}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}

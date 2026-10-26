@@ -12,3 +12,4 @@
 11-antes-depois.js
 12-galeria.js
 13-atmosfera.js
+14-leitura.js
