@@ -57,8 +57,9 @@ PHONE_2_DISPLAY = _PHONES[1]["display"]  # type: ignore[index]
 PHONE_2_TEL = _PHONES[1]["tel"]  # type: ignore[index]
 WA_DISPLAY = _WA["display"]  # type: ignore[index]
 HOURS_CURTO = _HOURS["texto_curto"]  # type: ignore[index]
-HOURS_FOOTER = f"{_HOURS['dias']}: 8h–11h30 e 12h45–18h"
+HOURS_FOOTER = _HOURS["texto_longo"]  # type: ignore[index]
 HOURS_LONGO = _HOURS["texto_longo"]  # type: ignore[index]
+HOURS_FRASE = _HOURS["texto_frase"]  # type: ignore[index]
 
 
 def tel_schema(e164: str) -> str:

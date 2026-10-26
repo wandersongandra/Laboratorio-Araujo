@@ -5,7 +5,7 @@ FACTS = [
  ('Equipe', 'Mais de 40 profissionais qualificados'),
  ('Estrutura', 'Sede própria no Ed. Mesbla, com 10 salas'),
  ('Endereço', 'Av. Afonso Pena, 262, 16º andar, sala 1602, Ed. Mesbla, Centro, Belo Horizonte/MG, 30130-923'),
- ('Atendimento', 'Seg. a sex., das 8h às 11h30 e das 12h45 às 18h'),
+ ('Atendimento', 'Seg. a sex., das 08:00 às 18:00'),
  ('Área atendida', 'Coleta e entrega em BH, na Grande BH e em MG; atendimento para todo o Brasil'),
  ('Serviços', 'Zircônia, E-Max, metalocerâmica, protocolo, PPR, prótese total, flexível, resinas, placas e ortodontia'),
  ('Orçamento', 'Sob orçamento, pelo WhatsApp ou pelo telefone'),
@@ -29,7 +29,7 @@ FAQ_GROUPS = [
   ('Vocês fazem coleta em Contagem, Betim e na Grande BH?', 'Sim. A coleta e a entrega valem para Belo Horizonte, a região metropolitana e o restante de Minas Gerais. Combine dia e horário pelo WhatsApp (31) 98652-1387.'),
   ('Como envio um trabalho de outro estado?', 'Combine pelo WhatsApp e envie a moldagem ou o modelo, o antagonista, o registro e a requisição em uma caixa rígida, pelos Correios ou por transportadora.'),
   ('Onde fica o Laboratório Dental Araújo?', 'No Centro de Belo Horizonte: Av. Afonso Pena, 262, 16º andar, sala 1602, Edifício Mesbla, CEP 30130-923.'),
-  ('Qual o horário de atendimento?', 'De segunda a sexta, das 8h às 11h30 e das 12h45 às 18h.'),
+  ('Qual o horário de atendimento?', 'De segunda a sexta, das 08:00 às 18:00.'),
  ]),
  ('Orçamento e pagamento', [
   ('Quanto custa um trabalho no laboratório?', 'Todos os serviços são feitos sob orçamento. Peça pelo WhatsApp (31) 98652-1387 ou pelos telefones (31) 3271-9766 e (31) 3271-9688, informando o tipo de trabalho, o material e os elementos.'),

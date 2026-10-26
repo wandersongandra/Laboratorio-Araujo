@@ -27,6 +27,8 @@ from .config import (
     FOTOS_JSON,
     HOURS_CURTO,
     HOURS_FOOTER,
+    HOURS_FRASE,
+    HOURS_LONGO,
     IG,
     LAB,
     LEGAL_NAME,
@@ -504,17 +506,17 @@ STREETS = '''<svg class="streets" viewBox="0 0 400 300" preserveAspectRatio="xMi
 def contact_section(n='§', title='Endereço e contatos', hid='contato-title', cls=''):
     return f'''<section class="sec {cls}" id="contato" aria-labelledby="{hid}">
   <div class="container">
-    {shead(n, 'Contato', title, 'Atendemos de segunda a sexta, das 8h às 11h30 e das 12h45 às 18h.', hid=hid)}
+    {shead(n, 'Contato', title, f'Atendemos {HOURS_FRASE}.', hid=hid)}
     <div class="contact">
       <div class="contact__info rv">
         <ul class="clist">
           <li><span>Endereço</span><span>Av. Afonso Pena, 262, 16º andar, sala 1602<br>Ed. Mesbla, Centro, Belo Horizonte/MG<br>CEP 30130-923</span></li>
+          <li><span>Atendimento e orçamentos</span><span><a href="tel:+553132719766" data-track="phone">(31) 3271-9766</a> · <a href="tel:+553132719688" data-track="phone">(31) 3271-9688</a></span></li>
           <li><span>WhatsApp</span><span><a href="{wa('Olá! Sou dentista e gostaria de mais informações.')}" target="_blank" rel="noopener noreferrer" data-track="whatsapp_contact">(31) 98652-1387</a></span></li>
-          <li><span>Telefones</span><span><a href="tel:+553132719766" data-track="phone">(31) 3271-9766</a> · <a href="tel:+553132719688" data-track="phone">(31) 3271-9688</a></span></li>
           <li><span>Financeiro</span><span><a href="tel:+553132121384" data-track="phone_fin">(31) 3212-1384</a> · <a href="https://wa.me/5531986521201" target="_blank" rel="noopener noreferrer" data-track="whatsapp_fin">WhatsApp (31) 98652-1201</a></span></li>
           <li><span>E-mail</span><span><a href="mailto:dentalaraujo@yahoo.com.br" data-track="email">dentalaraujo@yahoo.com.br</a></span></li>
           <li><span>Instagram</span><span><a href="{IG}" target="_blank" rel="noopener noreferrer">@labdentalaraujo</a></span></li>
-          <li><span>Horário</span><span>Seg. a sex., 8h–11h30 e 12h45–18h</span></li>
+          <li><span>Horário</span><span>{HOURS_LONGO}</span></li>
         </ul>
       </div>
       <div class="contact__map rv">
@@ -875,7 +877,7 @@ def build_sobre():
 <li>Prazo médio de 7 dias úteis por etapa. Com urgência, há acréscimo de 30% em cada etapa.</li>
 <li>Garantia de até 6 meses para defeito comprovado na confecção (serviços 100% realizados no laboratório).</li>
 <li>Pagamento até o dia 10 de cada mês.</li>
-<li>Atendimento de segunda a sexta, das 8h às 11h30 e das 12h45 às 18h.</li>
+<li>Atendimento de segunda a sexta, das 08:00 às 18:00.</li>
 </ul>
 <p>Dados da empresa: Laboratório Dental Araújo Ltda, CNPJ 19.223.635/0001-86.</p>'''
     body = body.replace('{FIG}', '')
@@ -967,13 +969,13 @@ def build_contato():
     cards = f'''<section class="sec sec--stone" aria-labelledby="canais-title"><div class="container">
 {shead('02', 'Canais', 'Com quem falar', hid='canais-title')}
 <div class="ccards rv">
+<div><h3>Atendimento e orçamentos</h3><p>Telefones fixos.</p><p><a href="tel:+553132719766" data-track="phone">(31) 3271-9766</a><br><a href="tel:+553132719688" data-track="phone">(31) 3271-9688</a></p></div>
 <div><h3>WhatsApp</h3><p>Orçamentos, pedidos e envio de casos.</p><p><a href="{wa('Olá! Sou dentista e gostaria de mais informações.')}" target="_blank" rel="noopener noreferrer" data-track="whatsapp_contact">(31) 98652-1387</a></p></div>
-<div><h3>Telefones</h3><p>Atendimento e orçamentos.</p><p><a href="tel:+553132719766" data-track="phone">(31) 3271-9766</a><br><a href="tel:+553132719688" data-track="phone">(31) 3271-9688</a></p></div>
 <div><h3>Financeiro</h3><p>Pagamentos até o dia 10 de cada mês.</p><p><a href="tel:+553132121384" data-track="phone_fin">(31) 3212-1384</a><br><a href="https://wa.me/5531986521201" target="_blank" rel="noopener noreferrer" data-track="whatsapp_fin">WhatsApp (31) 98652-1201</a></p></div>
 <div><h3>E-mail e redes</h3><p><a href="mailto:dentalaraujo@yahoo.com.br" data-track="email">dentalaraujo@yahoo.com.br</a><br><a href="{IG}" target="_blank" rel="noopener noreferrer">Instagram @labdentalaraujo</a><br><a href="{FB}" target="_blank" rel="noopener noreferrer">Facebook</a></p></div>
 </div></div></section>'''
     main = phero(trail, 'Contato', 'Contato do Laboratório Dental Araújo <span class="hl">em BH</span>',
-                 'Av. Afonso Pena, 262, 16º andar, sala 1602, Edifício Mesbla, Centro, Belo Horizonte/MG. Atendimento de segunda a sexta, das 8h às 11h30 e das 12h45 às 18h.') + \
+                 f'Av. Afonso Pena, 262, 16º andar, sala 1602, Edifício Mesbla, Centro, Belo Horizonte/MG. Atendimento {HOURS_FRASE}.') + \
            contact_section('01', 'Endereço, telefones e mapa') + cards + ORCAMENTO
     out(path, page(p, main, [webpage(p, url, 'ContactPage'), crumbs_ld(trail, url)]), '0.8')
 

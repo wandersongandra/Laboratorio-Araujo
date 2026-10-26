@@ -65,7 +65,7 @@ summary:focus-visible{outline:2px solid var(--blue-d);outline-offset:4px}
 .contact__info{grid-column:1/6}
 .contact__map{grid-column:7/13}
 .clist{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
-.clist li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule);font-size:.97rem}
+.clist li{display:grid;grid-template-columns:minmax(120px,15rem) 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule);font-size:.97rem}
 .clist li>span:first-child{font:500 .72rem/1.7 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
 .clist a{color:var(--ink)}
 .map{position:relative;aspect-ratio:4/3;background:var(--paper-2);border:1px solid var(--rule);overflow:hidden}

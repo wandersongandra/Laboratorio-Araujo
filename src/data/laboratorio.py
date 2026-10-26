@@ -25,10 +25,11 @@ class WhatsApp(TypedDict):
 
 class Horario(TypedDict):
     dias: str
-    manha: tuple[str, str]
-    tarde: tuple[str, str]
+    abre: str
+    fecha: str
     texto_curto: str
     texto_longo: str
+    texto_frase: str
     schema: list[dict[str, object]]
 
 
@@ -108,11 +109,11 @@ LAB: dict[str, object] = {
     },
     "hours": {
         "dias": "Seg. a sex.",
-        "manha": ("08:00", "11:30"),
-        "tarde": ("12:45", "18:00"),
-        "texto_curto": "Seg. a sex. · 8h–11h30 · 12h45–18h",
-        "texto_longo": "Seg. a sex., 8h–11h30 e 12h45–18h",
-        "texto_frase": "de segunda a sexta, das 8h às 11h30 e das 12h45 às 18h",
+        "abre": "08:00",
+        "fecha": "18:00",
+        "texto_curto": "Seg. a sex. · 08:00–18:00",
+        "texto_longo": "Seg. a sex., 08:00 às 18:00",
+        "texto_frase": "de segunda a sexta, das 08:00 às 18:00",
         "schema": [
             {
                 "@type": "OpeningHoursSpecification",
@@ -124,18 +125,6 @@ LAB: dict[str, object] = {
                     "Friday",
                 ],
                 "opens": "08:00",
-                "closes": "11:30",
-            },
-            {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                ],
-                "opens": "12:45",
                 "closes": "18:00",
             },
         ],
