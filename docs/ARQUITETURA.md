@@ -136,7 +136,8 @@ atalhos de formatação; o HTML e o JSON-LD leem esses atalhos (ou `LAB` direto)
 │   ├── /blog/como-enviar-um-caso-para-o-laboratorio-de-protese/
 │   └── /blog/barra-de-protocolo-etapas-e-prazos/
 ├── /politica-de-privacidade/            Política de privacidade, LGPD (0.3)
-└── /termos-de-uso/                      Termos de uso (0.3)
+├── /termos-de-uso/                      Termos de uso (0.3)
+└── /mapa-do-site/                       Índice HTML de todas as páginas (0.3). O arquivo técnico continua em /sitemap.xml
 /404.html                                Página de erro (noindex, fora do sitemap)
 
 Redirecionamentos (dist/_redirects): /tabela-de-precos/ → /contato/ (301). Página removida em 24/10/2026.

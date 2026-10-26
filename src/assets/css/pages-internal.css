@@ -41,6 +41,18 @@
 .toc a{color:var(--ink-2);text-decoration:none}
 .toc a:hover{color:var(--blue-d);text-decoration:underline}
 .phero__meta{font:500 .74rem/1 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
+
+/* Mapa do site: quatro grupos de links, sem o contador do texto longo. */
+.sitemap{display:grid;grid-template-columns:repeat(12,1fr);gap:40px 24px}
+.sitemap section{grid-column:span 6}
+.sitemap h2{margin:0 0 8px;padding-top:14px;border-top:1px solid var(--ink);font-size:1.45rem}
+.sitemap ul{list-style:none;margin:0;padding:0}
+.sitemap li{border-bottom:1px solid var(--rule)}
+.sitemap a{display:block;padding:10px 0;color:var(--ink);text-decoration:none}
+.sitemap a:hover{color:var(--blue-d)}
+@media (max-width:699px){
+  .sitemap section{grid-column:1 / -1}
+}
 .prose h3{font-size:1.3rem;margin:1.8em 0 .5em}
 .prose p,.prose li{line-height:1.72}
 .prose ul,.prose ol{padding-left:1.2em;margin:0 0 1.2em}

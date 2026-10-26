@@ -250,7 +250,7 @@ def footer():
       <div><h2>Laboratório</h2><nav aria-label="Institucional"><a href="/envio-para-todo-brasil/">Envio para todo o Brasil</a><a href="/sobre/">Sobre o laboratório</a><a href="/trabalhos/">Trabalhos (fotos)</a><a href="/perguntas-frequentes/">Perguntas frequentes</a><a href="/blog/">Blog</a><a href="/contato/#orcamento">Solicitar orçamento</a><a href="/contato/">Contato</a></nav></div>
       <div><h2>Leitura</h2><nav aria-label="Blog">{"".join(f'<a href="/blog/{p["slug"]}/">{p["h1"]}</a>' for p in POSTS_RECENTES)}</nav></div>
     </div>
-    <div class="footer__base"><span>© <span id="year">2026</span> {LEGAL_NAME} · CNPJ {CNPJ}</span><nav class="footer__legal" aria-label="Documentos legais"><a href="/politica-de-privacidade/">Política de privacidade</a><a href="/termos-de-uso/">Termos de uso</a></nav><span class="footer__sign"><span>Laboratório de prótese dentária em Belo Horizonte, MG, desde 1975</span><span class="footer__credit">Desenvolvido por <a href="https://www.gandra.tech/" target="_blank" rel="noopener">gandra.tech</a></span></span></div>
+    <div class="footer__base"><span>© <span id="year">2026</span> {LEGAL_NAME} · CNPJ {CNPJ}</span><nav class="footer__legal" aria-label="Documentos legais"><a href="/mapa-do-site/">Mapa do site</a><a href="/politica-de-privacidade/">Política de privacidade</a><a href="/termos-de-uso/">Termos de uso</a></nav><span class="footer__sign"><span>Laboratório de prótese dentária em Belo Horizonte, MG, desde 1975</span><span class="footer__credit">Desenvolvido por <a href="https://www.gandra.tech/" target="_blank" rel="noopener">gandra.tech</a></span></span></div>
   </div>
 </footer>'''
 
@@ -1064,6 +1064,55 @@ def build_trabalhos():
               "associatedMedia": [img_obj('real/' + f['slug'], 'g') for f in FOTOS_REAIS]}
     out(path, page(p, main, [wp, crumbs_ld(trail, url), gal_ld]), '0.6')
 
+def build_mapa():
+    """Página HTML com todas as URLs públicas. O sitemap.xml continua sendo o arquivo técnico."""
+    path = '/mapa-do-site/'
+    url = BASE + path
+    trail = [('Início', '/'), ('Mapa do site', path)]
+    p = dict(
+        path=path,
+        title='Mapa do site | Laboratório Dental Araújo',
+        desc='Lista das páginas do Laboratório Dental Araújo: serviços de prótese, envio, sobre, trabalhos, perguntas, blog, contato e documentos.',
+        trail=trail,
+    )
+
+    def links(items: list[tuple[str, str]]) -> str:
+        return ''.join(f'<li><a href="{href}">{e(label)}</a></li>' for href, label in items)
+
+    def bloco(titulo: str, items: list[tuple[str, str]]) -> str:
+        return f'<section><h2>{titulo}</h2><ul>{links(items)}</ul></section>'
+
+    institucional = [
+        ('/', 'Início'),
+        ('/sobre/', 'Sobre o laboratório'),
+        ('/trabalhos/', 'Trabalhos'),
+        ('/envio-para-todo-brasil/', 'Envio para todo o Brasil'),
+        ('/perguntas-frequentes/', 'Perguntas frequentes'),
+        ('/contato/', 'Contato'),
+        ('/contato/#orcamento', 'Solicitar orçamento'),
+    ]
+    servicos = [('/servicos/', 'Todos os serviços')] + [
+        (f'/servicos/{s["slug"]}/', s['nav']) for s in SERVICOS
+    ]
+    blog = [('/blog/', 'Blog')] + [
+        (f'/blog/{q["slug"]}/', q['h1']) for q in POSTS_RECENTES
+    ]
+    documentos = [
+        ('/politica-de-privacidade/', 'Política de privacidade'),
+        ('/termos-de-uso/', 'Termos de uso'),
+        ('/sitemap.xml', 'Sitemap para mecanismos de busca'),
+    ]
+    main = f'''{phero(trail, 'Índice', 'Mapa do <span class="hl">site</span>',
+        'Todas as páginas públicas do laboratório, as mesmas do menu e do rodapé.')}
+<section class="sec"><nav class="container sitemap" aria-label="Mapa do site">
+{bloco('Institucional', institucional)}
+{bloco('Serviços', servicos)}
+{bloco('Blog', blog)}
+{bloco('Documentos', documentos)}
+</nav></section>'''
+    out(path, page(p, main, [webpage(p, url, 'CollectionPage'), crumbs_ld(trail, url)]), '0.3')
+
+
 def build_404():
     p = dict(path='/404.html', title='Página não encontrada | Laboratório Dental Araújo', desc='A página que você procura não existe ou mudou de endereço.', noindex=True)
     links = ''.join(f'<a class="btn btn--ghost btn--sm" href="{u}">{t}</a>' for u, t in [('/servicos/', 'Serviços'), ('/perguntas-frequentes/', 'Perguntas frequentes'), ('/contato/', 'Contato')])
@@ -1105,7 +1154,8 @@ def build_meta():
         [f'- [{s["nav"]}]({BASE}/servicos/{s["slug"]}/): {s["blurb"]} Sob orçamento.' for s in SERVICOS] + \
         ['', '## Blog', ''] + [f'- [{q["h1"]}]({BASE}/blog/{q["slug"]}/): {q["desc"]}' for q in POSTS_RECENTES] + \
         ['', '## Documentos', '', f'- [Política de privacidade]({BASE}/politica-de-privacidade/): dados tratados pelo site e pelo atendimento (LGPD)',
-         f'- [Termos de uso]({BASE}/termos-de-uso/): uso do site, orçamento, prazos, garantia e pagamento'] + \
+         f'- [Termos de uso]({BASE}/termos-de-uso/): uso do site, orçamento, prazos, garantia e pagamento',
+         f'- [Mapa do site]({BASE}/mapa-do-site/): índice de todas as páginas públicas'] + \
         ['', '## Opcional', '', f'- [Versão completa para LLMs]({BASE}/llms-full.txt): itens de cada serviço, condições e FAQ em texto', '']
     (DIST / 'llms.txt').write_text('\n'.join(L), encoding='utf-8')
     F = [f'# {NAME} – informações completas', '', f'Atualizado em {TODAY}. Fonte: informações oficiais do laboratório. Os serviços são feitos sob orçamento; o site não publica valores.', '',
@@ -1171,7 +1221,7 @@ def main():
     build_home(); build_hub()
     for s in SERVICOS: build_service(s)
     build_sobre(); build_trabalhos(); build_envio(); build_faq(); build_contato(); build_blog()
-    build_legal(PRIVACIDADE, TERMOS); build_legal(TERMOS, PRIVACIDADE); build_404()
+    build_legal(PRIVACIDADE, TERMOS); build_legal(TERMOS, PRIVACIDADE); build_mapa(); build_404()
     build_meta()
     (DIST / '_headers').write_text(headers_file(), encoding='utf-8')
     (DIST / '_redirects').write_text(REDIRECTS + redirects_index(), encoding='utf-8')
