@@ -1138,20 +1138,22 @@ def build_legal(doc, other):
 <section class="sec"><div class="container page page--legal">{aside}<article class="prose prose--legal">{body}</article></div></section>'''
     out(path, page(p, main, [webpage(p, url), crumbs_ld(trail, url)]), '0.3')
 
+# Cloudflare Workers/Pages: só aceita 200, 301, 302, 303, 307, 308 (sem "!" do Netlify e sem 404).
+# O status 404 da página de erro vem de wrangler.jsonc → assets.not_found_handling = "404-page".
 REDIRECTS = """# Tabela de preços removida em 24/10/2026: os serviços passaram a ser sob orçamento.
 /tabela-de-precos/  /contato/  301
 /tabela-de-precos   /contato/  301
-# A página de erro acessada direto respondia 200; força o status 404 (auditoria 26/10/2026).
-/404.html  /404.html  404!
-/404       /404.html  404!
 """
 
 def redirects_index():
-    """Auditoria 26/10/2026: /pasta/index.html respondia 200 (conteúdo duplicado). O "!" força o 301
-    mesmo existindo o arquivo; regra explícita por página (sem curingas) para não haver laço com "/"."""
+    """Auditoria 26/10/2026: /pasta/index.html → URL canônica com barra.
+
+    No Cloudflare, redirects do ``_redirects`` aplicam mesmo se o arquivo existir
+    (não precisa do ``!`` do Netlify). Regras explícitas por página, sem curingas.
+    """
     linhas = ['# /…/index.html → URL canônica com barra (gerado por redirects_index())']
     for path, _ in PAGES:
-        linhas.append(f'{path}index.html  {path}  301!')
+        linhas.append(f'{path}index.html  {path}  301')
     return '\n'.join(linhas) + '\n'
 
 def main():

@@ -5,6 +5,8 @@
   "description": "Site estático do Laboratório Dental Araújo (Belo Horizonte). Gerado por python -m scripts.build; dependências npm são só ferramentas de qualidade (não vão para o site).",
   "scripts": {
     "build": "python -m scripts.build",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "npm run build && wrangler dev",
     "serve": "python tools/serve.py 8766",
     "lint:html": "html-validate \"dist/**/*.html\"",
     "lint:css": "stylelint \"src/assets/css/*.css\"",
@@ -21,13 +23,14 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
-    "eslint": "^9.0.0",
     "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
     "globals": "^15.0.0",
     "html-validate": "^9.0.0",
     "linkinator": "^6.1.0",
     "playwright": "^1.48.0",
     "stylelint": "^16.0.0",
-    "stylelint-config-standard": "^36.0.0"
+    "stylelint-config-standard": "^36.0.0",
+    "wrangler": "^4.153.0"
   }
 }

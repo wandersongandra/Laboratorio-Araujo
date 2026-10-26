@@ -32,7 +32,7 @@ CSP = "; ".join(
 
 
 def headers_file() -> str:
-    """Conteúdo do dist/_headers (cabeçalhos HTTP do Netlify)."""
+    """Conteúdo do dist/_headers (Cloudflare Workers/Pages e Netlify)."""
     return f"""# Gerado por scripts.build — não edite em dist/. Ver docs/SEGURANCA.md.
 /*
   Content-Security-Policy: {CSP}

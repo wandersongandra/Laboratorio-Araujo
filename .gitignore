@@ -19,3 +19,6 @@ private/arquivo/
 screenshots/
 # fotos ilustrativas antigas (removidas do repo; não reintroduzir)
 _arquivo/
+# Cloudflare Wrangler
+.wrangler/
+.dev.vars
