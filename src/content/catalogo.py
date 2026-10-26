@@ -2,7 +2,7 @@
 """Catálogo de itens por linha de serviço (sem preços).
 
 Fonte dos nomes e das observações técnicas: Tabela 2026 oficial do laboratório,
-arquivada em _build/arquivo/ (não publicada). O site não mostra valores: todos os
+arquivada em private/arquivo/ (não publicada). O site não mostra valores: todos os
 serviços são informados sob orçamento, pelo WhatsApp ou telefone.
 """
 

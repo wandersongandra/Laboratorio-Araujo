@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Conteúdo das páginas de serviço. Fatos do laboratório: Tabela 2026 oficial (arquivada em _build/arquivo/, não publicada).
+"""Conteúdo das páginas de serviço. Fatos do laboratório: Tabela 2026 oficial (arquivada em private/arquivo/, não publicada).
 O site não mostra valores: tudo é sob orçamento.
 Texto clínico em linguagem geral, voltado ao cirurgião-dentista (B2B)."""
 
