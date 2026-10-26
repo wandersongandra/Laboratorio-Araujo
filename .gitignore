@@ -1,14 +1,11 @@
 # dependências das ferramentas de qualidade (npm install recria)
 node_modules/
-# cache do Python
-__pycache__/
-*.pyc
-# saída do build (recriada por: python -m scripts.build)
+# saída do build (recriada por: npm run build)
 dist/
 # cópia de referência para comparar saída do build (local, fora do Git)
 dist-referencia/
 .tools-bin/
-# JS concatenado só para o ESLint (fonte = src/assets/js/modules/)
+# bundle JS gerado (fonte = src/assets/js/modules/)
 src/assets/js/main.js
 # relatórios temporários
 *.log

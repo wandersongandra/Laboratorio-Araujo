@@ -189,7 +189,7 @@ Blog e envio:
     - Rev Odontol UNESP 2019 (poliamida termoinjetada; uso de transição);
     - Arch Health Invest 2017 (alternativa estética e para alergia; incerteza em extremidade livre);
     - Hill 2014 (pouca evidência científica).
-3. `/blog/requisicao-para-laboratorio-de-protese/` tem os campos da requisição e o **modelo em PDF para imprimir** (`/assets/docs/requisicao-laboratorio-de-protese.pdf`, A4, 1 página, sem preços). Ele é gerado por `tools/requisicao_pdf.py`.
+3. `/blog/requisicao-para-laboratorio-de-protese/` tem os campos da requisição e o **modelo em PDF para imprimir** (`/assets/docs/requisicao-laboratorio-de-protese.pdf`, A4, 1 página, sem preços). O arquivo publicado é mantido em `src/assets/docs/`.
 
 **Visual:** os textos novos ficaram dentro de acordeões, FAQ ou blog. O topo das páginas continua enxuto.
 
@@ -245,10 +245,9 @@ Regras para cada artigo novo:
 
 ## 8. Onde mexer no código
 
-- Palavras-chave por página: campos `primary`/`secondary` em `src/content/servicos.py` e `blog.py`. Os dos artigos vão para `keywords` do JSON-LD.
+- Palavras-chave por página: metadados no `head.html` de cada rota em `src/site/pages/`. Os dos artigos vão para `keywords` do JSON-LD.
 - Artigos:
     - `related_posts` define o "Leia também";
     - `refs` define a seção "Referências" e o `citation` do JSON-LD.
-- Área atendida (JSON-LD): constante `AREA` em `scripts/build/site.py`.
-- `knowsAbout`: função `business()` em `scripts/build/site.py`.
-- Modelo de requisição: `python3 tools/requisicao_pdf.py`, depois rodar o build. É o único PDF permitido em `tools/qa_sem_precos.py`, e o texto dele também é verificado.
+- Área atendida e `knowsAbout`: JSON-LD no `head.html` das rotas correspondentes.
+- Modelo de requisição: arquivo estático em `src/assets/docs/`; `npm run qa` garante que não há PDF adicional publicado.

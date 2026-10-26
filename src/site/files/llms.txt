@@ -1,0 +1,60 @@
+# Laboratório Dental Araújo
+
+> Laboratório de prótese dentária em Belo Horizonte (MG), fundado em 1975, com mais de 40 profissionais e 10 salas no Edifício Mesbla. Atende cirurgiões-dentistas e clínicas de BH, da Grande BH e de Minas Gerais (coleta e entrega) e de todo o Brasil (envio pelos Correios ou transportadora). Serviços sob orçamento, pelo WhatsApp ou telefone.
+
+Público: somente cirurgiões-dentistas e clínicas. O laboratório não atende pacientes diretamente (Lei nº 6.710/1979, art. 4º).
+
+Valores: sob orçamento, pelo WhatsApp {{WHATSAPP_DISPLAY}} ou pelos telefones {{PHONE_1_DISPLAY}} e {{PHONE_2_DISPLAY}}.
+
+## Fatos rápidos
+
+- Fundação: 8 de setembro de 1975, em Belo Horizonte (50 anos)
+- Fundadores: Edison Araújo e Pedro Paulo Araújo
+- Equipe: Mais de 40 profissionais qualificados
+- Estrutura: Sede própria no Ed. Mesbla, com 10 salas
+- Endereço: Av. Afonso Pena, 262, 16º andar, sala 1602, Ed. Mesbla, Centro, Belo Horizonte/MG, 30130-923
+- Atendimento: Seg. a sex., das 08:00 às 18:00
+- Área atendida: Coleta e entrega em BH, na Grande BH e em MG; atendimento para todo o Brasil
+- Serviços: Zircônia, E-Max, metalocerâmica, protocolo, PPR, prótese total, flexível, resinas, placas e ortodontia
+- Orçamento: Sob orçamento, pelo WhatsApp ou pelo telefone
+- Contato: WhatsApp {{WHATSAPP_DISPLAY}} · {{PHONE_1_DISPLAY}} · {{PHONE_2_DISPLAY}}
+
+## Páginas principais
+
+- [Início](https://brilliant-cat-c5b6e9.netlify.app/): visão geral do laboratório
+- [Serviços](https://brilliant-cat-c5b6e9.netlify.app/servicos/): todos os tipos de prótese
+- [Sobre](https://brilliant-cat-c5b6e9.netlify.app/sobre/): história e estrutura
+- [Trabalhos](https://brilliant-cat-c5b6e9.netlify.app/trabalhos/): fotos reais de próteses feitas no laboratório, por categoria
+- [Envio para todo o Brasil](https://brilliant-cat-c5b6e9.netlify.app/envio-para-todo-brasil/): como enviar casos
+- [Perguntas frequentes](https://brilliant-cat-c5b6e9.netlify.app/perguntas-frequentes/): prazos, urgência, garantia, pagamento
+- [Contato](https://brilliant-cat-c5b6e9.netlify.app/contato/): telefones, WhatsApp, endereço e como pedir orçamento
+
+## Serviços
+
+- [Prótese sobre implante e protocolo](https://brilliant-cat-c5b6e9.netlify.app/servicos/protese-sobre-implante/): Barra de protocolo até 6 elementos, barra clips, guia cirúrgico e coroa sobre implante. Sob orçamento.
+- [Zircônia e E-Max](https://brilliant-cat-c5b6e9.netlify.app/servicos/zirconia-e-max/): Facetas, coroas, restaurados e pontes em zircônia e E-Max, prontos com glaze. Sob orçamento.
+- [Metalocerâmica e RMF](https://brilliant-cat-c5b6e9.netlify.app/servicos/metaloceramica/): Coroa e ponte metalocerâmica, restaurado e coroa metálica, veneer e núcleo. Sob orçamento.
+- [PPR (Roach)](https://brilliant-cat-c5b6e9.netlify.app/servicos/protese-parcial-removivel-ppr/): PPR com armação Roach nacional, tipo Wisil, Dental D ou Flexidy. Sob orçamento.
+- [Prótese total (PTR)](https://brilliant-cat-c5b6e9.netlify.app/servicos/protese-total/): PTR simples, palato incolor, Coloform, dupla prensagem e Sistema Tomas Gomes. Sob orçamento.
+- [Prótese flexível (Flexite)](https://brilliant-cat-c5b6e9.netlify.app/servicos/protese-flexivel-flexite/): Parcial Flexite unilateral e bilateral e parciais em acrílico. Sob orçamento.
+- [Resinas e provisórios](https://brilliant-cat-c5b6e9.netlify.app/servicos/resinas-e-provisorios/): Coroas, pontes com fibra e restaurados em Ceramage, resina popular e acrílico. Sob orçamento.
+- [Placas e ortodontia](https://brilliant-cat-c5b6e9.netlify.app/servicos/placas-de-bruxismo-e-ortodontia/): Placas de bruxismo, clareamento e esporte, anti-ronco, aparelhos e contenções. Sob orçamento.
+
+## Blog
+
+- [Metalocerâmica ou zircônia: como escolher](https://brilliant-cat-c5b6e9.netlify.app/blog/metaloceramica-ou-zirconia/): Metalocerâmica ou zircônia em coroas e pontes: o que mostram as revisões sistemáticas, quando cada uma faz sentido e o que enviar ao laboratório.
+- [PPR ou prótese flexível: quando indicar cada uma](https://brilliant-cat-c5b6e9.netlify.app/blog/ppr-ou-protese-flexivel/): PPR com armação metálica ou prótese flexível? Indicações, limites e o que dizem as revisões, em um guia para dentistas do Laboratório Dental Araújo, BH.
+- [Requisição para laboratório de prótese: modelo para imprimir](https://brilliant-cat-c5b6e9.netlify.app/blog/requisicao-para-laboratorio-de-protese/): Modelo de requisição para laboratório de prótese dentária em PDF, para imprimir: os campos que não podem faltar, exemplos e erros que geram retrabalho.
+- [Prótese protocolo: etapas e prazos da barra](https://brilliant-cat-c5b6e9.netlify.app/blog/barra-de-protocolo-etapas-e-prazos/): As etapas laboratoriais de uma barra de protocolo sobre implantes, do modelo à acrilização, e quanto tempo cada uma leva. Guia do Lab. Dental Araújo, BH.
+- [Como enviar um caso para o laboratório de prótese](https://brilliant-cat-c5b6e9.netlify.app/blog/como-enviar-um-caso-para-o-laboratorio-de-protese/): Checklist para enviar moldagens, modelos e requisição ao laboratório de prótese sem retrabalho: o que mandar, como embalar e como combinar coleta ou envio.
+- [Zircônia ou E-Max: qual indicar em cada caso](https://brilliant-cat-c5b6e9.netlify.app/blog/zirconia-ou-e-max-qual-indicar/): Diferenças entre zircônia e E-Max (dissilicato de lítio): indicações, estética, resistência e cimentação. Guia prático do Laboratório Dental Araújo, BH.
+
+## Documentos
+
+- [Política de privacidade](https://brilliant-cat-c5b6e9.netlify.app/politica-de-privacidade/): dados tratados pelo site e pelo atendimento (LGPD)
+- [Termos de uso](https://brilliant-cat-c5b6e9.netlify.app/termos-de-uso/): uso do site, orçamento, prazos, garantia e pagamento
+- [Mapa do site](https://brilliant-cat-c5b6e9.netlify.app/mapa-do-site/): índice de todas as páginas públicas
+
+## Opcional
+
+- [Versão completa para LLMs](https://brilliant-cat-c5b6e9.netlify.app/llms-full.txt): itens de cada serviço, condições e FAQ em texto

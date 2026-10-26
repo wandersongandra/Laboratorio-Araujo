@@ -5,11 +5,13 @@ dentária em Belo Horizonte desde 1975 (Av. Afonso Pena, 262, sala 1602, Centro)
 **cirurgião-dentista e clínica**: o site mostra os serviços (todos **sob orçamento**, sem
 preços publicados), explica como enviar casos de todo o Brasil e leva o contato para o WhatsApp de pedidos.
 
-- **Endereço atual:** https://brilliant-cat-c5b6e9.netlify.app (Netlify)
-- **Páginas:** 20 (home, hub de serviços + 8 serviços, sobre, envio, perguntas, contato,
+- **Hospedagem primária:** Cloudflare Workers Assets via Wrangler; o domínio final ainda deve ser
+  definido em `SITE_BASE` no ambiente de build.
+- **Endereço provisório atual:** https://brilliant-cat-c5b6e9.netlify.app (legado/validação)
+- **Páginas:** 25 (home, hub de serviços + 8 serviços, sobre, envio, perguntas, contato,
   blog + 6 artigos, política de privacidade e termos de uso), mais a 404.
-- **Tecnologia:** HTML e CSS estáticos gerados por um gerador Python modular, com JavaScript puro
-  (sem frameworks, sem bibliotecas de terceiros, sem cookies e sem rastreadores).
+- **Tecnologia:** HTML e CSS estáticos gerados por Node.js/ESM, com JavaScript puro (sem
+  frameworks, sem bibliotecas de terceiros, sem cookies e sem rastreadores). Não existe backend.
   Fontes e imagens ficam no próprio site.
 
 > Documentação técnica: [docs/ARQUITETURA.md](docs/ARQUITETURA.md) (pastas, fluxo de build, SEO/GEO) ·
@@ -27,135 +29,142 @@ preços publicados), explica como enviar casos de todo o Brasil e leva o contato
 Laboratorio-Araujo/
 ├── README.md                  este guia
 ├── docs/                      ARQUITETURA, SEGURANCA, QUALIDADE, FOTOS, PALAVRAS-CHAVE, AUDITORIA
-├── src/                       FONTE do site (é aqui que se edita)
-│   ├── data/laboratorio.py    fonte única: nome, CNPJ, endereço, telefones, WhatsApp, horários, redes
-│   ├── content/               conteúdo editorial em Python
-│   │   ├── catalogo.py        itens de cada linha e condições gerais (sem preços)
-│   │   ├── servicos.py        as 8 páginas de serviço
-│   │   ├── blog.py            artigos do blog
-│   │   ├── fotos_reais.py     catálogo das fotos reais
-│   │   ├── paginas.py         ficha técnica e FAQ
-│   │   ├── legal.py           privacidade (LGPD) e termos
-│   │   └── resumos.py         "Pontos principais" e rótulos curtos
-│   ├── templates/             layouts / partials / pages (layouts reexportam o build hoje)
+├── src/                       FONTE do site
+│   ├── site/                   fonte estática publicada pelo build Node
+│   │   ├── data/site.json      identidade e contatos tokenizados
+│   │   ├── layout/             shell compartilhado antes/depois do conteúdo
+│   │   ├── pages/              head + main de cada rota publicada
+│   │   └── files/              headers, redirects, sitemap, robots e llms
 │   ├── assets/
 │   │   ├── css/               tokens, base, layout, components, pages, motion (+ bundle.txt)
 │   │   ├── js/modules/        00-helpers … 12-galeria (+ bundle.txt)
 │   │   ├── fonts/  icons/  img/{marca,og,foto,real}/  docs/
 │   │   ├── favicon.ico  site.webmanifest
 │   ├── private/marca/         PNG matriz do logo (não publicado)
-│   └── fotos_reais.json       manifesto das fotos reais
-├── scripts/build/             gerador modular (config, content_loader, util, minify, security, site)
-├── dist/                      SAÍDA gerada (não edite à mão; sobe no Netlify)
-├── tools/                     serve, QA, fotos, OG, PDF de requisição
+│   └── fotos_reais.json        manifesto histórico não usado pelo build
+├── scripts/build.mjs          gerador estático Node.js/ESM
+├── dist/                      SAÍDA gerada (não edite à mão; sobe na Cloudflare)
+├── tools/                     servidor Node, lint, migração, QA e acessibilidade
 ├── private/arquivo/           tabela de preços original (só local; NUNCA no Git)
 ├── package.json               scripts npm: build, serve, qa, qa:live, lint:*
-├── requirements.txt           Pillow (necessário para o build)
-├── requirements-dev.txt       numpy, playwright, pypdf (ferramentas opcionais)
-└── netlify.toml               command = python -m scripts.build; publish = dist
+├── wrangler.jsonc             configuração primária de assets estáticos na Cloudflare
+└── netlify.toml               compatibilidade legada com build Node
 ```
 
 Detalhes, diagrama mermaid e papel de cada módulo: [docs/ARQUITETURA.md](docs/ARQUITETURA.md).
 
 ## Como gerar o site
 
-Requisitos: **Python 3.12+** e **Pillow** (`pip install -r requirements.txt`).
+Requisitos: **Node.js** e as dependências do projeto (`npm install`). O build de produção não
+depende de runtime de backend, banco de dados, API ou servidor de aplicação.
 
 ```bash
-npm run build                    # ou: python -m scripts.build  → recria dist/ (≈ 1 s)
-npm run serve                    # http://127.0.0.1:8766 com os mesmos cabeçalhos do Netlify
+npm run build                    # recria dist/ (25 páginas + 404)
+npm run serve                    # http://127.0.0.1:8766 com os cabeçalhos locais
 ```
 
-O build: monta CSS/JS a partir dos módulos, copia assets, gera as 24 páginas + 404, o
+Para gerar canonical, sitemap e JSON-LD para o domínio Cloudflare, configure a base antes do build:
+
+```powershell
+$env:SITE_BASE = 'https://www.seudominio.com.br'
+npm run build
+```
+
+O build monta CSS/JS a partir dos módulos, copia assets, combina o layout compartilhado com as
+rotas em `src/site/pages`, gera as 25 páginas + 404, o
 `sitemap.xml`, `robots.txt`, `llms.txt`, `llms-full.txt`, o `_headers` (com a CSP) e o `_redirects`.
+
+`npm run migrate:static` é uma ferramenta pontual de migração/recaptura do `dist` validado para
+`src/site`. Não faz parte do build normal e não deve ser executada para editar conteúdo existente.
 
 Checagem completa antes de publicar (precisa de `npm install` e do Playwright com Chromium):
 
 ```bash
 npm install
-pip install -r requirements-dev.txt
-npm run qa                       # build + lint HTML/CSS/JS + SEO + "sem preços" + navegador
+npm run qa                       # build + lint HTML/CSS/JS + QA estrutural Node
+npm run serve                    # em outro terminal, para os checks de navegador
 npm run a11y                     # acessibilidade (com npm run serve rodando)
 npm run links                    # links quebrados (com npm run serve rodando)
 ```
-
-No Windows, o `tools/qa_sem_precos.py` usa `pdftotext` (Poppler) ou, se faltar, `pypdf`.
 
 ## Tarefas comuns
 
 ### Orçamento e preços (o site não publica valores)
 Desde 24/10/2026 todos os serviços são **sob orçamento**, pelo WhatsApp ou pelo telefone. O site
 não mostra valores, não tem tabela de preços nem PDF de preços, e o JSON-LD não tem `Offer`/`price`.
-- A antiga página `/tabela-de-precos/` redireciona (301) para `/contato/` (constante `REDIRECTS`
-  em `scripts/build/site.py` → `dist/_redirects`). O PDF antigo responde 404.
+- A antiga página `/tabela-de-precos/` redireciona (301) para `/contato/` (arquivo-fonte
+  `src/site/files/_redirects` → `dist/_redirects`). O PDF antigo responde 404.
 - A fonte original (PDF e dados) está em `private/arquivo/`, fora do build e fora do repositório Git.
-- Itens e observações de cada linha (sem valores) ficam em `src/content/catalogo.py`; as
-  condições gerais (prazo, urgência de 30%, garantia, pagamento) em `CONDICOES`, no mesmo arquivo.
-- Depois de qualquer mudança de texto, rode `python tools/qa_sem_precos.py`.
+- O conteúdo publicado das páginas fica em `src/site/pages`; não há catálogo dinâmico nem backend.
+- Depois de qualquer mudança de texto, rode `npm run qa`.
 
 ### Dados do laboratório (telefone, endereço, horário)
-Edite **somente** `src/data/laboratorio.py` e rode o build. Header, footer, contato, JSON-LD e
-`llms.txt` leem dessa fonte única.
+Contatos usados no HTML publicado ficam centralizados em `src/site/data/site.json`. Os tokens são
+resolvidos pelo build em todas as rotas, reduzindo divergências entre header, footer e páginas.
 
 ### Documentos legais
-`/politica-de-privacidade/` e `/termos-de-uso/` saem de `src/content/legal.py`. Ao mudar algo,
+`/politica-de-privacidade/` e `/termos-de-uso/` ficam em `src/site/pages`. Ao mudar algo,
 atualize `VIGENCIA`. O texto é um modelo: revise com o laboratório e um advogado
 (pontos em aberto em docs/ARQUITETURA.md).
 
 ### Textos curtos e acordeões
-- "Pontos principais" e rótulos da home: `src/content/resumos.py`.
-- Texto completo: `servicos.py` (campo `body`) e builders em `scripts/build/site.py`.
+- "Pontos principais", rótulos e texto completo ficam no `main.html` da rota correspondente em
+  `src/site/pages`.
 - Antes e depois: componente pronto e **desligado** (`ANTES_DEPOIS = []`). Só ligue com pares
   reais e autorização; ver [docs/FOTOS.md](docs/FOTOS.md).
 
 ### Rotas e redirecionamentos
-- `dist/_redirects` é gerado pelo build (`REDIRECTS` + `redirects_index()`).
-- Datas: `TODAY` e `MODIFICADO` em `scripts/build/config.py`.
+- `dist/_redirects` é copiado pelo build a partir de `src/site/files/_redirects`.
+- Datas e metadados publicados ficam no `head.html` da rota correspondente.
 
 ### Crédito do desenvolvedor no rodapé
-"Desenvolvido por [gandra.tech](https://www.gandra.tech/)" em `footer()` (`.footer__credit`).
+"Desenvolvido por [gandra.tech](https://www.gandra.tech/)" no shell compartilhado
+(`src/site/layout/after-main.html`, `.footer__credit`).
 
 ### Adicionar um artigo no blog
-1. Em `src/content/blog.py`, copie um item de `POSTS` e altere slug, date, title (≤ 60), desc,
-   h1, lead, img/img_alt, primary/secondary, related_service, related_posts, refs e body.
-2. Use `<h2>` nas seções e linke para o serviço comercial do mesmo assunto.
-3. Rode `npm run build`.
+1. Crie uma nova pasta de rota em `src/site/pages/blog/<slug>/index/`.
+2. Copie `head.html` e `main.html` de um artigo semelhante e altere o conteúdo e os metadados.
+3. Use `<h2>` nas seções, preserve canonical/JSON-LD e ligue o artigo ao serviço correspondente.
+4. Atualize `src/site/files/sitemap.xml` e os arquivos `llms*.txt` quando a nova rota for publicada.
+5. Rode `npm run build`.
 
 ### Adicionar uma página de serviço
-1. Em `src/content/servicos.py`, copie um item de `SERVICOS`.
-2. Se tiver itens próprios, crie a linha em `catalogo.py` e o ícone em `site.py` (`ICON`).
-3. Rode o build.
+1. Crie uma nova pasta de rota em `src/site/pages/servicos/<slug>/index/`.
+2. Copie `head.html` e `main.html` de um serviço semelhante, sem publicar preços.
+3. Atualize os links da hub, sitemap e arquivos `llms*.txt` quando aplicável.
+4. Rode `npm run build`.
 
 ### Fotos reais
-O catálogo fica em `src/content/fotos_reais.py`. Para exportar de novo:
+As fotos já publicadas ficam em `src/assets/img/real/` e são copiadas pelo build. Para preparar
+novas variantes sem Python, use o utilitário Node `npm run images:prepare -- ...`, que chama o
+ImageMagick local, remove metadados e gera WebP/AVIF/JPEG conforme o tipo. Detalhes em
+[docs/FOTOS.md](docs/FOTOS.md).
+
+## Publicar na Cloudflare
+
+O caminho oficial é o Wrangler, usando `wrangler.jsonc` e `dist/` como assets estáticos:
+
 ```bash
-FOTOS_DRIVE=/caminho/fotos-drive FOTOS_CHAT=/caminho/fotos-chat python tools/foto_real.py
-python tools/og.py
-npm run build
+SITE_BASE=https://www.seudominio.com.br npm run build
+npm run deploy
 ```
-Use `'real/<slug>'` no `img`/`fig`. Detalhes: [docs/FOTOS.md](docs/FOTOS.md).
 
-## Publicar no Netlify
+No PowerShell, use `$env:SITE_BASE = 'https://www.seudominio.com.br'` antes dos comandos.
+`npm run deploy` executa o build e `wrangler deploy`; esta etapa requer autenticação Cloudflare.
+O `netlify.toml` permanece apenas para compatibilidade histórica e não é o caminho primário.
 
-**Opção A: manual.** Gere o site e envie o conteúdo de `dist/` (arrastar no Netlify ou API com zip).
-O token fica numa variável de ambiente; nunca o grave em arquivos do projeto.
+Depois de publicar, defina `SITE_BASE` para o domínio Cloudflare e rode `npm run qa:live`.
 
-**Opção B: deploy contínuo via Git.** O `netlify.toml` já informa
-`command = "python -m scripts.build"` e `publish = "dist"`.
+## Definir ou trocar o domínio canônico
 
-Depois de publicar, rode `npm run qa:live`.
-
-## Trocar para um domínio próprio
-
-1. No Netlify: *Domain management → Add a domain* e aponte o DNS.
-2. Em `scripts/build/config.py`, troque **`BASE`** (sem barra no final).
+1. Configure o domínio personalizado no projeto Cloudflare e aponte o DNS conforme o painel.
+2. Defina **`SITE_BASE`** (sem barra no final) no ambiente de build/deploy.
 3. Rode o build e publique. Cadastre o domínio no Search Console / Bing e envie o sitemap.
 
 ## O que não está neste repositório (de propósito)
 
 - Nenhuma senha, token ou chave.
 - Nenhum script de analytics: eventos de clique vão para `window.dataLayer`. Para medir, instale
-  GA4/GTM e **libere os domínios na CSP** (`scripts/build/security.py`), senão o navegador bloqueia.
+  GA4/GTM e **libere os domínios na CSP** (`src/site/files/_headers`), senão o navegador bloqueia.
   Passo a passo em [docs/SEGURANCA.md](docs/SEGURANCA.md).
 - Tabela de preços original, capturas de tela e `.env`.
-)

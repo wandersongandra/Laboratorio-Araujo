@@ -1,0 +1,29 @@
+# Tabela de preços removida em 24/10/2026: os serviços passaram a ser sob orçamento.
+/tabela-de-precos/  /contato/  301
+/tabela-de-precos   /contato/  301
+# /…/index.html → URL canônica com barra (gerado por redirects_index())
+/index.html  /  301
+/servicos/index.html  /servicos/  301
+/servicos/protese-sobre-implante/index.html  /servicos/protese-sobre-implante/  301
+/servicos/zirconia-e-max/index.html  /servicos/zirconia-e-max/  301
+/servicos/metaloceramica/index.html  /servicos/metaloceramica/  301
+/servicos/protese-parcial-removivel-ppr/index.html  /servicos/protese-parcial-removivel-ppr/  301
+/servicos/protese-total/index.html  /servicos/protese-total/  301
+/servicos/protese-flexivel-flexite/index.html  /servicos/protese-flexivel-flexite/  301
+/servicos/resinas-e-provisorios/index.html  /servicos/resinas-e-provisorios/  301
+/servicos/placas-de-bruxismo-e-ortodontia/index.html  /servicos/placas-de-bruxismo-e-ortodontia/  301
+/sobre/index.html  /sobre/  301
+/trabalhos/index.html  /trabalhos/  301
+/envio-para-todo-brasil/index.html  /envio-para-todo-brasil/  301
+/perguntas-frequentes/index.html  /perguntas-frequentes/  301
+/contato/index.html  /contato/  301
+/blog/index.html  /blog/  301
+/blog/zirconia-ou-e-max-qual-indicar/index.html  /blog/zirconia-ou-e-max-qual-indicar/  301
+/blog/como-enviar-um-caso-para-o-laboratorio-de-protese/index.html  /blog/como-enviar-um-caso-para-o-laboratorio-de-protese/  301
+/blog/barra-de-protocolo-etapas-e-prazos/index.html  /blog/barra-de-protocolo-etapas-e-prazos/  301
+/blog/metaloceramica-ou-zirconia/index.html  /blog/metaloceramica-ou-zirconia/  301
+/blog/ppr-ou-protese-flexivel/index.html  /blog/ppr-ou-protese-flexivel/  301
+/blog/requisicao-para-laboratorio-de-protese/index.html  /blog/requisicao-para-laboratorio-de-protese/  301
+/politica-de-privacidade/index.html  /politica-de-privacidade/  301
+/termos-de-uso/index.html  /termos-de-uso/  301
+/mapa-do-site/index.html  /mapa-do-site/  301

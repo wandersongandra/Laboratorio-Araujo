@@ -1,1 +1,0 @@
-"""Templates HTML (funcoes Python)."""

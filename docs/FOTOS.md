@@ -88,10 +88,10 @@ as capas dos artigos se repetem nas listagens, como "Outros serviços" e "Artigo
 | 4ff7 | chat (curadas) | Bancada e impressão 3D | `modelo-com-coroas-nas-maos` | Conferência das coroas no modelo | Capa do artigo "Requisição para laboratório" |
 | 0043 | chat (curadas) | Bancada e impressão 3D | `modelos-troquelizados-trabalhos-posteriores` | Trabalhos posteriores sobre modelos troquelizados | Figura da seção "O laboratório" na home |
 
-**Faixa "Na bancada" da home** (`FAIXA_REAL` em `src/content/fotos_reais.py`): d282, d005,
+**Faixa "Na bancada" da home** (manifesto publicado em `src/fotos_reais.json`): d282, d005,
 d002, d123, d006, 0f03, d130, d085, 369d, d156, d166 e ee07.
 
-**Imagens de compartilhamento (`assets/img/og/`, geradas por `tools/og.py`):**
+**Imagens de compartilhamento (`assets/img/og/`, já exportadas):**
 - `og-image.jpg`: padrão, com a foto d282;
 - `og-trabalhos.jpg`: foto d005;
 - `og-<serviço>.jpg`: para os 7 serviços que têm foto real;
@@ -167,18 +167,15 @@ banco (e a antiga `aparelho-ortodontico`) saíram do site e foram removidas do r
 
 ## Como o site usa as fotos (técnico)
 
-- Catálogo: `src/content/fotos_reais.py`. Cada foto tem:
+- Catálogo publicado: `src/fotos_reais.json`. Cada foto tem:
   - `id`, `src`, `pasta`, `cat` e `slug`;
   - `alt` e `cap`;
   - o recorte prévio `pre`, a região do trabalho `reg`, as variantes `var`, `fill` e `maxw`.
-- Exportação: `tools/foto_real.py` (origens nas variáveis `FOTOS_CHAT` e `FOTOS_DRIVE`).
-  - Variantes:
-    - `h`: 4:5, para o topo das páginas;
-    - `w`: 3:2, para figuras e capas;
-    - `g`: proporção livre, para a galeria e a faixa.
-  - Larguras de 480, 800 e 1200 px, sem passar do tamanho do recorte.
-  - Formatos: AVIF q62, WebP q82 e JPEG q84 (o JPEG só na menor e na maior largura).
-  - O resultado vai para `src/assets/img/real/` e para o manifesto `src/fotos_reais.json`.
+- As variantes já exportadas ficam em `src/assets/img/real/`:
+  - `h`: 4:5, para o topo das páginas;
+  - `w`: 3:2, para figuras e capas;
+  - `g`: proporção livre, para a galeria e a faixa.
+  - Larguras de 480, 800 e 1200 px, em AVIF, WebP e JPEG.
 - HTML: `<picture>` com AVIF e WebP, e `<img>` JPEG como fallback, com `srcset`/`sizes`,
   `width`/`height` (CLS 0), texto alternativo descritivo e `loading="lazy"`.
   - A exceção é a imagem LCP: ela usa `fetchpriority="high"` e tem preload AVIF.
@@ -196,16 +193,20 @@ banco (e a antiga `aparelho-ortodontico`) saíram do site e foram removidas do r
 ### Trocar ou acrescentar uma foto real
 
 ```bash
-# 1. acrescente um item em src/content/fotos_reais.py (DRIVE ou FOTOS) e, se for usado, em USO
-FOTOS_DRIVE=/caminho/fotos-drive FOTOS_CHAT=/caminho/fotos-chat python3 tools/foto_real.py
-python3 tools/og.py          # só se mudar foto de topo de serviço/artigo ou a OG padrão
-python -m scripts.build
+# 1. prepare as variantes com Node + ImageMagick (o comando não altera o HTML)
+npm run images:prepare -- caminho/foto.jpg nome-da-foto --kind=real --ratio=3/2 --focus=0.5,0.5
+# 2. atualize os caminhos e metadados no head.html/main.html da rota
+npm run build
+npm run qa
 ```
 
-Para usar a foto num espaço, troque o `img`/`fig` em `content/servicos.py` ou `content/blog.py` por
-`'real/<slug>'`. A etiqueta "Foto: LDA" e a legenda entram sozinhas.
+O utilitário grava fotos reais em `src/assets/img/real/` nas larguras 480/800/1200, em AVIF, WebP
+e JPEG. Para imagens ilustrativas, use `--kind=foto`; ele grava WebP em 640/1200. O ImageMagick
+deve estar disponível no PATH. Para usar uma foto publicada, atualize os caminhos e metadados no
+`head.html`/`main.html` da rota correspondente. Preserve `alt`, `width`, `height`, `srcset` e
+`sizes`.
 
 ### Antes e depois
 
-O componente existe, mas está desligado (`ANTES_DEPOIS = []` no `build.py`). Ele só deve ser
+O componente existe, mas está desligado no HTML publicado. Ele só deve ser
 ligado com pares reais do mesmo caso e com autorização.

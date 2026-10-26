@@ -11,7 +11,7 @@ const BASE = (process.argv[2] || 'http://localhost:8766').replace(/\/$/, '');
 const paths = [...readFileSync(new URL('../dist/sitemap.xml', import.meta.url), 'utf8')
   .matchAll(/<loc>https?:\/\/[^/]+(\/[^<]*)<\/loc>/g)].map(m => m[1]).concat('/404.html');
 
-// Usa o Chromium já instalado pelo Playwright (python ou node), se houver.
+// Usa o Chromium já instalado pelo Playwright, se houver.
 function chromePath() {
   const dir = join(homedir(), '.cache', 'ms-playwright');
   if (!existsSync(dir)) return undefined;
