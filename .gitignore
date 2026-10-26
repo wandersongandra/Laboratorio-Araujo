@@ -3,17 +3,17 @@ node_modules/
 # cache do Python
 __pycache__/
 *.pyc
-# saída do build (recriada por: python3 _build/build.py)
+# saída do build (recriada por: python -m scripts.build)
 dist/
+# cópia de referência para comparar saída do build (local, fora do Git)
+dist-referencia/
+.tools-bin/
+# JS concatenado só para o ESLint (fonte = src/assets/js/modules/)
+src/assets/js/main.js
 # relatórios temporários
 *.log
 .lighthouse/
 # tabela de preços original: fica só na cópia local, nunca no Git público
-_build/arquivo/
+private/arquivo/
 # capturas de tela de trabalho (algumas mostram a antiga tabela de preços)
 screenshots/
-
-# cópia de referência para comparar saída do build (local, fora do Git)
-dist-referencia/
-.tools-bin/
-

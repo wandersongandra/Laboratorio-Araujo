@@ -17,13 +17,13 @@ from playwright.async_api import async_playwright
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-S = ROOT / '_build' / 'static' / 'assets'
-sys.path.insert(0, str(ROOT / '_build' / 'content'))
+S = ROOT / 'src' / 'assets'
+sys.path.insert(0, str(ROOT / 'src' / 'content'))
 from servicos import SERVICOS  # noqa: E402
 from blog import POSTS  # noqa: E402
-REAL = json.loads((ROOT / '_build' / 'fotos_reais.json').read_text(encoding='utf-8'))
+REAL = json.loads((ROOT / 'src' / 'fotos_reais.json').read_text(encoding='utf-8'))
 b64 = lambda p: base64.b64encode(p.read_bytes()).decode()
-LOGO = b64(ROOT / '_build' / 'fontes' / 'marca' / 'logo-lda.png')
+LOGO = b64(ROOT / 'src' / 'private' / 'marca' / 'logo-lda.png')
 FONTS = {k: b64(S / 'fonts' / f'{v}.woff2') for k, v in
          (('N', 'newsreader-500'), ('NI', 'newsreader-400-italic'), ('P', 'plex-sans'), ('M', 'plex-mono-500'))}
 

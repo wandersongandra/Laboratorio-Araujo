@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Gera o modelo de requisição para laboratório de prótese (PDF A4, 1 página), publicado em
 /assets/docs/requisicao-laboratorio-de-protese.pdf e citado no artigo do blog de mesmo tema.
-Uso:  python3 tools/requisicao_pdf.py      (depois rode python3 _build/build.py)
+Uso:  python3 tools/requisicao_pdf.py      (depois rode python -m scripts.build)
 Requer:  pip install playwright  (Chromium do Playwright). Sem preços: o modelo só organiza o pedido."""
 import asyncio, base64, pathlib
 from playwright.async_api import async_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-DST = ROOT / '_build/static/assets/docs/requisicao-laboratorio-de-protese.pdf'
-FONT = ROOT / '_build/static/assets/fonts'
+DST = ROOT / 'src/assets/docs/requisicao-laboratorio-de-protese.pdf'
+FONT = ROOT / 'src/assets/fonts'
 def f64(n): return base64.b64encode((FONT / n).read_bytes()).decode()
 
 def boxes(items): return ''.join(f'<span class="ck"><i></i>{t}</span>' for t in items)

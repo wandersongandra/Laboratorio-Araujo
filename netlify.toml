@@ -2,7 +2,7 @@
 # No deploy manual (zip/arrastar a pasta dist/), este arquivo não é necessário.
 # Os cabeçalhos de segurança e cache ficam em dist/_headers (gerado pelo build).
 [build]
-  command = "python3 _build/build.py"
+  command = "python -m scripts.build"
   publish = "dist"
 
 [build.environment]

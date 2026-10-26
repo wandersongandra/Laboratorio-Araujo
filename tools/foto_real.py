@@ -4,18 +4,18 @@
 Diferente de tools/foto.py (que aplica a "grade" das imagens ilustrativas), aqui a cor é preservada:
 só recorte, redimensionamento (Lanczos) e compressão. Para dentistas, cor fiel importa.
 
-  - lê _build/content/fotos_reais.py (retângulo do trabalho e variantes por foto);
+  - lê src/content/fotos_reais.py (retângulo do trabalho e variantes por foto);
   - variante 'h' 4:5, 'w' 3:2, 'g' livre: amplia o recorte com pixels reais da própria foto e,
     só quando falta foto, completa com o fundo escuro da borda (emenda suavizada), sem cortar o trabalho;
   - larguras 480/800/1200 (nunca maiores que o recorte original: não amplia);
   - AVIF + WebP + JPEG (fallback), sem EXIF/GPS/ICC/XMP (imagem nova, nenhum metadado copiado);
-  - grava _build/fotos_reais.json (larguras e dimensões), lido pelo build.py.
+  - grava src/fotos_reais.json (larguras e dimensões), lido pelo build.
 
   - fotos do Drive: aplica a orientação EXIF (celular) ANTES do recorte e grava imagem nova (sem GPS).
 
 Uso:  python3 tools/foto_real.py      (originais em /workspace/fotos-drive e /workspace/fotos-reais-originais;
       mude com FOTOS_DRIVE=… FOTOS_CHAT=…). Depois rode o build de novo.
-Os originais NUNCA vão para _build/static, dist/ ou o zip: só as variantes otimizadas.
+Os originais NUNCA vão para src/assets, dist/ ou o zip: só as variantes otimizadas.
 """
 import json, os, sys
 from concurrent.futures import ProcessPoolExecutor
@@ -23,13 +23,13 @@ from pathlib import Path
 from PIL import Image, ImageOps, ImageStat
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / '_build' / 'content'))
+sys.path.insert(0, str(ROOT / 'src' / 'content'))
 from fotos_reais import FOTOS  # noqa: E402
 
 SRC = Path(os.environ.get('FOTOS_CHAT', '/workspace/fotos-reais-originais'))
 DRIVE = Path(os.environ.get('FOTOS_DRIVE', '/workspace/fotos-drive'))
-OUT = ROOT / '_build' / 'static' / 'assets' / 'img' / 'real'
-MAN = ROOT / '_build' / 'fotos_reais.json'
+OUT = ROOT / 'src' / 'assets' / 'img' / 'real'
+MAN = ROOT / 'src' / 'fotos_reais.json'
 WIDTHS = (480, 800, 1200)
 RATIO = {'h': 4 / 5, 'w': 3 / 2, 'g': None}
 MARGEM = 0.04          # folga em volta do trabalho

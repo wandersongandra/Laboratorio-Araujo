@@ -41,11 +41,27 @@ def varrer():
     for f in DIST.rglob('*.pdf'):
         rel = f.relative_to(DIST).as_posix()
         if rel not in PDFS_OK: erros += 1; print(f'  PDF não permitido em dist/: {rel}'); continue
-        try: txt = subprocess.run(['pdftotext', str(f), '-'], capture_output=True, text=True, check=True).stdout
-        except (OSError, subprocess.CalledProcessError): erros += 1; print(f'  não foi possível ler {rel} (instale poppler-utils)'); continue
+        txt = _texto_pdf(f)
+        if txt is None:
+            erros += 1; print(f'  não foi possível ler {rel} (instale poppler-utils ou pypdf)'); continue
         for p in (r'R\$', r'preço', r'tabela de preços'):
             if re.search(p, txt, re.I): erros += 1; print(f'  {rel}: contém [{p}]')
     return erros
+
+
+def _texto_pdf(path: Path) -> str | None:
+    """Extrai texto do PDF: pdftotext (preferido) ou pypdf (fallback no Windows)."""
+    try:
+        return subprocess.run(
+            ['pdftotext', str(path), '-'], capture_output=True, text=True, check=True
+        ).stdout
+    except (OSError, subprocess.CalledProcessError):
+        pass
+    try:
+        from pypdf import PdfReader  # type: ignore
+        return '\n'.join((p.extract_text() or '') for p in PdfReader(str(path)).pages)
+    except Exception:
+        return None
 
 class _SemRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, *a, **k): return None

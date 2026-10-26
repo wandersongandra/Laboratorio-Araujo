@@ -2,3 +2,4 @@
 -r requirements.txt
 numpy>=1.26
 playwright>=1.45
+pypdf>=4.0  # fallback do tools/qa_sem_precos.py quando pdftotext (Poppler) não está no PATH

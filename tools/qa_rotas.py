@@ -30,7 +30,7 @@ LIVE = BASE.startswith('https://')
 EXTERNOS = '--externos' in sys.argv
 ROOT = Path(__file__).resolve().parent.parent
 # URL de produção gravada nos arquivos (canonical, sitemap etc.)
-PROD = re.search(r"^BASE\s*=\s*['\"](.+?)['\"]", (ROOT / '_build/build.py').read_text(), re.M).group(1).rstrip('/')
+PROD = re.search(r"^BASE\s*=\s*['\"](.+?)['\"]", (ROOT / 'scripts/build/config.py').read_text(encoding='utf-8'), re.M).group(1).rstrip('/')
 UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) LDA-QA/1.0'}
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -191,9 +191,9 @@ for u in sorted(nao_linkadas): aviso(f'URL do sitemap sem nenhum link interno: {
 st, h, b = get(BASE + '/esta-pagina-nao-existe-qa/')
 if st != 404: falha(f'página inexistente → {st} (esperado 404)')
 elif b'noindex' not in b: falha('página 404 sem noindex')
-for f in ['/_build/build.py', '/package.json', '/README.md', '/docs/', '/tools/qa_rotas.py', '/.git/config',
+for f in ['/scripts/build/config.py', '/package.json', '/README.md', '/docs/', '/tools/qa_rotas.py', '/.git/config',
           '/.env', '/_headers', '/_redirects', '/netlify.toml', '/assets/docs/tabela-precos-2026.pdf',
-          '/_build/arquivo/', '/node_modules/', '/assets/js/main.js.map', '/assets/css/style.css.map']:
+          '/private/arquivo/', '/src/content/', '/node_modules/', '/assets/js/main.js.map', '/assets/css/style.css.map']:
     if not LIVE and f.startswith('/_'): continue   # o servidor local não esconde _headers/_redirects (o Netlify sim)
     st, h, b = get(BASE + f)
     if st == 200: falha(f'arquivo que não deveria ser público responde 200: {f}')

@@ -8,7 +8,7 @@ verde-água/ciano dessaturadas (não brigam com o azul da marca).
 Uso (troca por foto real do laboratório — mesmo nome = nenhuma mudança no build):
     python3 tools/foto.py CAMINHO/foto-original.jpg bancada-tecnico 4/5
     python3 tools/foto.py CAMINHO/foto.jpg fachada-recepcao 3/2 0.5 0.4   # foco x y (0–1)
-Gera _build/static/assets/img/foto/<nome>-640.webp e <nome>-1200.webp. Proporções usadas no
+Gera src/assets/img/foto/<nome>-640.webp e <nome>-1200.webp. Proporções usadas no
 site: 4/5 (retrato) e 3/2 (paisagem). Requer Pillow e numpy.
 """
 import sys
@@ -16,7 +16,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageOps
 
-OUT = Path(__file__).resolve().parent.parent / '_build' / 'static' / 'assets' / 'img' / 'foto'
+OUT = Path(__file__).resolve().parent.parent / 'src' / 'assets' / 'img' / 'foto'
 NAVY = np.array([16, 38, 70], float)
 WARM = np.array([246, 238, 226], float)
 
