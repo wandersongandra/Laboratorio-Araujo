@@ -1,176 +1,84 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Gerador estático do site do Laboratório Dental Araújo (Belo Horizonte).
+"""Renderização do site: imagens, layouts, blocos, páginas, SEO e meta.
 
-Uso:   python3 _build/build.py        → apaga e recria dist/ (pronto para o Netlify)
-Requer Python 3.12+ e Pillow (só para ler as dimensões das imagens). Sem outras dependências.
-
-De onde vem cada coisa
-  _build/content/catalogo.py      Itens de cada linha de serviço (CATS) e condições gerais (CONDICOES), sem preços
-  _build/content/servicos.py      8 páginas de serviço: textos e FAQ
-  _build/content/legal.py         Política de privacidade e termos de uso
-  _build/content/blog.py          Artigos do blog (POSTS)
-  _build/content/paginas.py       Ficha técnica (FACTS) e grupos da página de perguntas (FAQ_GROUPS)
-  _build/static/                  Copiado como está para dist/ (CSS e JS são minificados no caminho)
-  _build/arquivo/                 Tabela de preços 2026 original (PDF e dados). NÃO é publicada: o site não mostra valores
-  este arquivo                    Modelos HTML (f-strings), JSON-LD, sitemap, llms.txt, _headers e _redirects
-
-Sumário deste arquivo
-  1. Configuração (BASE, contatos) e utilitários de texto
-  2. Minificação de CSS/JS para dist/
-  3. Segurança: script inline + hash, Content-Security-Policy e _headers
-  4. Imagens (<img> responsivo com width/height) e ícones SVG
-  5. Estrutura comum: cabeçalho, rodapé, <head> e page()
-  6. Blocos reutilizáveis (hero interno, seções, cartões, FAQ, contato, fotos)
-  7. Dados estruturados (JSON-LD: LocalBusiness, WebSite, Service, FAQPage, BreadcrumbList…)
-  8. Páginas (home, hub e serviços, sobre, envio, FAQ, contato, blog, documentos legais, 404)
-  9. Arquivos técnicos (sitemap.xml, robots.txt, llms.txt, llms-full.txt, _headers, _redirects) e main()
-
-Documentação: README.md (uso) e docs/ARQUITETURA.md (mapa de páginas, SEO/GEO, JSON-LD).
+Parte modular do gerador (`python -m scripts.build`). A lógica HTML/JSON-LD
+permanece aqui para preservar a saída; config/minify/security/util ficam à parte.
 """
-import html, json, re, shutil, hashlib, sys
-from pathlib import Path
-from urllib.parse import quote
+from __future__ import annotations
 
-# ------------------------------------------------------------------ 1. configuração
-ROOT = Path(__file__).resolve().parent
-DIST = ROOT.parent / 'dist'
-sys.path.insert(0, str(ROOT / 'content'))
-from catalogo import CATS, CONDICOES
-from servicos import SERVICOS, PRAZO, GARANTIA, porque
-from fotos_reais import FOTOS as FOTOS_REAIS, POR_SLUG as FR_SLUG, CATS as FR_CATS, FAIXA_REAL, POR_ID as FR_ID
-from blog import POSTS
-from paginas import FACTS, FAQ_GROUPS
-from legal import PRIVACIDADE, TERMOS, VIGENCIA, EMAIL
-from resumos import TAG, RESUMO, RESUMO_SOBRE, RESUMO_ENVIO
+import json
+import re
+from PIL import Image as _PIL
 
-# Endereço público do site. Usado em canonical, og:url, sitemap, JSON-LD e llms.txt.
-# Ao trocar para o domínio próprio (ex.: https://www.dentalaraujo.com.br), mude aqui e rode o build.
-BASE = 'https://brilliant-cat-c5b6e9.netlify.app'
-TODAY = '2026-10-26'          # data de "atualizado em" / lastmod do sitemap
-# Auditoria 26/10/2026: páginas cujo conteúdo não mudou desde outra data (evita lastmod/dateModified
-# diferente do "Atualizado em" visível). Formato AAAA-MM-DD; as demais usam TODAY.
-MODIFICADO = {'/politica-de-privacidade/': '2026-10-24', '/termos-de-uso/': '2026-10-24'}
-def modificado(path): return MODIFICADO.get(path, TODAY)
-NAME = 'Laboratório Dental Araújo'
-WA = '5531986521387'          # WhatsApp de pedidos (formato internacional, só dígitos)
-MAPS = 'https://maps.app.goo.gl/D3UgE8PvNiXERDP37'
-IG = 'https://www.instagram.com/labdentalaraujo/'
-FB = 'https://www.facebook.com/laboratoriodentalaraujo'
-ADDR = 'Av. Afonso Pena, 262 – 16º andar, Sala 1602, Ed. Mesbla – Centro – Belo Horizonte/MG – 30130-923'
-CAT = {c['id']: c for c in CATS}
-SVC = {s['slug']: s for s in SERVICOS}
-e = html.escape
+from .config import (
+    ADDR,
+    ADDR_FOOTER_L1,
+    ADDR_FOOTER_L2,
+    ADDR_UTIL,
+    ASSETS,
+    BASE,
+    CNPJ,
+    DIST,
+    EMAIL,
+    FB,
+    FIN_PHONE_SCHEMA,
+    FIN_WA_SCHEMA,
+    FOTOS_JSON,
+    HOURS_CURTO,
+    HOURS_FOOTER,
+    IG,
+    LAB,
+    LEGAL_NAME,
+    MAPS,
+    NAME,
+    PHONE_1_DISPLAY,
+    PHONE_1_SCHEMA,
+    PHONE_1_TEL,
+    PHONE_2_DISPLAY,
+    PHONE_2_SCHEMA,
+    PHONE_2_TEL,
+    STREET_SCHEMA,
+    TODAY,
+    WA,
+    WA_DISPLAY,
+    WA_SCHEMA,
+    modificado,
+)
+from .util import e, lc, nobreak, strip, telclass, ver, wa
+from .minify import copy_and_minify_assets
+from .security import INLINE_JS, headers_file
 
-# utilitários de texto
-def wa(t): return f'https://wa.me/{WA}?text=' + quote(t)   # mensagem sempre codificada (quote)
-def strip(t): return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', t)).strip()
-def fill(t): return t.replace('{PRAZO}', PRAZO).replace('{GARANTIA}', GARANTIA)
+from .content_loader import (
+    CATS,
+    CONDICOES,
+    FAIXA_REAL,
+    FACTS,
+    FAQ_GROUPS,
+    FOTOS_REAIS,
+    FR_CATS,
+    FR_ID,
+    FR_SLUG,
+    GARANTIA,
+    POSTS,
+    PRAZO,
+    PRIVACIDADE,
+    RESUMO,
+    RESUMO_ENVIO,
+    RESUMO_SOBRE,
+    SERVICOS,
+    TAG,
+    TERMOS,
+    VIGENCIA,
+    porque,
+)
 
-def ver(p):
-    """Hash curto do arquivo JÁ publicado em dist/ (versão minificada) → ?v= para quebrar cache."""
-    return hashlib.md5((DIST / p.lstrip('/')).read_bytes()).hexdigest()[:8]
-
-
-# ------------------------------------------------------------------ 2. minificação (só em dist/)
-# Os fontes em _build/static ficam legíveis e comentados; o dist recebe versões compactas.
-# Minificadores conservadores, sem dependências: não reescrevem código, só tiram comentários
-# e espaços que não têm efeito.
-
-def minify_css(src):
-    """Remove comentários /* */ e espaços redundantes. Não toca em ":" (seletores como
-    `a :hover` mudariam de sentido) nem no conteúdo de strings."""
-    out, i, n = [], 0, len(src)
-    while i < n:                                   # 1) tira comentários, preservando strings
-        c = src[i]
-        if c in '"\'':
-            j = i + 1
-            while j < n and src[j] != c:
-                j += 2 if src[j] == '\\' else 1
-            out.append(src[i:j + 1]); i = j + 1
-        elif src.startswith('/*', i):
-            j = src.find('*/', i + 2); i = n if j < 0 else j + 2
-        else:
-            out.append(c); i += 1
-    css = ''.join(out)
-    parts = re.split(r'("(?:[^"\\]|\\.)*"|\'(?:[^\'\\]|\\.)*\')', css)   # 2) espaços fora de strings
-    for k in range(0, len(parts), 2):
-        t = re.sub(r'\s+', ' ', parts[k])
-        t = re.sub(r'\s*([{};,>])\s*', r'\1', t)
-        parts[k] = t.replace(';}', '}')
-    return ''.join(parts).strip() + '\n'
-
-def minify_js(src):
-    """Remove linhas de comentário, blocos /* */ que ocupam linhas inteiras, linhas vazias e
-    indentação. As quebras de linha são mantidas (sem risco com inserção automática de ';')."""
-    src = re.sub(r'^\s*/\*.*?\*/\s*$', '', src, flags=re.S | re.M)
-    lines = []
-    for line in src.splitlines():
-        t = line.strip()
-        if t and not t.startswith('//'):
-            lines.append(t)
-    return '\n'.join(lines) + '\n'
-
-def minify_assets():
-    for f in (DIST / 'assets' / 'css').glob('*.css'):
-        f.write_text(minify_css(f.read_text(encoding='utf-8')), encoding='utf-8')
-    for f in (DIST / 'assets' / 'js').glob('*.js'):
-        f.write_text(minify_js(f.read_text(encoding='utf-8')), encoding='utf-8')
+CAT = {c["id"]: c for c in CATS}
+SVC = {s["slug"]: s for s in SERVICOS}
 
 
-# ------------------------------------------------------------------ 3. segurança (CSP e cabeçalhos)
-# Único script inline do site: marca <html class="js"> antes da pintura, para as animações de
-# revelação não "piscarem". Ele é liberado na CSP pelo hash SHA-256 abaixo (sem 'unsafe-inline').
-# Se mudar este texto, o hash e o _headers são recalculados automaticamente no build.
-INLINE_JS = "document.documentElement.classList.add('js')"
-INLINE_JS_HASH = "'sha256-" + __import__('base64').b64encode(hashlib.sha256(INLINE_JS.encode()).digest()).decode() + "'"
-
-CSP = '; '.join([
-    "default-src 'self'",
-    f"script-src 'self' {INLINE_JS_HASH}",     # só main.js + o script inline acima
-    "style-src 'self'",                        # nenhum style="" ou <style> inline no HTML
-    "img-src 'self' data:",
-    "font-src 'self'",                         # fontes hospedadas no próprio site
-    "connect-src 'self'",
-    "frame-src https://www.google.com https://maps.google.com",   # mapa sob demanda (contato)
-    "manifest-src 'self'",
-    "object-src 'none'",
-    "base-uri 'self'",
-    "form-action 'none'",                      # o site não tem formulários
-    "frame-ancestors 'none'",
-    "upgrade-insecure-requests",
-])
-
-def headers_file():
-    """Conteúdo do dist/_headers (cabeçalhos HTTP do Netlify)."""
-    return f"""# Gerado por _build/build.py — não edite em dist/. Ver docs/SEGURANCA.md.
-/*
-  Content-Security-Policy: {CSP}
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), browsing-topics=()
-  Cross-Origin-Opener-Policy: same-origin
-/assets/css/*
-  Cache-Control: public, max-age=31536000, immutable
-/assets/js/*
-  Cache-Control: public, max-age=31536000, immutable
-/assets/fonts/*
-  Cache-Control: public, max-age=31536000, immutable
-/assets/img/*
-  Cache-Control: public, max-age=604800
-/assets/icons/*
-  Cache-Control: public, max-age=604800
-/favicon.ico
-  Cache-Control: public, max-age=604800
-/site.webmanifest
-  Content-Type: application/manifest+json; charset=utf-8
-/llms.txt
-  Content-Type: text/plain; charset=utf-8
-/llms-full.txt
-  Content-Type: text/plain; charset=utf-8
-"""
+def fill(t: str) -> str:
+    return t.replace("{PRAZO}", PRAZO).replace("{GARANTIA}", GARANTIA)
 
 
 # ------------------------------------------------------------------ 4. imagens e ícones
@@ -179,9 +87,8 @@ def headers_file():
 #  - 'real/<slug>': fotos REAIS do laboratório (tools/foto_real.py, sem filtro de cor), em <picture>
 #    AVIF + WebP + JPEG de reserva, larguras 480/800/1200, variantes 'h' 4:5, 'w' 3:2 e 'g' livre.
 # img() escreve srcset + width/height reais (evita CLS); fotos abaixo da dobra usam loading=lazy.
-from PIL import Image as _PIL
 _DIM = {}
-REAL = json.loads((ROOT / 'fotos_reais.json').read_text(encoding='utf-8'))
+REAL = json.loads(FOTOS_JSON.read_text(encoding='utf-8'))
 PAGE_IMGS = {}     # fotos reais usadas na página em construção (sitemap de imagens), zerado em out()
 
 def is_real(base): return base.startswith('real/')
@@ -215,7 +122,7 @@ def dims(base, size=640):
         n = rvar(base); return REAL[n]['w'], REAL[n]['h']
     k = (base, size)
     if k not in _DIM:
-        with _PIL.open(ROOT / 'static' / 'assets' / 'img' / f'{base}-{size}.webp') as im: _DIM[k] = im.size
+        with _PIL.open(ASSETS / 'img' / f'{base}-{size}.webp') as im: _DIM[k] = im.size
     return _DIM[k]
 
 def _srcset(n, ext):
@@ -311,8 +218,8 @@ def header():
         else:
             items.append(f'<a href="{u}" data-nav>{t}</a>')
     return f'''<section class="util" aria-label="Contato rápido"><div class="container">
-  <span>Seg. a sex. · 8h–11h30 · 12h45–18h</span><span>Av. Afonso Pena, 262 · 16º andar · Centro, BH</span>
-  <span class="sp"><a href="tel:+553132719766" data-track="phone_util">(31) 3271-9766</a></span><span><a href="https://wa.me/{WA}" target="_blank" rel="noopener noreferrer" data-track="whatsapp_util">WhatsApp (31) 98652-1387</a></span>
+  <span>{HOURS_CURTO}</span><span>{ADDR_UTIL}</span>
+  <span class="sp"><a href="{PHONE_1_TEL}" data-track="phone_util">{PHONE_1_DISPLAY}</a></span><span><a href="https://wa.me/{WA}" target="_blank" rel="noopener noreferrer" data-track="whatsapp_util">WhatsApp {WA_DISPLAY}</a></span>
 </div></section>
 <header class="header" id="topo">
   <div class="container header__inner">
@@ -332,16 +239,16 @@ def footer():
     <div class="footer__grid">
       <div>
         <img src="/assets/img/marca/logo-lda-branco.webp" alt="LDA {NAME}" class="footer__logo" width="453" height="96" loading="lazy">
-        <p class="footer__nap"><b>{NAME}</b><br>Av. Afonso Pena, 262, 16º andar, sala 1602<br>Ed. Mesbla, Centro, Belo Horizonte/MG, 30130-923<br>
-        <a href="tel:+553132719766">(31) 3271-9766</a> · <a href="tel:+553132719688">(31) 3271-9688</a><br>
-        <a href="https://wa.me/{WA}" target="_blank" rel="noopener noreferrer" data-track="whatsapp_footer">WhatsApp (31) 98652-1387</a><br>Seg. a sex.: 8h–11h30 e 12h45–18h</p>
+        <p class="footer__nap"><b>{NAME}</b><br>{ADDR_FOOTER_L1}<br>{ADDR_FOOTER_L2}<br>
+        <a href="{PHONE_1_TEL}">{PHONE_1_DISPLAY}</a> · <a href="{PHONE_2_TEL}">{PHONE_2_DISPLAY}</a><br>
+        <a href="https://wa.me/{WA}" target="_blank" rel="noopener noreferrer" data-track="whatsapp_footer">WhatsApp {WA_DISPLAY}</a><br>{HOURS_FOOTER}</p>
         <div class="footer__social"><a href="{IG}" target="_blank" rel="noopener noreferrer">Instagram</a><a href="{FB}" target="_blank" rel="noopener noreferrer">Facebook</a><a href="{MAPS}" target="_blank" rel="noopener noreferrer">Google Maps</a></div>
       </div>
       <div><h2>Serviços</h2><nav aria-label="Serviços">{svc}</nav></div>
       <div><h2>Laboratório</h2><nav aria-label="Institucional"><a href="/envio-para-todo-brasil/">Envio para todo o Brasil</a><a href="/sobre/">Sobre o laboratório</a><a href="/trabalhos/">Trabalhos (fotos)</a><a href="/perguntas-frequentes/">Perguntas frequentes</a><a href="/blog/">Blog</a><a href="/contato/#orcamento">Solicitar orçamento</a><a href="/contato/">Contato</a></nav></div>
       <div><h2>Leitura</h2><nav aria-label="Blog">{"".join(f'<a href="/blog/{p["slug"]}/">{p["h1"]}</a>' for p in POSTS_RECENTES)}</nav></div>
     </div>
-    <div class="footer__base"><span>© <span id="year">2026</span> Laboratório Dental Araújo Ltda · CNPJ 19.223.635/0001-86</span><nav class="footer__legal" aria-label="Documentos legais"><a href="/politica-de-privacidade/">Política de privacidade</a><a href="/termos-de-uso/">Termos de uso</a></nav><span class="footer__sign"><span>Laboratório de prótese dentária em Belo Horizonte, MG, desde 1976</span><span class="footer__credit">Desenvolvido por <a href="https://www.gandra.tech/" target="_blank" rel="noopener">gandra.tech</a></span></span></div>
+    <div class="footer__base"><span>© <span id="year">2026</span> {LEGAL_NAME} · CNPJ {CNPJ}</span><nav class="footer__legal" aria-label="Documentos legais"><a href="/politica-de-privacidade/">Política de privacidade</a><a href="/termos-de-uso/">Termos de uso</a></nav><span class="footer__sign"><span>Laboratório de prótese dentária em Belo Horizonte, MG, desde 1976</span><span class="footer__credit">Desenvolvido por <a href="https://www.gandra.tech/" target="_blank" rel="noopener">gandra.tech</a></span></span></div>
   </div>
 </footer>'''
 
@@ -633,28 +540,28 @@ AREA = [{"@type": "City", "name": "Belo Horizonte"},
 def business():
     return {
      "@type": ["LocalBusiness", "MedicalBusiness"], "@id": BIZ_ID, "name": NAME,
-     "alternateName": ["LDA", "LDA Laboratório Dental Araújo"], "legalName": "Laboratório Dental Araújo Ltda",
-     "taxID": "19.223.635/0001-86", "foundingDate": "1976",
-     "slogan": "Há 50 anos no mercado. Pioneira na prótese dentária.",
+     "alternateName": ["LDA", "LDA Laboratório Dental Araújo"], "legalName": LEGAL_NAME,
+     "taxID": CNPJ, "foundingDate": LAB["founding_year"],
+     "slogan": LAB["slogan"],
      "description": "Laboratório de prótese dentária em Belo Horizonte desde 1976, com mais de 35 especialistas e cerca de 400 m². Zircônia, E-Max, metalocerâmica, barra de protocolo, PPR, prótese total, prótese flexível, resinas, placas e ortodontia, com coleta e entrega em Minas Gerais e atendimento para todo o Brasil.",
      "url": BASE + '/', "logo": BASE + "/assets/icons/icon-512.png",
      "image": [BASE + "/assets/img/og/og-image.jpg", img_url(HOME_FOTO, 'hwg'), img_url('real/impressoras-3d-laboratorio', 'hg')],
-     "telephone": "+55-31-3271-9766", "email": "dentalaraujo@yahoo.com.br",
+     "telephone": PHONE_1_SCHEMA, "email": EMAIL,
      "numberOfEmployees": {"@type": "QuantitativeValue", "minValue": 35},
-     "address": {"@type": "PostalAddress", "streetAddress": "Av. Afonso Pena, 262, 16º andar, Sala 1602 – Edifício Mesbla",
-                 "addressLocality": "Belo Horizonte", "addressRegion": "MG", "postalCode": "30130-923", "addressCountry": "BR"},
-     "geo": {"@type": "GeoCoordinates", "latitude": -19.9162258, "longitude": -43.9407838},
+     "address": {"@type": "PostalAddress", "streetAddress": STREET_SCHEMA,
+                 "addressLocality": LAB["address"]["city"], "addressRegion": LAB["address"]["region"],
+                 "postalCode": LAB["address"]["postal"], "addressCountry": LAB["address"]["country"]},
+     "geo": {"@type": "GeoCoordinates", "latitude": LAB["address"]["geo"]["latitude"],
+             "longitude": LAB["address"]["geo"]["longitude"]},
      "hasMap": MAPS,
-     "openingHoursSpecification": [
-      {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "11:30"},
-      {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "12:45", "closes": "18:00"}],
+     "openingHoursSpecification": LAB["hours"]["schema"],
      "areaServed": AREA,
      "contactPoint": [
-      {"@type": "ContactPoint", "contactType": "customer service", "name": "Atendimento e orçamentos", "telephone": "+55-31-3271-9766", "areaServed": "BR", "availableLanguage": "Portuguese"},
-      {"@type": "ContactPoint", "contactType": "customer service", "name": "Atendimento e orçamentos", "telephone": "+55-31-3271-9688", "areaServed": "BR", "availableLanguage": "Portuguese"},
-      {"@type": "ContactPoint", "contactType": "sales", "name": "WhatsApp – atendimento e orçamentos", "telephone": "+55-31-98652-1387", "areaServed": "BR", "availableLanguage": "Portuguese"},
-      {"@type": "ContactPoint", "contactType": "billing support", "name": "Financeiro", "telephone": "+55-31-3212-1384", "availableLanguage": "Portuguese"},
-      {"@type": "ContactPoint", "contactType": "billing support", "name": "Financeiro (WhatsApp)", "telephone": "+55-31-98652-1201", "availableLanguage": "Portuguese"}],
+      {"@type": "ContactPoint", "contactType": "customer service", "name": "Atendimento e orçamentos", "telephone": PHONE_1_SCHEMA, "areaServed": "BR", "availableLanguage": "Portuguese"},
+      {"@type": "ContactPoint", "contactType": "customer service", "name": "Atendimento e orçamentos", "telephone": PHONE_2_SCHEMA, "areaServed": "BR", "availableLanguage": "Portuguese"},
+      {"@type": "ContactPoint", "contactType": "sales", "name": "WhatsApp – atendimento e orçamentos", "telephone": WA_SCHEMA, "areaServed": "BR", "availableLanguage": "Portuguese"},
+      {"@type": "ContactPoint", "contactType": "billing support", "name": "Financeiro", "telephone": FIN_PHONE_SCHEMA, "availableLanguage": "Portuguese"},
+      {"@type": "ContactPoint", "contactType": "billing support", "name": "Financeiro (WhatsApp)", "telephone": FIN_WA_SCHEMA, "availableLanguage": "Portuguese"}],
      "sameAs": [IG, FB, MAPS],
      "knowsAbout": ["prótese dentária", "coroa de zircônia", "ponte fixa de zircônia", "E-Max (dissilicato de lítio)", "faceta em cerâmica",
                     "coroa metalocerâmica", "núcleo metálico fundido", "prótese protocolo sobre implante", "barra de protocolo",
@@ -703,19 +610,6 @@ def posts_rel(q, n=2):
         if len(rel) >= n: break
         if x is not q and x not in rel: rel.append(x)
     return rel[:n]
-def lc(t):
-    """Minúscula só na primeira letra, preservando siglas e nomes (PPR, E-Max, RMF, Flexite)."""
-    return t[0].lower() + t[1:] if len(t) > 1 and t[1].islower() else t
-
-_NW = re.compile(r'(<h[1-3]\b[^>]*>)(.*?)(</h[1-3]>)', re.S)
-def nobreak(htmltext):
-    """Evita quebra de linha no hífen de "E-Max" em títulos (só no texto visível dos h1–h3)."""
-    return _NW.sub(lambda m: m.group(1) + re.sub(r'(?<![\w-])E-Max\b', '<span class="nw">E-Max</span>', m.group(2)) + m.group(3), htmltext)
-
-def telclass(t):
-    """Links tel: ganham a classe "tel" (white-space:nowrap no CSS): o número nunca quebra."""
-    t = re.sub(r'<a class="([^"]*)"( href="tel:)', r'<a class="\1 tel"\2', t)
-    return re.sub(r'<a href="tel:', '<a class="tel" href="tel:', t)
 
 def out(path, htmltext, prio='0.7'):
     f = DIST / path.lstrip('/') / 'index.html' if path.endswith('/') else DIST / path.lstrip('/')
@@ -1262,9 +1156,7 @@ def redirects_index():
 
 def main():
     """Ordem importa: static → minificação → páginas (ver() lê o hash do CSS/JS já minificado) → meta."""
-    if DIST.exists(): shutil.rmtree(DIST)
-    shutil.copytree(ROOT / 'static', DIST)
-    minify_assets()
+    copy_and_minify_assets()
     build_home(); build_hub()
     for s in SERVICOS: build_service(s)
     build_sobre(); build_trabalhos(); build_envio(); build_faq(); build_contato(); build_blog()
