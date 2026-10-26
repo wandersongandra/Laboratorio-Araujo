@@ -1,0 +1,642 @@
+{
+ "proteses-totais-cartao-lda-h": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1500,
+  "pad": false,
+  "src": "d282"
+ },
+ "proteses-totais-cartao-lda-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "d282"
+ },
+ "proteses-totais-cartao-lda-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1490,
+  "pad": false,
+  "src": "d282"
+ },
+ "proteses-totais-em-oclusao-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "d270"
+ },
+ "proteses-totais-em-oclusao-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 910,
+  "pad": false,
+  "src": "d270"
+ },
+ "barra-clip-sobre-modelo-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "d002"
+ },
+ "barra-clip-sobre-modelo-g": {
+  "ws": [
+   480,
+   800,
+   1119
+  ],
+  "w": 1119,
+  "h": 826,
+  "pad": false,
+  "src": "d002"
+ },
+ "coroas-e-max-modelo-caixa-lda-h": {
+  "ws": [
+   480,
+   947
+  ],
+  "w": 947,
+  "h": 1185,
+  "pad": false,
+  "src": "d005"
+ },
+ "coroas-e-max-modelo-caixa-lda-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "d005"
+ },
+ "coroas-e-max-modelo-caixa-lda-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 981,
+  "pad": false,
+  "src": "d005"
+ },
+ "facetas-e-max-sobre-modelo-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 801,
+  "pad": false,
+  "src": "d006"
+ },
+ "facetas-e-max-sobre-modelo-g": {
+  "ws": [
+   480,
+   933
+  ],
+  "w": 933,
+  "h": 882,
+  "pad": false,
+  "src": "d006"
+ },
+ "armacoes-metal-roach-modelos-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1348,
+  "pad": false,
+  "src": "d123"
+ },
+ "ppr-pronta-armacao-metalica-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "d130"
+ },
+ "ppr-pronta-armacao-metalica-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 717,
+  "pad": false,
+  "src": "d130"
+ },
+ "ppr-pronta-vista-de-cima-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "d131"
+ },
+ "ppr-pronta-vista-de-cima-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 598,
+  "pad": false,
+  "src": "d131"
+ },
+ "grampo-estetico-dental-d-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1119,
+  "pad": false,
+  "src": "d143"
+ },
+ "protese-flexivel-flexite-h": {
+  "ws": [
+   480,
+   768
+  ],
+  "w": 768,
+  "h": 960,
+  "pad": false,
+  "src": "d156"
+ },
+ "protese-flexivel-flexite-w": {
+  "ws": [
+   480,
+   768
+  ],
+  "w": 768,
+  "h": 512,
+  "pad": false,
+  "src": "d156"
+ },
+ "protese-flexivel-flexite-g": {
+  "ws": [
+   480,
+   768
+  ],
+  "w": 768,
+  "h": 752,
+  "pad": false,
+  "src": "d156"
+ },
+ "protese-flexivel-flexite-lateral-w": {
+  "ws": [
+   480,
+   768
+  ],
+  "w": 768,
+  "h": 512,
+  "pad": false,
+  "src": "d157"
+ },
+ "protese-flexivel-flexite-lateral-g": {
+  "ws": [
+   480,
+   768
+  ],
+  "w": 768,
+  "h": 641,
+  "pad": false,
+  "src": "d157"
+ },
+ "aparelho-odontoapneia-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "d085"
+ },
+ "aparelho-odontoapneia-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 812,
+  "pad": false,
+  "src": "d085"
+ },
+ "modelos-impressos-3d-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1398,
+  "pad": false,
+  "src": "d166"
+ },
+ "impressoras-3d-laboratorio-h": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1500,
+  "pad": false,
+  "src": "d207"
+ },
+ "impressoras-3d-laboratorio-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1699,
+  "pad": false,
+  "src": "d207"
+ },
+ "proteses-totais-gengiva-caracterizada-h": {
+  "ws": [
+   480,
+   728
+  ],
+  "w": 728,
+  "h": 910,
+  "pad": false,
+  "src": "70c0"
+ },
+ "proteses-totais-gengiva-caracterizada-w": {
+  "ws": [
+   480,
+   800,
+   1010
+  ],
+  "w": 1010,
+  "h": 674,
+  "pad": true,
+  "src": "70c0"
+ },
+ "proteses-totais-gengiva-caracterizada-g": {
+  "ws": [
+   480,
+   728
+  ],
+  "w": 728,
+  "h": 674,
+  "pad": false,
+  "src": "70c0"
+ },
+ "proteses-totais-sobre-modelos-g": {
+  "ws": [
+   480,
+   815
+  ],
+  "w": 815,
+  "h": 1325,
+  "pad": false,
+  "src": "0153"
+ },
+ "protese-sobre-implantes-e-modelo-h": {
+  "ws": [
+   480,
+   852
+  ],
+  "w": 852,
+  "h": 1064,
+  "pad": false,
+  "src": "0f03"
+ },
+ "protese-sobre-implantes-e-modelo-w": {
+  "ws": [
+   480,
+   910
+  ],
+  "w": 910,
+  "h": 606,
+  "pad": false,
+  "src": "0f03"
+ },
+ "protese-sobre-implantes-e-modelo-g": {
+  "ws": [
+   480,
+   852
+  ],
+  "w": 852,
+  "h": 852,
+  "pad": false,
+  "src": "0f03"
+ },
+ "protese-superior-sobre-implantes-w": {
+  "ws": [
+   480,
+   900
+  ],
+  "w": 900,
+  "h": 601,
+  "pad": true,
+  "src": "445f"
+ },
+ "protese-superior-sobre-implantes-g": {
+  "ws": [
+   480,
+   717
+  ],
+  "w": 717,
+  "h": 798,
+  "pad": false,
+  "src": "445f"
+ },
+ "coroas-anteriores-modelos-articulados-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1061,
+  "pad": false,
+  "src": "72c6"
+ },
+ "coroas-anteriores-gengiva-artificial-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1198,
+  "pad": false,
+  "src": "1ea3"
+ },
+ "coroas-anteriores-superficie-espelhada-w": {
+  "ws": [
+   480,
+   800,
+   1000
+  ],
+  "w": 1000,
+  "h": 667,
+  "pad": false,
+  "src": "280c"
+ },
+ "coroas-anteriores-superficie-espelhada-g": {
+  "ws": [
+   480,
+   800,
+   1000
+  ],
+  "w": 1000,
+  "h": 497,
+  "pad": false,
+  "src": "280c"
+ },
+ "coroas-anteriores-sobre-modelo-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1405,
+  "pad": false,
+  "src": "18fb"
+ },
+ "pontes-fixas-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 606,
+  "pad": false,
+  "src": "d8c0"
+ },
+ "pontes-metaloceramicas-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "369d"
+ },
+ "pontes-metaloceramicas-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 519,
+  "pad": false,
+  "src": "369d"
+ },
+ "estruturas-metalicas-sobre-modelos-h": {
+  "ws": [
+   480,
+   951
+  ],
+  "w": 951,
+  "h": 1189,
+  "pad": true,
+  "src": "ee07"
+ },
+ "estruturas-metalicas-sobre-modelos-w": {
+  "ws": [
+   480,
+   795
+  ],
+  "w": 795,
+  "h": 530,
+  "pad": false,
+  "src": "ee07"
+ },
+ "estruturas-metalicas-sobre-modelos-g": {
+  "ws": [
+   480,
+   795
+  ],
+  "w": 795,
+  "h": 1189,
+  "pad": false,
+  "src": "ee07"
+ },
+ "armacoes-metalicas-ppr-h": {
+  "ws": [
+   480,
+   800,
+   1113
+  ],
+  "w": 1113,
+  "h": 1392,
+  "pad": false,
+  "src": "ed14"
+ },
+ "armacoes-metalicas-ppr-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": true,
+  "src": "ed14"
+ },
+ "armacoes-metalicas-ppr-g": {
+  "ws": [
+   480,
+   800,
+   1113
+  ],
+  "w": 1113,
+  "h": 1124,
+  "pad": false,
+  "src": "ed14"
+ },
+ "enceramento-armacoes-ppr-g": {
+  "ws": [
+   480,
+   900
+  ],
+  "w": 900,
+  "h": 1400,
+  "pad": false,
+  "src": "694c"
+ },
+ "protese-parcial-sem-grampos-aparentes-g": {
+  "ws": [
+   480,
+   800,
+   1030
+  ],
+  "w": 1030,
+  "h": 629,
+  "pad": false,
+  "src": "d9f0"
+ },
+ "dispositivo-acrilico-conector-metalico-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 634,
+  "pad": false,
+  "src": "0541"
+ },
+ "aparelhos-removiveis-sobre-modelos-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 801,
+  "pad": true,
+  "src": "4316"
+ },
+ "aparelhos-removiveis-sobre-modelos-g": {
+  "ws": [
+   480,
+   899
+  ],
+  "w": 899,
+  "h": 934,
+  "pad": false,
+  "src": "4316"
+ },
+ "modelo-com-coroas-nas-maos-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "4ff7"
+ },
+ "modelo-com-coroas-nas-maos-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 1200,
+  "pad": false,
+  "src": "4ff7"
+ },
+ "modelos-troquelizados-trabalhos-posteriores-w": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 800,
+  "pad": false,
+  "src": "0043"
+ },
+ "modelos-troquelizados-trabalhos-posteriores-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 692,
+  "pad": false,
+  "src": "0043"
+ }
+}

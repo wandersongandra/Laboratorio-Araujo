@@ -1,0 +1,10 @@
+# Usado apenas se o site for ligado a um repositório Git no Netlify (deploy contínuo).
+# No deploy manual (zip/arrastar a pasta dist/), este arquivo não é necessário.
+# Os cabeçalhos de segurança e cache ficam em dist/_headers (gerado pelo build).
+[build]
+  command = "python3 _build/build.py"
+  publish = "dist"
+
+[build.environment]
+  PYTHON_VERSION = "3.12"
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"   # ferramentas de QA não são usadas no build

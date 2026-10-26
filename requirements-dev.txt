@@ -1,0 +1,4 @@
+# Ferramentas opcionais (tools/): QA no navegador, tratamento de fotos, imagem OG
+-r requirements.txt
+numpy>=1.26
+playwright>=1.45

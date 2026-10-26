@@ -1,0 +1,10 @@
+# dependências das ferramentas de qualidade (npm install recria)
+node_modules/
+# cache do Python
+__pycache__/
+*.pyc
+# saída do build (recriada por: python3 _build/build.py)
+dist/
+# relatórios temporários
+*.log
+.lighthouse/

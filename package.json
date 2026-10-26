@@ -1,0 +1,33 @@
+{
+  "name": "laboratorio-dental-araujo-site",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Site estático do Laboratório Dental Araújo (Belo Horizonte). Gerado por _build/build.py; dependências npm são só ferramentas de qualidade (não vão para o site).",
+  "scripts": {
+    "build": "python3 _build/build.py",
+    "serve": "python3 tools/serve.py 8766",
+    "lint:html": "html-validate \"dist/**/*.html\"",
+    "lint:css": "stylelint \"_build/static/assets/css/*.css\"",
+    "lint:js": "eslint _build/static/assets/js",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js && npm run pyflakes",
+    "links": "linkinator http://localhost:8766 --recurse --skip \"^(?!http://localhost:8766)\"",
+    "a11y": "node tools/a11y.mjs",
+    "qa": "npm run build && npm run lint && python3 tools/qa_seo.py && python3 tools/qa_sem_precos.py && python3 tools/qa_rotas.py http://localhost:8766 && python3 tools/qa_paginas.py && python3 tools/qa_interacao.py",
+    "qa:live": "python3 tools/qa_rotas.py https://brilliant-cat-c5b6e9.netlify.app --externos && python3 tools/qa_sem_precos.py --live https://brilliant-cat-c5b6e9.netlify.app && python3 tools/qa_paginas.py https://brilliant-cat-c5b6e9.netlify.app",
+    "links:externos": "linkinator http://localhost:8766 --recurse --skip \"^(?!http://localhost:8766|https://www\\.gandra\\.tech)\"",
+    "qa:interacao": "python3 tools/qa_interacao.py",
+    "qa:rotas": "python3 tools/qa_rotas.py http://localhost:8766",
+    "pyflakes": "python3 -m pyflakes _build tools"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "eslint": "^9.0.0",
+    "@eslint/js": "^9.0.0",
+    "globals": "^15.0.0",
+    "html-validate": "^9.0.0",
+    "linkinator": "^6.1.0",
+    "playwright": "^1.48.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0"
+  }
+}

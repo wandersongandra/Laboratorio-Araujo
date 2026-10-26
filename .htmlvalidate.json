@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "html-validate:recommended"
+  ],
+  "rules": {
+    "no-inline-style": "error",
+    "require-sri": "off",
+    "no-trailing-whitespace": "off",
+    "long-title": [
+      "error",
+      {
+        "maxlength": 60
+      }
+    ],
+    "attribute-boolean-style": "off",
+    "void-style": "off",
+    "doctype-style": "off",
+    "no-redundant-role": "off",
+    "tel-non-breaking": [
+      "error",
+      {
+        "ignoreClasses": [
+          "tel"
+        ]
+      }
+    ]
+  }
+}

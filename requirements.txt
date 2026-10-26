@@ -1,0 +1,2 @@
+# Necessário para o build (_build/build.py lê as dimensões das imagens)
+Pillow>=10
