@@ -7,7 +7,7 @@ from pathlib import Path
 D=str(Path(__file__).resolve().parent.parent/'dist')
 titles={};descs={};bad=[]
 for f in sorted(glob.glob(D+'/**/*.html',recursive=True)):
-    s=open(f).read(); rel=f[len(D):]
+    s=open(f).read(); rel=f[len(D):].replace('\\','/')
     t=re.search(r'<title>(.*?)</title>',s).group(1); d=re.search(r'name="description" content="(.*?)"',s).group(1)
     titles.setdefault(t,[]).append(rel); descs.setdefault(d,[]).append(rel)
     h1=len(re.findall(r'<h1[\s>]',s))

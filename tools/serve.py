@@ -21,6 +21,10 @@ def global_headers():
     return hs
 
 class Handler(http.server.SimpleHTTPRequestHandler):
+    def address_string(self):
+        # Sem reverse DNS: no Windows cada request ganhava ~2 s e o QA travava.
+        return self.client_address[0]
+
     def end_headers(self):
         for k, v in global_headers():
             if k != 'Strict-Transport-Security':   # HSTS não faz sentido em http://localhost
@@ -37,4 +41,5 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8766
-    http.server.ThreadingHTTPServer(('', port), functools.partial(Handler, directory=str(DIST))).serve_forever()
+    # 127.0.0.1 evita atraso de resolução IPv6 de "localhost" em alguns Windows.
+    http.server.ThreadingHTTPServer(('127.0.0.1', port), functools.partial(Handler, directory=str(DIST))).serve_forever()

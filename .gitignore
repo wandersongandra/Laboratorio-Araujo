@@ -12,3 +12,8 @@ dist/
 _build/arquivo/
 # capturas de tela de trabalho (algumas mostram a antiga tabela de preços)
 screenshots/
+
+# cópia de referência para comparar saída do build (local, fora do Git)
+dist-referencia/
+.tools-bin/
+
