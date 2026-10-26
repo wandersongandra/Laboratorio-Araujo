@@ -43,8 +43,7 @@ Laboratorio-Araujo/
 │   └── migrate-static-site.mjs ferramenta pontual de migração/recaptura
 ├── dist/                       saída gerada e publicada
 ├── package.json                scripts npm, lint, QA e Wrangler
-├── wrangler.jsonc              configuração Cloudflare Assets
-└── netlify.toml                compatibilidade histórica com build Node, não é o caminho primário
+└── wrangler.jsonc              configuração Cloudflare Assets
 ```
 
 A fonte única de publicação e validação é Node.js. Não há runtime de backend ou dependência de
@@ -142,5 +141,5 @@ com autorização explícita e após o domínio Cloudflare estar configurado.
 
 ## 8. Pendências conhecidas
 
-- O domínio Cloudflare definitivo ainda precisa ser informado em `SITE_BASE`.
+- O domínio Cloudflare oficial deve ser informado em `SITE_BASE` antes de qualquer build ou deploy.
 - A documentação legal continua sendo modelo e precisa de revisão do laboratório e de advogado.

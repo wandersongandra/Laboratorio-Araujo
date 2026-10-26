@@ -4,21 +4,21 @@ Revisão de 24/10/2026. Site estático: não há backend, banco, login, formulá
 dado pessoal coletado; a superfície de ataque se resume ao que o navegador carrega. O objetivo foi
 deixar o navegador recusar qualquer coisa que não seja do próprio site.
 
-As medições com URL `netlify.app` abaixo são históricas. A saída atual é preparada para Cloudflare
-Workers Assets, mas o deploy Cloudflare ainda não foi realizado nesta revisão.
+O site oficial usa Cloudflare Workers Assets. As verificações de produção devem ser executadas
+contra o domínio configurado em `SITE_BASE` após cada publicação.
 
 ## Resultado
 
 | Verificação | Resultado |
 |---|---|
-| [Mozilla HTTP Observatory](https://developer.mozilla.org/en-US/observatory/analyze?host=brilliant-cat-c5b6e9.netlify.app) (24/10 e 26/10/2026) | **A+**, 130/100, 12 de 12 testes |
-| Arquivos internos no ar (auditoria histórica no Netlify: fontes do gerador, `docs/`, `package.json`, `.git/`, `.env`, `_headers`, `_redirects`, mapas de código, PDF antigo) | nenhum respondeu 200 (`tools/qa-live.mjs`) |
+| Mozilla HTTP Observatory | Pendente: executar contra o domínio oficial Cloudflare |
+| Arquivos internos no ar (`docs/`, `package.json`, `.git/`, `.env`, `_headers`, `_redirects`, mapas de código e arquivos antigos) | Pendente: confirmar após a publicação Cloudflare (`tools/qa-live.mjs`) |
 | Critérios do securityheaders.com (os 6 cabeçalhos, CSP sem `unsafe-inline`) | **A+** (todos presentes; o site deles exige chave de API, por isso a nota foi calculada pelos mesmos critérios) |
 | Erros de CSP no console (21 URLs × 3 larguras, no ar) | 0 |
 | `npm audit` (ferramentas de desenvolvimento) | 0 vulnerabilidades |
 | Segredos no repositório | nenhum |
 
-## Cabeçalhos históricos no ar (`curl -sI https://brilliant-cat-c5b6e9.netlify.app/`)
+## Cabeçalhos esperados no domínio oficial
 
 ```
 content-security-policy: default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com https://maps.google.com; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
@@ -46,10 +46,9 @@ Cloudflare.
 | 6 | Hash da URL (`#preco-…`) usado direto como seletor | Era validado com `/^[a-z0-9-]+$/`; o código saiu junto com a tabela de preços (24/10/2026) |
 | 7 | Mapa do Google (único conteúdo de terceiro) | Carrega só depois do clique em "Carregar mapa"; iframe com `sandbox` (scripts, mesma origem e pop-ups para "Abrir no Maps"), `referrerpolicy` e `loading="lazy"`. A CSP só permite frames de `www.google.com` e `maps.google.com` |
 | 8 | Links externos com `target="_blank"` só com `noopener` | Todos com `rel="noopener noreferrer"` (21 ocorrências) |
-| 9 | Mensagem pré-preenchida do WhatsApp | Sempre codificada com `urllib.parse.quote` no build (o carrinho da tabela, que usava `encodeURIComponent`, foi removido) |
+| 9 | Mensagem pré-preenchida do WhatsApp | A URL é codificada no código do site antes do redirecionamento para o WhatsApp |
 | 10 | Dependências de desenvolvimento com 2 vulnerabilidades moderadas (`uuid` via linkinator) | `npm audit fix` → 0 |
-| 11 | Selo "Powered by Netlify" injetado nas páginas, com script e estilo inline (problema histórico) | O site atual não depende de badge ou script de provedor; a configuração Netlify permanece apenas como compatibilidade histórica |
-| 12 | `JSON-LD` dentro de `<script>` | Gerado por `json.dumps` e com `<` escapado como `\u003c` (nenhum texto consegue fechar a tag) |
+| 11 | `JSON-LD` dentro de `<script>` | Mantido em bloco dedicado e verificado pelo QA estrutural; não há interpolação de HTML executável |
 
 **Segredos:** nenhum token de deploy deve ser versionado. A publicação Cloudflare deve usar a
 autenticação do Wrangler no ambiente do operador. Foi feita uma varredura no projeto (padrões de token/chave e o valor literal da
@@ -57,7 +56,7 @@ variável): nada encontrado. `.gitignore` exclui `node_modules`, `dist` e logs.
 
 **Privacidade (LGPD):** o site não grava cookies, não usa analytics e não chama terceiros, a não ser
 o mapa, que só carrega quando o visitante pede. Por isso não precisa de banner de cookies hoje.
-A [política de privacidade](https://brilliant-cat-c5b6e9.netlify.app/politica-de-privacidade/)
+A [política de privacidade](/politica-de-privacidade/)
 descreve isso; se entrar analytics, atualize a política (seção Cookies) e a CSP antes.
 
 **Redirecionamentos:** `src/site/files/_redirects` é copiado pelo build e leva `/tabela-de-precos/` para

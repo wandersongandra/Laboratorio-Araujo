@@ -10,7 +10,7 @@ Atualizado em 2026-10-26. Fonte: informações oficiais do laboratório. Os serv
 - Financeiro: {{FINANCIAL_PHONE_DISPLAY}} · WhatsApp {{FINANCIAL_WHATSAPP_DISPLAY}}
 - E-mail: {{EMAIL}}
 - Instagram: https://www.instagram.com/labdentalaraujo/ · Facebook: https://www.facebook.com/laboratoriodentalaraujo · Google Maps: https://maps.app.goo.gl/D3UgE8PvNiXERDP37
-- Site: https://brilliant-cat-c5b6e9.netlify.app/
+- Site: {{SITE_BASE}}/
 
 ## Fatos rápidos
 
@@ -123,7 +123,7 @@ Atualizado em 2026-10-26. Fonte: informações oficiais do laboratório. Os serv
 
 ## Serviços (resumo)
 
-### Prótese sobre implante e protocolo – https://brilliant-cat-c5b6e9.netlify.app/servicos/protese-sobre-implante/
+### Prótese sobre implante e protocolo – {{SITE_BASE}}/servicos/protese-sobre-implante/
 Barra de protocolo, barra clips, guia cirúrgico e coroa metalocerâmica sobre implante, confeccionados no Centro de Belo Horizonte para dentistas de BH, de Minas Gerais e de todo o Brasil.
 
 - P: Quanto custa uma barra de protocolo no Laboratório Dental Araújo? R: O valor é informado sob orçamento, pelo WhatsApp {{WHATSAPP_DISPLAY}} ou pelo telefone {{PHONE_1_DISPLAY}}. A barra é feita para até 4 elementos ou de 5 a 6 elementos, e componentes e metais são orçados à parte.
@@ -132,7 +132,7 @@ Barra de protocolo, barra clips, guia cirúrgico e coroa metalocerâmica sobre i
 - P: Quais são as etapas da prótese protocolo no laboratório? R: O fluxo mais comum tem modelo de trabalho e base de prova, montagem dos dentes, confecção e prova da barra e, por fim, acrilização e acabamento. Cada etapa de laboratório leva em média 7 dias úteis; o total depende de quantas provas clínicas o caso exige.
 - P: O que enviar para o laboratório fazer um protocolo? R: A moldagem de transferência com os transferentes, os análogos compatíveis, a indicação do sistema, da plataforma e dos componentes, o registro de mordida, a cor dos dentes e a requisição preenchida.
 
-### Zircônia e E-Max – https://brilliant-cat-c5b6e9.netlify.app/servicos/zirconia-e-max/
+### Zircônia e E-Max – {{SITE_BASE}}/servicos/zirconia-e-max/
 Facetas, coroas, restaurados e pontes fixas em porcelana pura, entregues prontos (coping, aplicação de porcelana e glaze) para consultórios de BH e de todo o Brasil.
 
 - P: Quanto custa uma coroa de zircônia no laboratório? R: O valor é informado sob orçamento, pelo WhatsApp {{WHATSAPP_DISPLAY}} ou pelo telefone {{PHONE_1_DISPLAY}}. A coroa de zircônia é entregue pronta, com coping, aplicação de porcelana e glaze.
@@ -141,7 +141,7 @@ Facetas, coroas, restaurados e pontes fixas em porcelana pura, entregues prontos
 - P: Vocês fazem faceta em E-Max e em zircônia? R: Sim. Fazemos faceta ou coroa em E-Max e faceta ou coroa em zircônia, além de restaurados nos dois materiais, todos entregues prontos.
 - P: Vocês recebem casos de zircônia de outros estados? R: Sim. Atendemos dentistas de todo o Brasil. Combine o envio pelo WhatsApp {{WHATSAPP_DISPLAY}}.
 
-### Metalocerâmica e RMF – https://brilliant-cat-c5b6e9.netlify.app/servicos/metaloceramica/
+### Metalocerâmica e RMF – {{SITE_BASE}}/servicos/metaloceramica/
 Coroas e pontes metalocerâmicas prontas, restaurados metálicos, coroas totais metálicas, veneer e núcleos, com a experiência de quem faz prótese em Belo Horizonte desde 1975.
 
 - P: Quanto custa uma coroa metalocerâmica? R: O valor é informado sob orçamento, pelo WhatsApp {{WHATSAPP_DISPLAY}} ou pelo telefone {{PHONE_1_DISPLAY}}. A coroa é entregue pronta, e o metal é orçado à parte.
@@ -150,7 +150,7 @@ Coroas e pontes metalocerâmicas prontas, restaurados metálicos, coroas totais 
 - P: Vocês fazem coroa metalocerâmica sobre implante? R: Sim. Componentes protéticos e metais são orçados à parte, conforme o sistema de implante e a liga escolhida.
 - P: A ponte metalocerâmica é orçada por elemento? R: Sim. A ponte metalocerâmica é orçada por elemento, com o metal à parte.
 
-### PPR (Roach) – https://brilliant-cat-c5b6e9.netlify.app/servicos/protese-parcial-removivel-ppr/
+### PPR (Roach) – {{SITE_BASE}}/servicos/protese-parcial-removivel-ppr/
 Prótese parcial removível com armação metálica Roach (nacional ou tipo Wisil) ou em Dental D e Flexidy, entregue pronta para dentistas de Belo Horizonte, de Minas Gerais e de todo o Brasil.
 
 - P: Quanto custa uma PPR Roach no laboratório? R: O valor é informado sob orçamento, pelo WhatsApp {{WHATSAPP_DISPLAY}} ou pelo telefone {{PHONE_1_DISPLAY}}, e varia conforme o tipo: nacional, tipo Wisil, Dental D ou Flexidy. Os dentes são orçados à parte.
@@ -158,7 +158,7 @@ Prótese parcial removível com armação metálica Roach (nacional ou tipo Wisi
 - P: PPR ou prótese flexível: qual indicar? R: A PPR com armação metálica tem apoios oclusais e conector rígido, o que favorece a estabilidade, principalmente em extremidade livre. A flexível não tem grampo metálico aparente e costuma ser considerada em casos estéticos, de transição ou de alergia ao metal. A indicação é do cirurgião-dentista.
 - P: Quantas etapas tem uma PPR? R: Normalmente prova da armação, prova da montagem dos dentes e entrega final, com média de 7 dias úteis por etapa.
 
-### Prótese total (PTR) – https://brilliant-cat-c5b6e9.netlify.app/servicos/protese-total/
+### Prótese total (PTR) – {{SITE_BASE}}/servicos/protese-total/
 Prótese total removível (PTR) simples, com palato incolor, Coloform especial, dupla prensagem ou pelo Sistema Tomas Gomes (STG), feita no Centro de Belo Horizonte desde 1975.
 
 - P: Quanto custa uma prótese total no laboratório? R: O valor é informado sob orçamento, pelo WhatsApp {{WHATSAPP_DISPLAY}} ou pelo telefone {{PHONE_1_DISPLAY}}, e depende da opção escolhida: simples, palato incolor, Coloform especial, dupla prensagem ou STG. Os dentes são orçados à parte.
@@ -167,7 +167,7 @@ Prótese total removível (PTR) simples, com palato incolor, Coloform especial, 
 - P: Qual a diferença entre a PTR simples e a de palato incolor? R: A simples tem a base toda em resina acrílica rosa. Na de palato incolor, o palato da prótese superior é em resina transparente, mais discreto.
 - P: O que é PTR STG? R: É a prótese total feita pelo Sistema Tomas Gomes, um método de montagem e oclusão, e é a opção mais completa de prótese total do laboratório.
 
-### Prótese flexível (Flexite) – https://brilliant-cat-c5b6e9.netlify.app/servicos/protese-flexivel-flexite/
+### Prótese flexível (Flexite) – {{SITE_BASE}}/servicos/protese-flexivel-flexite/
 Parciais removíveis em resina flexível Flexite, sem grampo metálico aparente, e parciais em acrílico (simples, palato incolor, Coloform especial e dupla prensagem), entregues prontas.
 
 - P: Quanto custa uma prótese flexível Flexite? R: O valor é informado sob orçamento, pelo WhatsApp {{WHATSAPP_DISPLAY}} ou pelo telefone {{PHONE_1_DISPLAY}}. Fazemos Flexite unilateral e bilateral, e os dentes são orçados à parte.
@@ -175,7 +175,7 @@ Parciais removíveis em resina flexível Flexite, sem grampo metálico aparente,
 - P: Vocês fazem prótese flexível unilateral? R: Sim. Fazemos a parcial Flexite unilateral, para repor dentes de um lado do arco, e a bilateral. Os dentes são orçados à parte.
 - P: Quando usar a parcial em acrílico? R: Ela costuma ser usada em casos provisórios, de transição ou de menor custo. A indicação é sempre do cirurgião-dentista.
 
-### Resinas e provisórios – https://brilliant-cat-c5b6e9.netlify.app/servicos/resinas-e-provisorios/
+### Resinas e provisórios – {{SITE_BASE}}/servicos/resinas-e-provisorios/
 Coroas totais, pontes com fibra e restaurados em resina Ceramage, resina popular ou acrílico, além de coroas provisórias, para casos estéticos, de transição ou com orçamento mais curto.
 
 - P: Quanto custa uma coroa em resina Ceramage? R: O valor é informado sob orçamento, pelo WhatsApp {{WHATSAPP_DISPLAY}} ou pelo telefone {{PHONE_1_DISPLAY}}. A coroa em Ceramage pode ser feita com ou sem fibra.
@@ -183,7 +183,7 @@ Coroas totais, pontes com fibra e restaurados em resina Ceramage, resina popular
 - P: A ponte em resina é orçada por elemento? R: Sim. As pontes em resina e em acrílico são orçadas por elemento.
 - P: O que é a resina Ceramage? R: É uma resina composta de uso laboratorial, com carga cerâmica, fabricada pela Shofu. É usada em coroas e restaurados quando se busca estética com custo menor que a cerâmica.
 
-### Placas e ortodontia – https://brilliant-cat-c5b6e9.netlify.app/servicos/placas-de-bruxismo-e-ortodontia/
+### Placas e ortodontia – {{SITE_BASE}}/servicos/placas-de-bruxismo-e-ortodontia/
 Placas de bruxismo, clareamento e esporte, aparelho anti-ronco, aparelhos ortodônticos móveis e contenções. Confeccionamos todos os tipos e modelos de ortodontia e ortopedia.
 
 - P: Quanto custa uma placa de bruxismo no laboratório? R: O valor é informado sob orçamento, pelo WhatsApp {{WHATSAPP_DISPLAY}} ou pelo telefone {{PHONE_1_DISPLAY}}. Há três opções: cristal, emborrachada e acrílico prensada.
@@ -225,30 +225,30 @@ Placas de bruxismo, clareamento e esporte, aparelho anti-ronco, aparelhos ortod�
 
 ## Artigos do blog (resumo e fontes)
 
-### Metalocerâmica ou zircônia: como escolher – https://brilliant-cat-c5b6e9.netlify.app/blog/metaloceramica-ou-zirconia/
+### Metalocerâmica ou zircônia: como escolher – {{SITE_BASE}}/blog/metaloceramica-ou-zirconia/
 Publicado em 2026-10-26. Sobrevida, complicações e estética das duas opções, com os números de três revisões sistemáticas e os critérios que costumam pesar em coroas e pontes.
 
 - Fonte: Sailer I, Makarov NA, Thoma DS, Zwahlen M, Pjetursson BE. All-ceramic or metal-ceramic tooth-supported fixed dental prostheses (FDPs)? A systematic review of the survival and complication rates. Part I: Single crowns (SCs). Dental Materials , 31(6):603-623, 2015. https://doi.org/10.1016/j.dental.2015.02.011
 - Fonte: Pjetursson BE, Sailer I, Makarov NA, Zwahlen M, Thoma DS. All-ceramic or metal-ceramic tooth-supported fixed dental prostheses (FDPs)? A systematic review of the survival and complication rates. Part II: Multiple-unit FDPs. Dental Materials , 31(6):624-639, 2015. https://doi.org/10.1016/j.dental.2015.02.013
 - Fonte: Pjetursson BE, Valente NA, Strasding M, Zwahlen M, Liu S, Sailer I. A systematic review of the survival and complication rates of zirconia-ceramic and metal-ceramic single crowns. Clinical Oral Implants Research , 29(Suppl 16):199-214, 2018. https://doi.org/10.1111/clr.13306
 
-### PPR ou prótese flexível: quando indicar cada uma – https://brilliant-cat-c5b6e9.netlify.app/blog/ppr-ou-protese-flexivel/
+### PPR ou prótese flexível: quando indicar cada uma – {{SITE_BASE}}/blog/ppr-ou-protese-flexivel/
 Publicado em 2026-10-26. Armação metálica com grampos ou resina termoplástica sem metal aparente: o que pesa na escolha e o que enviar ao laboratório em cada caso.
 
 - Fonte: Patrocínio BMG, Antenor AM, Haddad MF. Prótese parcial removível flexível: revisão de literatura. Archives of Health Investigation , 2017. https://www.archhealthinvestigation.com.br/ARCHI/article/view/2065
 - Fonte: Marangoni AC, Campos CES, Moraes FC, Ferreira GS, Anchieta RB. Prótese flexível: indicações e aplicações. Revista de Odontologia da UNESP , 48 (n. especial), 2019. https://revodontolunesp.com.br/article/5dee3a290e88256c29b5f733
 - Fonte: Hill EE, Rubel B, Smith JB. Flexible removable partial dentures: a basic overview. General Dentistry , 62(2):32-36, 2014. https://pubmed.ncbi.nlm.nih.gov/24598492/
 
-### Requisição para laboratório de prótese: modelo para imprimir – https://brilliant-cat-c5b6e9.netlify.app/blog/requisicao-para-laboratorio-de-protese/
+### Requisição para laboratório de prótese: modelo para imprimir – {{SITE_BASE}}/blog/requisicao-para-laboratorio-de-protese/
 Publicado em 2026-10-26. Os campos que não podem faltar na ordem de serviço do caso, um modelo em PDF para imprimir e os erros de preenchimento que mais atrasam o trabalho.
 
 - Fonte: Brasil. Lei nº 6.710, de 5 de novembro de 1979. Dispõe sobre a profissão de Técnico em Prótese Dentária. https://www.planalto.gov.br/ccivil_03/leis/l6710.htm
 
-### Prótese protocolo: etapas e prazos da barra – https://brilliant-cat-c5b6e9.netlify.app/blog/barra-de-protocolo-etapas-e-prazos/
+### Prótese protocolo: etapas e prazos da barra – {{SITE_BASE}}/blog/barra-de-protocolo-etapas-e-prazos/
 Publicado em 2026-10-22. Do modelo de trabalho à prótese acrilizada: as etapas laboratoriais de um protocolo sobre implantes e como planejar a agenda clínica em torno delas.
 
-### Como enviar um caso para o laboratório de prótese – https://brilliant-cat-c5b6e9.netlify.app/blog/como-enviar-um-caso-para-o-laboratorio-de-protese/
+### Como enviar um caso para o laboratório de prótese – {{SITE_BASE}}/blog/como-enviar-um-caso-para-o-laboratorio-de-protese/
 Publicado em 2026-10-21. O que precisa estar na caixa para o caso chegar completo, ser feito sem ligação de dúvida e voltar no prazo.
 
-### Zircônia ou E-Max: qual indicar em cada caso – https://brilliant-cat-c5b6e9.netlify.app/blog/zirconia-ou-e-max-qual-indicar/
+### Zircônia ou E-Max: qual indicar em cada caso – {{SITE_BASE}}/blog/zirconia-ou-e-max-qual-indicar/
 Publicado em 2026-10-20. Quando indicar zircônia, quando indicar dissilicato de lítio (E-Max) e o que mandar ao laboratório em cada caso, com base nas indicações mais aceitas.

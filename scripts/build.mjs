@@ -16,9 +16,19 @@ const sourceFiles = join(root, 'src', 'site', 'files');
 const sourceLayout = join(root, 'src', 'site', 'layout');
 const siteData = JSON.parse(await readFile(join(root, 'src', 'site', 'data', 'site.json'), 'utf8'));
 const dist = join(root, 'dist');
-const defaultBase = 'https://brilliant-cat-c5b6e9.netlify.app';
-const base = (process.env.SITE_BASE || defaultBase).replace(/\/$/, '');
+const configuredBase = process.env.SITE_BASE?.trim();
+if (!configuredBase) {
+  throw new Error('SITE_BASE é obrigatório. Informe o domínio oficial da Cloudflare antes do build.');
+}
+
+const parsedBase = new URL(configuredBase);
+if (parsedBase.protocol !== 'https:' || parsedBase.username || parsedBase.password || parsedBase.search || parsedBase.hash) {
+  throw new Error('SITE_BASE deve ser uma URL HTTPS sem credenciais, query string ou fragmento.');
+}
+
+const base = configuredBase.replace(/\/$/, '');
 const tokens = {
+  '{{SITE_BASE}}': base,
   '{{PHONE_1_TEL}}': siteData.phone1Tel, '{{PHONE_2_TEL}}': siteData.phone2Tel,
   '{{FINANCIAL_PHONE_TEL}}': siteData.financialPhoneTel, '{{WHATSAPP_URL}}': siteData.whatsappUrl,
   '{{FINANCIAL_WHATSAPP_URL}}': siteData.financialWhatsappUrl,
@@ -156,7 +166,7 @@ async function replaceTextFiles(dir, cssVersion, jsVersion) {
     if (!textExtensions.has(ext)) continue;
     let text = await readFile(path, 'utf8');
     for (const [token, value] of Object.entries(tokens)) text = text.replaceAll(token, value);
-    text = text.replaceAll(defaultBase, base)
+    text = text
       .replace(/assets\/css\/style\.css\?v=[a-f0-9]+/g, `assets/css/style.css?v=${cssVersion}`)
       .replace(/assets\/js\/main\.js\?v=[a-f0-9]+/g, `assets/js/main.js?v=${jsVersion}`);
     await writeFile(path, text, 'utf8');

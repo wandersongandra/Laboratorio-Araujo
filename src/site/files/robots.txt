@@ -28,4 +28,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://brilliant-cat-c5b6e9.netlify.app/sitemap.xml
+Sitemap: {{SITE_BASE}}/sitemap.xml

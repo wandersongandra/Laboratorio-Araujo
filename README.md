@@ -5,9 +5,8 @@ dentária em Belo Horizonte desde 1975 (Av. Afonso Pena, 262, sala 1602, Centro)
 **cirurgião-dentista e clínica**: o site mostra os serviços (todos **sob orçamento**, sem
 preços publicados), explica como enviar casos de todo o Brasil e leva o contato para o WhatsApp de pedidos.
 
-- **Hospedagem primária:** Cloudflare Workers Assets via Wrangler; o domínio final ainda deve ser
-  definido em `SITE_BASE` no ambiente de build.
-- **Endereço provisório atual:** https://brilliant-cat-c5b6e9.netlify.app (legado/validação)
+- **Hospedagem oficial:** Cloudflare Workers Assets via Wrangler.
+- **Domínio canônico:** informado obrigatoriamente em `SITE_BASE` no ambiente de build.
 - **Páginas:** 25 (home, hub de serviços + 8 serviços, sobre, envio, perguntas, contato,
   blog + 6 artigos, política de privacidade e termos de uso), mais a 404.
 - **Tecnologia:** HTML e CSS estáticos gerados por Node.js/ESM, com JavaScript puro (sem
@@ -18,8 +17,7 @@ preços publicados), explica como enviar casos de todo o Brasil e leva o contato
 > [docs/SEGURANCA.md](docs/SEGURANCA.md) (cabeçalhos, CSP) ·
 > [docs/QUALIDADE.md](docs/QUALIDADE.md) (validações e resultados) ·
 > [docs/FOTOS.md](docs/FOTOS.md) (origem das imagens e fotos reais) ·
-> [docs/PALAVRAS-CHAVE.md](docs/PALAVRAS-CHAVE.md) (mapa de palavras-chave) e
-> [docs/AUDITORIA-2026-10-26.md](docs/AUDITORIA-2026-10-26.md) (auditoria completa).
+> [docs/PALAVRAS-CHAVE.md](docs/PALAVRAS-CHAVE.md) (mapa de palavras-chave).
 
 ---
 
@@ -28,7 +26,7 @@ preços publicados), explica como enviar casos de todo o Brasil e leva o contato
 ```
 Laboratorio-Araujo/
 ├── README.md                  este guia
-├── docs/                      ARQUITETURA, SEGURANCA, QUALIDADE, FOTOS, PALAVRAS-CHAVE, AUDITORIA
+├── docs/                      ARQUITETURA, SEGURANCA, QUALIDADE, FOTOS e PALAVRAS-CHAVE
 ├── src/                       FONTE do site
 │   ├── site/                   fonte estática publicada pelo build Node
 │   │   ├── data/site.json      identidade e contatos tokenizados
@@ -47,8 +45,7 @@ Laboratorio-Araujo/
 ├── tools/                     servidor Node, lint, migração, QA e acessibilidade
 ├── private/arquivo/           tabela de preços original (só local; NUNCA no Git)
 ├── package.json               scripts npm: build, serve, qa, qa:live, lint:*
-├── wrangler.jsonc             configuração primária de assets estáticos na Cloudflare
-└── netlify.toml               compatibilidade legada com build Node
+└── wrangler.jsonc             configuração primária de assets estáticos na Cloudflare
 ```
 
 Detalhes, diagrama mermaid e papel de cada módulo: [docs/ARQUITETURA.md](docs/ARQUITETURA.md).
@@ -63,12 +60,16 @@ npm run build                    # recria dist/ (25 páginas + 404)
 npm run serve                    # http://127.0.0.1:8766 com os cabeçalhos locais
 ```
 
-Para gerar canonical, sitemap e JSON-LD para o domínio Cloudflare, configure a base antes do build:
+Para gerar canonical, sitemap e JSON-LD para o domínio oficial, configure a base antes do build:
 
 ```powershell
-$env:SITE_BASE = 'https://www.seudominio.com.br'
+$env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'
 npm run build
 ```
+
+`SITE_BASE` é obrigatório e deve ser uma URL HTTPS sem query string ou fragmento. O build falha
+intencionalmente quando essa variável não está definida, evitando publicar canonical e sitemap no
+domínio errado.
 
 O build monta CSS/JS a partir dos módulos, copia assets, combina o layout compartilhado com as
 rotas em `src/site/pages`, gera as 25 páginas + 404, o
@@ -145,15 +146,14 @@ ImageMagick local, remove metadados e gera WebP/AVIF/JPEG conforme o tipo. Detal
 O caminho oficial é o Wrangler, usando `wrangler.jsonc` e `dist/` como assets estáticos:
 
 ```bash
-SITE_BASE=https://www.seudominio.com.br npm run build
+SITE_BASE=https://seu-dominio-cloudflare.com.br npm run build
 npm run deploy
 ```
 
-No PowerShell, use `$env:SITE_BASE = 'https://www.seudominio.com.br'` antes dos comandos.
+No PowerShell, use `$env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'` antes dos comandos.
 `npm run deploy` executa o build e `wrangler deploy`; esta etapa requer autenticação Cloudflare.
-O `netlify.toml` permanece apenas para compatibilidade histórica e não é o caminho primário.
 
-Depois de publicar, defina `SITE_BASE` para o domínio Cloudflare e rode `npm run qa:live`.
+Depois de publicar, use o mesmo valor de `SITE_BASE` no `npm run qa:live` para validar o domínio oficial.
 
 ## Definir ou trocar o domínio canônico
 
