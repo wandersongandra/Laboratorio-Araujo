@@ -108,8 +108,8 @@ d002, d123, d006, 0f03, d130, d085, 369d, d156, d166 e ee07.
 
 Fotos Pexels sob a [Licença Pexels](https://www.pexels.com/license/): escultura-resina 7788511,
 modelo-gesso-maos 16309612, moldagem-alginato 7788356 e moldeiras 7788360. As outras fotos de
-banco (e a antiga `aparelho-ortodontico`) saíram do site e estão guardadas em
-`_arquivo/fotos-ilustrativas-nao-usadas/`, fora do `dist/`.
+banco (e a antiga `aparelho-ortodontico`) saíram do site e foram removidas do repositório
+(limpeza de 26/10/2026); ainda existem no histórico do Git se precisar recuperá-las.
 
 ## Dúvidas de classificação (a confirmar com o laboratório)
 

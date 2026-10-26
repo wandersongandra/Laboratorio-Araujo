@@ -17,3 +17,5 @@ src/assets/js/main.js
 private/arquivo/
 # capturas de tela de trabalho (algumas mostram a antiga tabela de preços)
 screenshots/
+# fotos ilustrativas antigas (removidas do repo; não reintroduzir)
+_arquivo/
