@@ -1,7 +1,7 @@
 # Qualidade — ferramentas, comandos e resultados
 
-Última verificação documentada: 26/10/2026 (auditoria; ver [AUDITORIA-2026-10-26.md](AUDITORIA-2026-10-26.md)).
-Os checks abaixo são locais; a publicação Cloudflare ainda não foi executada.
+Última atualização: 26/10/2026. Os checks locais usam o domínio informado em `SITE_BASE`; a
+validação externa deve ser executada contra o domínio oficial Cloudflare após cada publicação.
 
 ## Como rodar
 
@@ -27,14 +27,19 @@ npm run qa:live -- https://www.seudominio.com.br  # smoke test read-only após p
 | `npx lighthouse@12` | Lighthouse | Desempenho, acessibilidade, boas práticas, SEO |
 | `npm audit` | npm | Vulnerabilidades nas dependências de desenvolvimento |
 
-## Resultados da auditoria (26/10/2026)
+## Resultado da revisão atual
 
-Relatório completo, com metodologia, achados e pendências: [AUDITORIA-2026-10-26.md](AUDITORIA-2026-10-26.md).
-Resumo: `npm run qa` e `npm run qa:live` com 0 falhas, axe 0 violações, linkinator 74 links OK
-(inclui o crédito gandra.tech), schema.org 0 erros/0 avisos nas 20 páginas, Observatory A+ (130),
-CLS da página de serviço 0,022 → 0.
+- `SITE_BASE=https://dominio-oficial.example npm run build`: **OK**, 25 páginas + 404.
+- `node tools/qa-static.mjs`: **OK**, 0 falhas.
+- `npm audit --package-lock-only`: **OK**, 0 vulnerabilidades conhecidas.
+- `html-validate`, stylelint, ESLint e axe/Playwright: **pendentes** quando as dependências não
+  estão instaladas no ambiente.
+- `npm run qa:live`: deve ser executado contra o domínio oficial Cloudflare após a publicação.
 
-## Resultados da versão enxuta (26/10/2026)
+## Baseline histórico de qualidade (26/10/2026)
+
+Os resultados abaixo são referências históricas de versões anteriores e não substituem a
+validação do deployment Cloudflare atual.
 
 | Verificação | Resultado |
 |---|---|

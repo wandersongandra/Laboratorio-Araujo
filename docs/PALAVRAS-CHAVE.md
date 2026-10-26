@@ -1,7 +1,6 @@
 # Palavras-chave e SEO on-page — Laboratório Dental Araújo
 
-Data: 26/10/2026 · Site: https://brilliant-cat-c5b6e9.netlify.app · Deploy de produção: `6adf7dccf104b32829080f81` (o anterior do mesmo dia, `6adf7c5b5d2b2742bc27ca9f`, foi o primeiro com estas mudanças)
-Backup anterior às mudanças: `/workspace/site-clone-v4-backup/`
+Data: 26/10/2026 · Produção oficial: Cloudflare Workers Assets · Domínio canônico: definido por `SITE_BASE`
 
 ## 1. Resumo
 
@@ -193,17 +192,16 @@ Blog e envio:
 
 **Visual:** os textos novos ficaram dentro de acordeões, FAQ ou blog. O topo das páginas continua enxuto.
 
-## 5. Testes (26/10/2026)
+## 5. Testes e validação
 
 | Teste | Resultado |
 |---|---|
-| `npm run qa`: build, html-validate, stylelint, eslint, pyflakes, qa_seo, qa_sem_precos, qa_rotas, qa_paginas, qa_interacao | **OK, 0 falhas**. Títulos de 40 a 56 caracteres e descrições de 58 a 160; nenhum título ou descrição duplicado |
-| axe (WCAG 2.x AA), todas as URLs do sitemap + 404, em 1366 px e 390 px | **0 violações**. Um contraste do botão de download foi corrigido |
-| linkinator (links internos) | **0 quebrados** |
-| `npm run qa:live` (no ar, inclusive links externos) | **0 falhas**, 2 avisos: o PubMed responde 203 e o DOI da Wiley responde 403 para robôs. Os dois links estão corretos no navegador |
-| Lighthouse 12 no ar (desempenho / acessibilidade / boas práticas / SEO) | Home 94/100/100/100 · artigo metalo × zircônia 100/100/100/100 · artigo requisição 100/100/100/100 · serviço protocolo 100/100/100/100 |
-| Mozilla Observatory | **A+** (130 pontos, 12/12 testes) |
-| Conferência dist × produção | 0 diferenças, desconsiderando o comentário que a Netlify injeta |
+| `npm run build` com `SITE_BASE` | **OK**, 25 páginas + 404 geradas |
+| `node tools/qa-static.mjs` | **OK**, 0 falhas; títulos, descrições, H1, alt e JSON-LD verificados |
+| `npm audit --package-lock-only` | **OK**, 0 vulnerabilidades conhecidas |
+| `html-validate`, `stylelint`, ESLint e axe/Playwright | **Pendente**: dependências ainda não instaladas neste ambiente de auditoria |
+| `npm run qa:live` | **Pendente**: executar contra o domínio oficial Cloudflare após a publicação |
+| Conferência dist × produção | Pendente: executar contra o domínio oficial Cloudflare após a publicação do commit |
 
 ## 6. Plano de conteúdo (próximos artigos, 1 a 2 por mês)
 
@@ -226,7 +224,7 @@ Regras para cada artigo novo:
 ## 7. O que depende do dono (fora do código)
 
 1. **Responsável técnico (RT) e CRO no site (obrigatório).** O parágrafo único do art. 4º da Lei 6.710/1979 exige que a propaganda dirigida a dentistas traga o nome do laboratório, o do responsável e o número de inscrição no CRO. Envie nome e número; eles entram no rodapé, no `/sobre/` e no JSON-LD.
-2. **Domínio próprio:** veja o README, "Trocar para um domínio próprio". Hoje o site está em `*.netlify.app`, o que limita o ranqueamento.
+2. **Domínio oficial:** definir `SITE_BASE` com o domínio Cloudflare e cadastrá-lo no Search Console e no Bing Webmaster Tools.
 3. **Google Business Profile:**
     - reivindicar e verificar;
     - categoria principal "Laboratório de prótese dentária";
