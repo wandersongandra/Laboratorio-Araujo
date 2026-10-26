@@ -1,0 +1,23 @@
+/* ---------- 3. botões e links ---------- */
+.btn{--b:var(--navy);display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:48px;padding:.75em 1.3em;border:1px solid var(--b);background:var(--b);color:#fff;font:500 .97rem/1.2 var(--sans);text-decoration:none;border-radius:2px;transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease),transform .15s var(--ease)}
+.btn:hover{--b:var(--blue-d);color:#fff}
+.btn .ico{width:18px;height:18px;transition:transform .3s var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn:hover .ico{transform:translateX(-2px) rotate(-6deg)}
+.btn--go::after{content:"→";font-family:var(--mono);margin-left:.1em;transition:transform .3s var(--ease)}
+.btn--go:hover::after{transform:translateX(4px)}
+.btn--ghost{background:transparent;color:var(--ink);--b:var(--rule-2)}
+.btn--ghost:hover{background:transparent;color:var(--ink);--b:var(--ink)}
+.btn--light{--b:#fff;color:var(--navy)}
+.btn--light:hover{--b:var(--sky);color:var(--navy)}
+.btn--line-light{background:transparent;--b:rgba(255,255,255,.4);color:#fff}
+.btn--line-light:hover{background:transparent;--b:#fff;color:#fff}
+.btn--sm{min-height:40px;padding:.55em 1em;font-size:.9rem}
+.btns{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btns--stack{flex-direction:column;align-items:stretch}
+.arrow{display:inline-flex;align-items:center;gap:.45em;font-weight:500;color:var(--ink);text-decoration:none;background:linear-gradient(currentcolor,currentcolor) 0 100%/0 1px no-repeat;padding-bottom:2px;transition:background-size .35s var(--ease)}
+.arrow::after{content:"→";font-family:var(--mono);transition:transform .3s var(--ease)}
+.arrow:hover{background-size:100% 1px;color:var(--ink)}
+.arrow:hover::after{transform:translateX(3px)}
+.btns .arrow+.arrow{margin-left:14px}
+

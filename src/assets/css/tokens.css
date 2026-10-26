@@ -1,0 +1,38 @@
+/* ---------- 0. fontes ---------- */
+/* Newsreader 500 + 400 itálico (títulos), IBM Plex Sans 400–600 (texto),
+   IBM Plex Mono 500 (rótulos e números). Licença SIL OFL. */
+@font-face{font-family:"Newsreader";src:url("/assets/fonts/newsreader-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Newsreader";src:url("/assets/fonts/newsreader-400-italic.woff2") format("woff2");font-weight:400 500;font-style:italic;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url("/assets/fonts/plex-sans.woff2") format("woff2");font-weight:400 600;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex Mono";src:url("/assets/fonts/plex-mono-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+/* fallbacks com métricas próximas às fontes web: reduzem o salto de layout (CLS) */
+@font-face{font-family:"Serif Fallback";src:local("Georgia"),local("Times New Roman");size-adjust:96%;ascent-override:92%;descent-override:24%}
+@font-face{font-family:"Sans Fallback";src:local("Arial"),local("Helvetica");size-adjust:101%;ascent-override:100%;descent-override:26%}
+
+/* ---------- 1. tokens de design ---------- */
+/* Contraste (WCAG) sobre --paper: ink 15.7:1 · muted 6.0:1 · blue-d 7.2:1 ·
+   ochre-d 5.1:1 (AA para texto normal). Branco sobre --navy 15.4:1, --sky 8.7:1.
+   --blue (4.9:1) só em foco/destaques; --ochre (2.4:1) só em filetes e marcadores. */
+:root{
+  /* superfícies */
+  --paper:#F6F3EE; --paper-2:#EDE8E0; --white:#FCFBF8;
+  /* tinta e filetes */
+  --ink:#0E1B2C; --ink-2:#2B3645; --muted:#545E6B; --rule:#D9D2C6; --rule-2:#C6BDAE;
+  /* marca (azul do logotipo) */
+  --navy:#0B2545; --navy-2:#13315A; --blue:#1068D0; --blue-d:#0B4F9E; --sky:#9CC7F2;
+  /* acento quente (cera, ouro de liga) */
+  --ochre:#C8963E; --ochre-d:#86601E;
+  /* famílias tipográficas */
+  --serif:"Newsreader","Serif Fallback",Georgia,serif;
+  --sans:"Plex Sans","Sans Fallback",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --mono:"Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  /* grade e escala tipográfica fluida */
+  --wrap:1280px; --pad:clamp(20px,4vw,48px);
+  --s-display:clamp(2.55rem,1.55rem + 4.2vw,5.1rem);
+  --s-h1:clamp(2.2rem,1.5rem + 2.9vw,3.9rem);
+  --s-h2:clamp(1.85rem,1.35rem + 1.9vw,3rem);
+  --s-h3:clamp(1.25rem,1.1rem + .5vw,1.55rem);
+  --s-lead:clamp(1.08rem,1rem + .35vw,1.27rem);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --hdr:72px;
+}
