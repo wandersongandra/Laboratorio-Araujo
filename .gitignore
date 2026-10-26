@@ -8,3 +8,7 @@ dist/
 # relatórios temporários
 *.log
 .lighthouse/
+# tabela de preços original: fica só na cópia local, nunca no Git público
+_build/arquivo/
+# capturas de tela de trabalho (algumas mostram a antiga tabela de preços)
+screenshots/
