@@ -7,4 +7,12 @@
     rv.forEach(el => { const o = el.classList.contains('rv-img') ? el.parentElement : el; if (!map.has(o)) { map.set(o, []); io.observe(o); } map.get(o).push(el); });
   } else rv.forEach(el => el.classList.add('in'));
 
+  const wa = $('.wa'), footer = $('.footer');
+  if (wa && footer && 'IntersectionObserver' in window) {
+    const waObserver = new IntersectionObserver(([entry]) => {
+      wa.classList.toggle('wa--hidden', entry.isIntersecting);
+    }, { threshold: .08 });
+    waObserver.observe(footer);
+  }
+
   
