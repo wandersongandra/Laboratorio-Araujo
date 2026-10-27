@@ -1,6 +1,6 @@
 # Palavras-chave e SEO on-page — Laboratório Dental Araújo
 
-Data: 26/10/2026 · Produção oficial: Cloudflare Workers Assets · Domínio canônico: definido por `SITE_BASE`
+Data: 26/10/2026 · Produção oficial: Cloudflare Workers Assets · Domínio canônico: `SITE_BASE` ou `CF_PAGES_URL` no Cloudflare Pages
 
 ## 1. Resumo
 
@@ -224,7 +224,7 @@ Regras para cada artigo novo:
 ## 7. O que depende do dono (fora do código)
 
 1. **Responsável técnico (RT) e CRO no site (obrigatório).** O parágrafo único do art. 4º da Lei 6.710/1979 exige que a propaganda dirigida a dentistas traga o nome do laboratório, o do responsável e o número de inscrição no CRO. Envie nome e número; eles entram no rodapé, no `/sobre/` e no JSON-LD.
-2. **Domínio oficial:** definir `SITE_BASE` com o domínio Cloudflare e cadastrá-lo no Search Console e no Bing Webmaster Tools.
+2. **Domínio oficial:** definir `SITE_BASE` com o domínio Cloudflare (ou usar `CF_PAGES_URL` no Pages) e cadastrá-lo no Search Console e no Bing Webmaster Tools.
 3. **Google Business Profile:**
     - reivindicar e verificar;
     - categoria principal "Laboratório de prótese dentária";
