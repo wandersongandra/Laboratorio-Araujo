@@ -17,16 +17,20 @@ const sourceLayout = join(root, 'src', 'site', 'layout');
 const siteData = JSON.parse(await readFile(join(root, 'src', 'site', 'data', 'site.json'), 'utf8'));
 const dist = join(root, 'dist');
 const configuredBase = process.env.SITE_BASE?.trim() || process.env.CF_PAGES_URL?.trim();
-if (!configuredBase) {
-  throw new Error('SITE_BASE é obrigatório fora do Cloudflare Pages. No Pages, CF_PAGES_URL é fornecido automaticamente.');
+const cloudflareBuild = process.env.CF_PAGES === '1' || process.env.WORKERS_CI === '1';
+if (!configuredBase && !cloudflareBuild) {
+  throw new Error('SITE_BASE é obrigatório fora de um build automático do Cloudflare.');
 }
 
-const parsedBase = new URL(configuredBase);
-if (parsedBase.protocol !== 'https:' || parsedBase.username || parsedBase.password || parsedBase.search || parsedBase.hash) {
-  throw new Error('SITE_BASE deve ser uma URL HTTPS sem credenciais, query string ou fragmento.');
+if (configuredBase) {
+  const parsedBase = new URL(configuredBase);
+  if (parsedBase.protocol !== 'https:' || parsedBase.username || parsedBase.password || parsedBase.search || parsedBase.hash) {
+    throw new Error('SITE_BASE deve ser uma URL HTTPS sem credenciais, query string ou fragmento.');
+  }
 }
 
-const base = configuredBase.replace(/\/$/, '');
+const base = configuredBase ? configuredBase.replace(/\/$/, '') : '';
+if (!base) console.warn('aviso: SITE_BASE não definido; URLs canônicas e sitemap serão relativos até o domínio Cloudflare ser configurado.');
 const tokens = {
   '{{SITE_BASE}}': base,
   '{{PHONE_1_TEL}}': siteData.phone1Tel, '{{PHONE_2_TEL}}': siteData.phone2Tel,
