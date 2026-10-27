@@ -1,7 +1,8 @@
 # Arquitetura do site — Laboratório Dental Araújo
 
 Atualizado em 26/10/2026. A hospedagem primária é Cloudflare Workers Assets, configurada em
-`wrangler.jsonc`. O domínio canônico é informado por `SITE_BASE`. O projeto é um site estático:
+`wrangler.jsonc`. O domínio canônico é informado por `SITE_BASE` ou, em builds do Cloudflare Pages,
+por `CF_PAGES_URL`. O projeto é um site estático:
 não há backend, banco de dados, API, formulário de aplicação ou servidor de aplicação.
 
 ## 1. Visão geral
@@ -141,5 +142,6 @@ com autorização explícita e após o domínio Cloudflare estar configurado.
 
 ## 8. Pendências conhecidas
 
-- O domínio Cloudflare oficial deve ser informado em `SITE_BASE` antes de qualquer build ou deploy.
+- Em builds fora do Pages, o domínio Cloudflare oficial deve ser informado em `SITE_BASE`; no Pages,
+  `CF_PAGES_URL` é fornecido automaticamente e cobre o endereço `pages.dev` sem domínio personalizado.
 - A documentação legal continua sendo modelo e precisa de revisão do laboratório e de advogado.

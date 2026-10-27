@@ -6,7 +6,7 @@ dentária em Belo Horizonte desde 1975 (Av. Afonso Pena, 262, sala 1602, Centro)
 preços publicados), explica como enviar casos de todo o Brasil e leva o contato para o WhatsApp de pedidos.
 
 - **Hospedagem oficial:** Cloudflare Workers Assets via Wrangler.
-- **Domínio canônico:** informado obrigatoriamente em `SITE_BASE` no ambiente de build.
+- **Domínio canônico:** informado em `SITE_BASE`; no Cloudflare Pages, `CF_PAGES_URL` é usado automaticamente quando não há domínio personalizado.
 - **Páginas:** 25 (home, hub de serviços + 8 serviços, sobre, envio, perguntas, contato,
   blog + 6 artigos, política de privacidade e termos de uso), mais a 404.
 - **Tecnologia:** HTML e CSS estáticos gerados por Node.js/ESM, com JavaScript puro (sem
@@ -60,16 +60,17 @@ npm run build                    # recria dist/ (25 páginas + 404)
 npm run serve                    # http://127.0.0.1:8766 com os cabeçalhos locais
 ```
 
-Para gerar canonical, sitemap e JSON-LD para o domínio oficial, configure a base antes do build:
+Para gerar canonical, sitemap e JSON-LD para um domínio personalizado, configure a base antes do build:
 
 ```powershell
 $env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'
 npm run build
 ```
 
-`SITE_BASE` é obrigatório e deve ser uma URL HTTPS sem query string ou fragmento. O build falha
-intencionalmente quando essa variável não está definida, evitando publicar canonical e sitemap no
-domínio errado.
+`SITE_BASE` deve ser uma URL HTTPS sem query string ou fragmento. Em um build do Cloudflare Pages,
+`CF_PAGES_URL` é injetado pelo próprio Cloudflare e serve como fallback para o endereço automático
+`pages.dev`; fora do Pages, `SITE_BASE` continua obrigatório para evitar publicar canonical e sitemap
+no domínio errado.
 
 O build monta CSS/JS a partir dos módulos, copia assets, combina o layout compartilhado com as
 rotas em `src/site/pages`, gera as 25 páginas + 404, o
@@ -150,7 +151,9 @@ SITE_BASE=https://seu-dominio-cloudflare.com.br npm run build
 npm run deploy
 ```
 
-No PowerShell, use `$env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'` antes dos comandos.
+No Cloudflare Pages, o build conectado ao GitHub pode usar `CF_PAGES_URL` automaticamente; defina
+`SITE_BASE` apenas quando quiser fixar um domínio personalizado. No Wrangler fora do Pages, use
+`$env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'` antes dos comandos.
 `npm run deploy` executa o build e `wrangler deploy`; esta etapa requer autenticação Cloudflare.
 
 Depois de publicar, use o mesmo valor de `SITE_BASE` no `npm run qa:live` para validar o domínio oficial.
@@ -158,7 +161,8 @@ Depois de publicar, use o mesmo valor de `SITE_BASE` no `npm run qa:live` para v
 ## Definir ou trocar o domínio canônico
 
 1. Configure o domínio personalizado no projeto Cloudflare e aponte o DNS conforme o painel.
-2. Defina **`SITE_BASE`** (sem barra no final) no ambiente de build/deploy.
+2. Defina **`SITE_BASE`** (sem barra no final) no ambiente de build/deploy; no Pages, o endereço automático
+   pode ser obtido por `CF_PAGES_URL`.
 3. Rode o build e publique. Cadastre o domínio no Search Console / Bing e envie o sitemap.
 
 ## O que não está neste repositório (de propósito)

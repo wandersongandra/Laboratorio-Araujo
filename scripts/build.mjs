@@ -16,9 +16,9 @@ const sourceFiles = join(root, 'src', 'site', 'files');
 const sourceLayout = join(root, 'src', 'site', 'layout');
 const siteData = JSON.parse(await readFile(join(root, 'src', 'site', 'data', 'site.json'), 'utf8'));
 const dist = join(root, 'dist');
-const configuredBase = process.env.SITE_BASE?.trim();
+const configuredBase = process.env.SITE_BASE?.trim() || process.env.CF_PAGES_URL?.trim();
 if (!configuredBase) {
-  throw new Error('SITE_BASE é obrigatório. Informe o domínio oficial da Cloudflare antes do build.');
+  throw new Error('SITE_BASE é obrigatório fora do Cloudflare Pages. No Pages, CF_PAGES_URL é fornecido automaticamente.');
 }
 
 const parsedBase = new URL(configuredBase);
