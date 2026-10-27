@@ -19,3 +19,9 @@ _arquivo/
 # Cloudflare Wrangler
 .wrangler/
 .dev.vars
+# segredos locais: nunca versionar (o repositório é público)
+.env
+.env.*
+.dev.vars.*
+*.pem
+*.key
