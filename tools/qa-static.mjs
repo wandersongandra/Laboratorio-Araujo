@@ -1,4 +1,5 @@
 /** QA estrutural local do site estático, sem servidor de aplicação. */
+import { createHash } from 'node:crypto';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -42,7 +43,7 @@ async function checkReferences(name, html) {
     for (const item of match[1].split(',')) refs.push(item.trim().split(/\s+/)[0]);
   }
   for (const reference of refs) {
-    if (!reference || reference.startsWith(('#', 'data:', 'mailto:', 'tel:', 'javascript:'))) continue;
+    if (!reference || ['#', 'data:', 'mailto:', 'tel:', 'javascript:'].some((prefix) => reference.startsWith(prefix))) continue;
     const parsed = new URL(reference, 'https://local.invalid');
     if (parsed.origin !== 'https://local.invalid') continue;
     const file = targetFile(reference);
@@ -127,6 +128,85 @@ if (production && !robots.includes(`Sitemap: ${production}/sitemap.xml`)) fail('
 
 const pdfs = files.filter((path) => path.endsWith('.pdf')).map(rel);
 for (const pdf of pdfs) if (pdf !== 'assets/docs/requisicao-laboratorio-de-protese.pdf') fail(`PDF não permitido: ${pdf}`);
+
+// ---------- segurança da saída publicada (ver docs/SEGURANCA.md) ----------
+const forbiddenFiles = /(^|\/)(\.env(\..*)?|\.dev\.vars.*|\.git|\.DS_Store|Thumbs\.db)$|\.(map|md|log|pem|key)$/;
+for (const path of files) if (forbiddenFiles.test(rel(path))) fail(`arquivo que não deve ser publicado: ${rel(path)}`);
+
+const leakPatterns = [
+  [/netlify/i, 'referência a Netlify'],
+  [/sourceMappingURL/, 'source map referenciado'],
+  [/\/workspace\/|\/opt\/buildhome|\/home\/[a-z]|\/Users\/[A-Za-z]|[A-Z]:\\Users\\/, 'caminho local de máquina'],
+  [/\{\{[A-Z0-9_]+\}\}/, 'token de template não substituído'],
+];
+const xmlNamespaces = /http:\/\/www\.(sitemaps\.org|google\.com\/schemas|w3\.org)\//g;
+for (const path of files.filter((file) => /\.(html|txt|xml|json|webmanifest|css|js)$/.test(file))) {
+  const name = rel(path);
+  const text = await readFile(path, 'utf8');
+  for (const [pattern, label] of leakPatterns) if (pattern.test(text)) fail(`${name}: ${label}`);
+  if (/http:\/\//.test(text.replace(xmlNamespaces, ''))) fail(`${name}: URL http:// (conteúdo misto)`);
+}
+
+const inlineHashes = new Set();
+for (const path of htmlFiles) {
+  const name = rel(path);
+  const html = await readFile(path, 'utf8');
+  for (const tag of html.matchAll(/<a\b[^>]*\btarget="_blank"[^>]*>/g)) {
+    const relAttr = tag[0].match(/\brel="([^"]*)"/)?.[1].split(/\s+/) || [];
+    if (!relAttr.includes('noopener') || !relAttr.includes('noreferrer')) fail(`${name}: target="_blank" sem rel="noopener noreferrer": ${tag[0]}`);
+  }
+  if (/<form\b/i.test(html)) fail(`${name}: formulário encontrado (a CSP usa form-action 'none')`);
+  if (/\son[a-z]+="/i.test(html)) fail(`${name}: handler de evento inline`);
+  for (const block of html.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+    inlineHashes.add(`'sha256-${createHash('sha256').update(block[1]).digest('base64')}'`);
+  }
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  if (production && !canonical?.startsWith(`${production}/`)) fail(`${name}: canonical não é absoluto em ${production}`);
+}
+
+const headersFile = await readFile(join(dist, '_headers'), 'utf8');
+const globalRule = headersFile.split(/\r?\n(?=\S)/).find((block) => block.startsWith('/*\n') || block.startsWith('/*\r\n')) || '';
+const globalHeaders = new Map();
+for (const line of globalRule.split(/\r?\n/).slice(1)) {
+  const match = line.match(/^\s+([A-Za-z-]+):\s*(.+)$/);
+  if (!match) continue;
+  const key = match[1].toLowerCase();
+  if (globalHeaders.has(key)) fail(`_headers: ${match[1]} duplicado na regra /*`);
+  globalHeaders.set(key, match[2]);
+}
+const requiredHeaders = {
+  'content-security-policy': null,
+  'strict-transport-security': /^max-age=\d{7,}$/,
+  'x-content-type-options': /^nosniff$/,
+  'x-frame-options': /^DENY$/,
+  'referrer-policy': /^strict-origin-when-cross-origin$/,
+  'permissions-policy': /camera=\(\).*geolocation=\(\).*microphone=\(\).*payment=\(\).*usb=\(\)/,
+  'cross-origin-opener-policy': /^same-origin$/,
+};
+for (const [header, expected] of Object.entries(requiredHeaders)) {
+  const value = globalHeaders.get(header);
+  if (!value) fail(`_headers: ${header} ausente na regra /*`);
+  else if (expected && !expected.test(value)) fail(`_headers: ${header} com valor inesperado: ${value}`);
+}
+const csp = globalHeaders.get('content-security-policy') || '';
+for (const weak of ["'unsafe-eval'", "'unsafe-inline'", "'unsafe-hashes'", 'http:', ' * ', ' *;']) {
+  if (` ${csp} `.includes(weak)) fail(`CSP contém ${weak.trim()}`);
+}
+for (const directive of ["object-src 'none'", "base-uri 'self'", "frame-ancestors 'none'", "form-action 'none'"]) {
+  if (!csp.includes(directive)) fail(`CSP sem ${directive}`);
+}
+const scriptSrc = csp.match(/script-src ([^;]+)/)?.[1].split(/\s+/) || [];
+for (const hashValue of inlineHashes) if (!scriptSrc.includes(hashValue)) fail(`CSP sem o hash do script inline ${hashValue}`);
+for (const source of scriptSrc.filter((item) => item.startsWith("'sha256-"))) {
+  if (!inlineHashes.has(source)) fail(`CSP com hash de script que não existe mais: ${source}`);
+}
+const otherRules = headersFile.split(/\r?\n(?=\S)/).filter((block) => !block.startsWith('#') && block !== globalRule);
+for (const block of otherRules) {
+  for (const line of block.split(/\r?\n/).slice(1)) {
+    const key = line.match(/^\s+([A-Za-z-]+):/)?.[1].toLowerCase();
+    if (key && globalHeaders.has(key)) fail(`_headers: ${key} repetido em ${block.split(/\r?\n/)[0]} (seria enviado duas vezes)`);
+  }
+}
 
 console.log(`\n${failures.length} falha(s); ${htmlFiles.length - 1} páginas + 404 verificadas`);
 process.exit(failures.length ? 1 : 0);

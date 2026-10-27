@@ -1,0 +1,14 @@
+# Defesa em profundidade: o Wrangler nunca publica estes arquivos como assets,
+# mesmo que um dia apareçam por engano em dist/. Ver docs/SEGURANCA.md.
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+.git
+.wrangler
+node_modules
+**/*.map
+**/*.md
+**/*.log
+**/.DS_Store
+**/Thumbs.db
