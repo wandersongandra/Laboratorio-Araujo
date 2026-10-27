@@ -21,9 +21,31 @@ for (const location of locations) {
 
 const notFound = await get('/qa-pagina-inexistente/');
 if (notFound.status !== 404) fail(`404 → ${notFound.status}`);
-const headers = await get('/');
-for (const header of ['content-security-policy', 'x-content-type-options', 'x-frame-options', 'referrer-policy']) {
-  if (!headers.headers.has(header)) fail(`header ausente: ${header}`);
+const expectedHeaders = {
+  'content-security-policy': /frame-ancestors 'none'/,
+  'strict-transport-security': /^max-age=\d+$/,
+  'x-content-type-options': /^nosniff$/,
+  'x-frame-options': /^DENY$/,
+  'referrer-policy': /^strict-origin-when-cross-origin$/,
+  'permissions-policy': /camera=\(\)/,
+  'cross-origin-opener-policy': /^same-origin$/,
+  'cross-origin-resource-policy': /^same-origin$/,
+  'x-permitted-cross-domain-policies': /^none$/,
+};
+for (const path of ['/', '/contato/', '/assets/fonts/plex-sans.woff2', '/qa-pagina-inexistente/']) {
+  const response = await get(path);
+  for (const [header, pattern] of Object.entries(expectedHeaders)) {
+    const value = response.headers.get(header);
+    // Header repetido chega aqui unido por ", " — sinal de regra duplicada.
+    if (!value) fail(`${path}: header ausente: ${header}`);
+    else if (!pattern.test(value)) fail(`${path}: ${header} inesperado: ${value}`);
+  }
+  if (/unsafe-eval|unsafe-inline/.test(response.headers.get('content-security-policy') || '')) fail(`${path}: CSP fraca`);
+}
+
+for (const path of ['/_headers', '/_redirects', '/.assetsignore', '/.env', '/.dev.vars', '/package.json', '/wrangler.jsonc', '/.git/config', '/README.md', '/assets/js/main.js.map']) {
+  const response = await get(path);
+  if (response.status !== 404) fail(`${path} deveria ser 404 e respondeu ${response.status}`);
 }
 
 const legacy = await get('/tabela-de-precos/');
