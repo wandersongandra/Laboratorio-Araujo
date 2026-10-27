@@ -159,6 +159,29 @@ No Wrangler fora de um build automático, use `$env:SITE_BASE = 'https://seu-dom
 
 Depois de publicar, use o mesmo valor de `SITE_BASE` no `npm run qa:live` para validar o domínio oficial.
 
+### Deploy automático (Workers Builds)
+
+Cada push na branch `main` dispara um build no Worker `laboratorio-araujo` (o nome precisa ser igual ao
+campo `name` do `wrangler.jsonc`). Configuração em uso no painel (Worker → Settings → Build):
+
+| Campo | Valor |
+|---|---|
+| Repositório | `wandersongandra/Laboratorio-Araujo` |
+| Branch de produção | `main` |
+| Diretório raiz | `/` |
+| Comando de build | `npm run build` |
+| Comando de deploy | `npx wrangler deploy` |
+| Caminhos observados | incluir `*` |
+| Variável de build | `SITE_BASE=https://laboratorio-araujo.gandratecnologia.workers.dev` |
+
+Endereço atual: <https://laboratorio-araujo.gandratecnologia.workers.dev>. Ao ligar um domínio próprio,
+troque o valor de `SITE_BASE` na variável de build.
+
+Se os pushes pararem de gerar builds e o painel mostrar "Este projeto está desconectado da sua conta Git",
+o app **Cloudflare Workers and Pages** perdeu acesso ao repositório: em GitHub → Settings → Applications →
+Installed GitHub Apps → Cloudflare, inclua o repositório em *Repository access* e salve. Não é preciso
+criar outro Worker nem commits vazios.
+
 ## Definir ou trocar o domínio canônico
 
 1. Configure o domínio personalizado no projeto Cloudflare e aponte o DNS conforme o painel.
