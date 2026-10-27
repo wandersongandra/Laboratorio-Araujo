@@ -69,8 +69,8 @@ npm run build
 
 `SITE_BASE` deve ser uma URL HTTPS sem query string ou fragmento. Em um build do Cloudflare Pages,
 `CF_PAGES_URL` é injetado pelo próprio Cloudflare e serve como fallback para o endereço automático
-`pages.dev`; fora do Pages, `SITE_BASE` continua obrigatório para evitar publicar canonical e sitemap
-no domínio errado.
+`pages.dev`. Em Workers Builds, o build pode publicar sem domínio configurado usando URLs relativas;
+fora de um build automático do Cloudflare, `SITE_BASE` continua obrigatório.
 
 O build monta CSS/JS a partir dos módulos, copia assets, combina o layout compartilhado com as
 rotas em `src/site/pages`, gera as 25 páginas + 404, o
@@ -151,9 +151,10 @@ SITE_BASE=https://seu-dominio-cloudflare.com.br npm run build
 npm run deploy
 ```
 
-No Cloudflare Pages, o build conectado ao GitHub pode usar `CF_PAGES_URL` automaticamente; defina
-`SITE_BASE` apenas quando quiser fixar um domínio personalizado. No Wrangler fora do Pages, use
-`$env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'` antes dos comandos.
+No Cloudflare Pages, o build conectado ao GitHub pode usar `CF_PAGES_URL` automaticamente; em Workers
+Builds, o primeiro deploy pode usar URLs relativas enquanto não houver domínio configurado. Defina
+`SITE_BASE` depois com o endereço `workers.dev` gerado se quiser canonical, sitemap e JSON-LD absolutos.
+No Wrangler fora de um build automático, use `$env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'` antes dos comandos.
 `npm run deploy` executa o build e `wrangler deploy`; esta etapa requer autenticação Cloudflare.
 
 Depois de publicar, use o mesmo valor de `SITE_BASE` no `npm run qa:live` para validar o domínio oficial.
@@ -162,7 +163,7 @@ Depois de publicar, use o mesmo valor de `SITE_BASE` no `npm run qa:live` para v
 
 1. Configure o domínio personalizado no projeto Cloudflare e aponte o DNS conforme o painel.
 2. Defina **`SITE_BASE`** (sem barra no final) no ambiente de build/deploy; no Pages, o endereço automático
-   pode ser obtido por `CF_PAGES_URL`.
+   pode ser obtido por `CF_PAGES_URL`, e em Workers use o `workers.dev` gerado pelo projeto.
 3. Rode o build e publique. Cadastre o domínio no Search Console / Bing e envie o sitemap.
 
 ## O que não está neste repositório (de propósito)

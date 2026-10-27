@@ -1,7 +1,8 @@
 # Qualidade — ferramentas, comandos e resultados
 
 Última atualização: 26/10/2026. Os checks locais usam o domínio informado em `SITE_BASE`; builds do
-Cloudflare Pages podem usar o `CF_PAGES_URL` automático. A
+Cloudflare Pages podem usar o `CF_PAGES_URL` automático; Workers Builds podem usar URLs relativas na
+primeira publicação. A
 validação externa deve ser executada contra o domínio oficial Cloudflare após cada publicação.
 
 ## Como rodar
