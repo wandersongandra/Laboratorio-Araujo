@@ -12,6 +12,8 @@ src/assets/js/main.js
 .lighthouse/
 # tabela de preços original: fica só na cópia local, nunca no Git público
 private/arquivo/
+# fotos originais brutas (alta resolução com EXIF): local, nunca no Git público
+private/fotos-originais/
 # capturas de tela de trabalho (algumas mostram a antiga tabela de preços)
 screenshots/
 # fotos ilustrativas antigas (removidas do repo; não reintroduzir)
