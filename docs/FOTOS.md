@@ -58,7 +58,7 @@ as capas dos artigos se repetem nas listagens, como "Outros serviços" e "Artigo
 | d282 | DENTADURAS | Prótese total | `proteses-totais-cartao-lda` | Próteses totais com gengiva caracterizada | Topo de /servicos/protese-total/ e cartão "Prótese total" na home e em /servicos/; faixa; OG padrão (og-image.jpg) e og-protese-total |
 | d270 | DENTADURAS | Prótese total | `proteses-totais-em-oclusao` | Próteses totais em oclusão | Figura de /servicos/protese-total/ |
 | d002 | BARRA CLIP | Sobre implantes e barra clip | `barra-clip-sobre-modelo` | Barra clip sobre o modelo | Figura de /servicos/protese-sobre-implante/; faixa |
-| d005 | COROA - FACETAS - AFINS | Coroas e facetas | `coroas-e-max-modelo-caixa-lda` | Coroas posteriores em E-Max | Topo de /servicos/zirconia-e-max/ e cartão "Zircônia e E-Max"; faixa; og-trabalhos |
+| d005 | COROA - FACETAS - AFINS | Metalocerâmica | `coroas-e-max-modelo-caixa-lda` | Aplicação de porcelana (metalocerâmica) | Topo de /servicos/metaloceramica/; faixa da home; galeria /trabalhos/ (metalocerâmica). Obs.: pasta do Drive dizia E-Max, dono corrigiu. |
 | d006 | COROA - FACETAS - AFINS | Coroas e facetas | `facetas-e-max-sobre-modelo` | Facetas em E-Max | Figura de /servicos/zirconia-e-max/; faixa |
 | d123 | METAL ROACH | PPR: Metal Roach e Dental D | `armacoes-metal-roach-modelos` | Armações metálicas de PPR (Metal Roach) | Faixa da home; galeria |
 | d130 | METAL ROACH | PPR: Metal Roach e Dental D | `ppr-pronta-armacao-metalica` | PPR pronta, com armação metálica | Figura de /servicos/protese-parcial-removivel-ppr/; faixa |
@@ -74,12 +74,12 @@ as capas dos artigos se repetem nas listagens, como "Outros serviços" e "Artigo
 | 0f03 | chat (curadas) | Sobre implantes e barra clip | `protese-sobre-implantes-e-modelo` | Prótese sobre implantes e modelo com componentes | Topo de /servicos/protese-sobre-implante/ e cartão; faixa |
 | 445f | chat (curadas) | Sobre implantes e barra clip | `protese-superior-sobre-implantes` | Prótese superior sobre implantes e modelo com análogos | Capa do artigo "Barra de protocolo" |
 | 72c6 | chat (curadas) | Coroas e facetas | `coroas-anteriores-modelos-articulados` | Coroas anteriores sobre modelos articulados | Só galeria |
-| 1ea3 | chat (curadas) | Coroas e facetas | `coroas-anteriores-gengiva-artificial` | Coroas anteriores sobre modelo com gengiva artificial | Só galeria |
+| 1ea3 | chat (curadas) | Coroas e facetas | `coroas-anteriores-gengiva-artificial` | E-max (lentes de contato) | Galeria /trabalhos/ (coroas e facetas) |
 | 280c | chat (curadas) | Coroas e facetas | `coroas-anteriores-superficie-espelhada` | Coroas anteriores prontas | Capa do artigo "Zircônia ou E-Max" |
 | 18fb | chat (curadas) | Coroas e facetas | `coroas-anteriores-sobre-modelo` | Coroas anteriores sobre modelo de gesso | Só galeria |
-| d8c0 | chat (curadas) | Coroas e facetas | `pontes-fixas` | Pontes fixas | Só galeria |
+| d8c0 | chat (curadas) | Metalocerâmica | `pontes-fixas` | Metalocerâmica | Galeria /trabalhos/ (metalocerâmica) |
 | 369d | chat (curadas) | Metalocerâmica | `pontes-metaloceramicas` | Pontes metalocerâmicas | Figura de /servicos/metaloceramica/; capa do artigo "Metalocerâmica ou zircônia"; faixa |
-| ee07 | chat (curadas) | Metalocerâmica | `estruturas-metalicas-sobre-modelos` | Estruturas metálicas sobre modelos articulados | Topo de /servicos/metaloceramica/ e cartão; faixa |
+| ee07 | chat (curadas) | Sobre implantes e barra clip | `estruturas-metalicas-sobre-modelos` | Barra de protocolo | Galeria /trabalhos/ (implantes); /servicos/protese-sobre-implante/; faixa da home. Obs.: não é metalocerâmica. |
 | ed14 | chat (curadas) | PPR: Metal Roach e Dental D | `armacoes-metalicas-ppr` | Armações metálicas de PPR | Topo de /servicos/protese-parcial-removivel-ppr/ e cartão "PPR" |
 | 694c | chat (curadas) | PPR: Metal Roach e Dental D | `enceramento-armacoes-ppr` | Enceramento das armações de PPR | Só galeria |
 | d9f0 | chat (curadas) | PPR: Metal Roach e Dental D | `protese-parcial-sem-grampos-aparentes` | Prótese parcial sem grampos metálicos aparentes | Só galeria |
