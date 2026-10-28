@@ -9,4 +9,4 @@ O laboratório conferiu fotos do site e corrigiu 4 legendas. Sem merge automáti
 | `coroas-anteriores-gengiva-artificial` | Coroas anteriores sobre modelo com gengiva artificial | E-max (lentes de contato) | Coroas (mantida) |
 | `estruturas-metalicas-sobre-modelos` | Estruturas metálicas sobre modelos articulados | Barra de protocolo | Metalocerâmica → Sobre implantes |
 
-Também: herói de `/servicos/zirconia-e-max/` passou a usar `facetas-e-max-sobre-modelo`; herói de `/servicos/metaloceramica/` passou a usar `coroas-e-max-modelo-caixa-lda` (agora metalocerâmica). Slugs de arquivo mantidos (não são URL de página).
+Também: herói de `/servicos/zirconia-e-max/` passou a usar `facetas-e-max-sobre-modelo` (legenda "Facetas em E-Max"); herói de `/servicos/metaloceramica/` passou a usar `coroas-e-max-modelo-caixa-lda` (legenda "Aplicação de porcelana (metalocerâmica)"). Faixa da home alinhada com a legenda de metalocerâmica. Slugs de arquivo mantidos (não são URL de página).
