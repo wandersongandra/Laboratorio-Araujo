@@ -638,5 +638,183 @@
   "h": 692,
   "pad": false,
   "src": "0043"
+ },
+ "porcelana-sobre-implante-g": {
+  "ws": [
+   480,
+   800,
+   1053
+  ],
+  "w": 1053,
+  "h": 1038,
+  "pad": false,
+  "src": "n01"
+ },
+ "escultura-em-cera-g": {
+  "ws": [
+   480,
+   800,
+   960
+  ],
+  "w": 960,
+  "h": 743,
+  "pad": false,
+  "src": "n02"
+ },
+ "placa-bruxismo-acrilico-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 612,
+  "pad": false,
+  "src": "n03"
+ },
+ "placa-de-esportes-g": {
+  "ws": [
+   480,
+   800,
+   897
+  ],
+  "w": 897,
+  "h": 698,
+  "pad": false,
+  "src": "n04"
+ },
+ "coroa-metalo-plastica-g": {
+  "ws": [
+   480,
+   774
+  ],
+  "w": 774,
+  "h": 1032,
+  "pad": false,
+  "src": "n05"
+ },
+ "zirconia-g": {
+  "ws": [
+   480,
+   800,
+   960
+  ],
+  "w": 960,
+  "h": 1280,
+  "pad": false,
+  "src": "n06"
+ },
+ "rmf-g": {
+  "ws": [
+   480,
+   721
+  ],
+  "w": 721,
+  "h": 1280,
+  "pad": false,
+  "src": "n07"
+ },
+ "rmf-vista-oclusal-g": {
+  "ws": [
+   480,
+   721
+  ],
+  "w": 721,
+  "h": 1280,
+  "pad": false,
+  "src": "n08"
+ },
+ "encerramento-protese-total-g": {
+  "ws": [
+   480,
+   721
+  ],
+  "w": 721,
+  "h": 1280,
+  "pad": false,
+  "src": "n09"
+ },
+ "ptr-g": {
+  "ws": [
+   480,
+   721
+  ],
+  "w": 721,
+  "h": 1280,
+  "pad": false,
+  "src": "n10"
+ },
+ "dental-d-g": {
+  "ws": [
+   480,
+   768
+  ],
+  "w": 768,
+  "h": 1280,
+  "pad": false,
+  "src": "n11"
+ },
+ "flexite-g": {
+  "ws": [
+   480,
+   800,
+   813
+  ],
+  "w": 813,
+  "h": 746,
+  "pad": false,
+  "src": "n12"
+ },
+ "escultura-ppt-roach-bilateral-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 629,
+  "pad": false,
+  "src": "n13"
+ },
+ "roach-bilateral-g": {
+  "ws": [
+   480,
+   721
+  ],
+  "w": 721,
+  "h": 1280,
+  "pad": false,
+  "src": "n14"
+ },
+ "aparelho-de-contencao-g": {
+  "ws": [
+   480,
+   800,
+   1200
+  ],
+  "w": 1200,
+  "h": 720,
+  "pad": false,
+  "src": "n15"
+ },
+ "solidex-a-g": {
+  "ws": [
+   480,
+   774
+  ],
+  "w": 774,
+  "h": 1032,
+  "pad": false,
+  "src": "n16"
+ },
+ "solidex-b-g": {
+  "ws": [
+   480,
+   774
+  ],
+  "w": 774,
+  "h": 1032,
+  "pad": false,
+  "src": "n17"
  }
 }

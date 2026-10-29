@@ -1,6 +1,6 @@
 # Fotos do site: origem, tratamento e onde entra cada uma
 
-Atualizado em 26/10/2026. Desde esta data, o site usa **fotos reais de trabalhos do Laboratório
+Atualizado em 29/10/2026. Desde esta data, o site usa **fotos reais de trabalhos do Laboratório
 Dental Araújo** em todos os espaços em que havia uma foto real adequada. Elas aparecem com a
 etiqueta **"Foto: LDA"**. Onde não há foto real adequada, continua uma foto de banco (Pexels)
 com a etiqueta **"Imagem ilustrativa"**.
@@ -210,3 +210,38 @@ deve estar disponível no PATH. Para usar uma foto publicada, atualize os caminh
 
 O componente existe, mas está desligado no HTML publicado. Ele só deve ser
 ligado com pares reais do mesmo caso e com autorização.
+
+## Fotos novas (outubro/2026) — chat do laboratório
+
+Em 28–29/10/2026 o laboratório enviou 17 fotos originais (nomes oficiais do dono) para
+complementar a galeria `/trabalhos/`. Ficaram só na galeria (sem trocar capas de serviço).
+Total no site: **49** fotos reais.
+
+Privacidade: em `encerramento-protese-total` o nome manuscrito **"Dr. Rafaela"** no gesso
+(topo e base do modelo) foi desfocado antes da exportação. Nas demais 16 fotos o OCR não
+encontrou nome de pessoa; a marca do cartão do laboratório em `porcelana-sobre-implante`
+foi mantida.
+
+| ID | Arquivo (`assets/img/real/`) | Categoria | Legenda | Motivo da categoria |
+|---|---|---|---|---|
+| n01 | `porcelana-sobre-implante` | Sobre implantes e barra clip | Porcelana sobre implante | Trabalho sobre implante |
+| n02 | `escultura-em-cera` | Bancada e impressão 3D | Escultura em cera | Etapa de bancada (enceramento) |
+| n03 | `placa-bruxismo-acrilico` | Placas, aparelhos e anti-ronco | Placa de bruxismo em acrílico | Placa |
+| n04 | `placa-de-esportes` | Placas, aparelhos e anti-ronco | Placa de esportes | Protetor bucal |
+| n05 | `coroa-metalo-plastica` | Coroas e facetas | Coroa metalo-plástica | Coroa (não é metalocerâmica) |
+| n06 | `zirconia` | Coroas e facetas | Zircônia | Coroa/ponte em zircônia |
+| n07 | `rmf` | Metalocerâmica | RMF | Núcleo metálico fundido (metal) |
+| n08 | `rmf-vista-oclusal` | Metalocerâmica | RMF, vista oclusal | Mesmo RMF, outra vista |
+| n09 | `encerramento-protese-total` | Prótese total | Encerramento de prótese total | Enceramento de PT |
+| n10 | `ptr` | Prótese total | PTR | Prótese total removível |
+| n11 | `dental-d` | PPR: Metal Roach e Dental D | Dental D | Grampo/estética Dental D |
+| n12 | `flexite` | Prótese flexível (Flexite) | Flexite | Flexite |
+| n13 | `escultura-ppt-roach-bilateral` | PPR: Metal Roach e Dental D | Escultura de PPT com estrutura metálica (Roach bilateral) | PPR / Roach |
+| n14 | `roach-bilateral` | PPR: Metal Roach e Dental D | Roach bilateral | Armação Roach |
+| n15 | `aparelho-de-contencao` | Placas, aparelhos e anti-ronco | Aparelho de contenção | Aparelho ortodôntico |
+| n16 | `solidex-a` | Coroas e facetas | Solidex | Resina Solidex (sem categoria própria de resinas na galeria) |
+| n17 | `solidex-b` | Coroas e facetas | Solidex | Segunda vista do Solidex |
+
+Nenhuma categoria nova foi criada. Solidex e coroa metalo-plástica entraram em **Coroas e
+facetas** por serem coroas/facetas em resina; RMF entrou em **Metalocerâmica** por ser
+estrutura metálica fundida ligada a esse fluxo.
