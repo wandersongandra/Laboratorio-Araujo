@@ -185,12 +185,13 @@ banco (e a antiga `aparelho-ortodontico`) saíram do site e foram removidas do r
   `primaryImageOfPage`, Service e Article. A galeria `/trabalhos/` tem `ImageGallery`. O
   `sitemap.xml` lista as fotos reais com `<image:image>`.
 - Galeria `/trabalhos/`:
-  - grade uniforme CSS Grid (3 colunas no desktop, 2 no mobile); cada card tem a mesma
-    largura e a mesma altura de imagem (`aspect-ratio: 4/3` + `object-fit: cover`);
-  - ponto focal por foto via classes `gal__a--fp-*` (`object-position`); o lightbox/`href`
-    continua mostrando a foto completa sem crop;
-  - legendas alinhadas na mesma linha de base; última fila incompleta fica à esquerda,
-    com cards do mesmo tamanho;
+  - grade uniforme CSS Grid: 3 colunas ≥1181px, 2 entre 561–1180px, 1 ≤560px; gaps
+    generosos; cada card `aspect-ratio: 4/3` + `object-fit: cover`;
+  - miniaturas `-g-*` já recortadas em 4:3 (polimento 2026-10 v3) com normalização leve de
+    exposição/WB (sem filtro CSS; cores de dente/gengiva reais); filete/papel via
+    `::after` inset para fundos mistos;
+  - lightbox/`href` aponta para `-lb.jpg`/`.webp` (foto completa, EXIF removido);
+  - legendas numa linha com ellipsis, mesma tipografia; última fila incompleta à esquerda;
   - cada miniatura é um link para o JPEG grande, então funciona sem JS;
   - com JS, a foto amplia num `<dialog>` com setas, ←/→, Esc, clique fora para fechar e foco
     devolvido (`main.js`, módulo 12).
