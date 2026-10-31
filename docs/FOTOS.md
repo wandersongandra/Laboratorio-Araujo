@@ -174,7 +174,7 @@ banco (e a antiga `aparelho-ortodontico`) saíram do site e foram removidas do r
 - As variantes já exportadas ficam em `src/assets/img/real/`:
   - `h`: 4:5, para o topo das páginas;
   - `w`: 3:2, para figuras e capas;
-  - `g`: proporção livre, para a galeria e a faixa.
+  - `g`: arquivo-fonte da galeria/faixa (proporção nativa); a grade exibe em 4:3 com cover.
   - Larguras de 480, 800 e 1200 px, em AVIF, WebP e JPEG.
 - HTML: `<picture>` com AVIF e WebP, e `<img>` JPEG como fallback, com `srcset`/`sizes`,
   `width`/`height` (CLS 0), texto alternativo descritivo e `loading="lazy"`.
@@ -185,7 +185,12 @@ banco (e a antiga `aparelho-ortodontico`) saíram do site e foram removidas do r
   `primaryImageOfPage`, Service e Article. A galeria `/trabalhos/` tem `ImageGallery`. O
   `sitemap.xml` lista as fotos reais com `<image:image>`.
 - Galeria `/trabalhos/`:
-  - fotos por categoria, em colunas, com lazy-load;
+  - grade uniforme CSS Grid (3 colunas no desktop, 2 no mobile); cada card tem a mesma
+    largura e a mesma altura de imagem (`aspect-ratio: 4/3` + `object-fit: cover`);
+  - ponto focal por foto via classes `gal__a--fp-*` (`object-position`); o lightbox/`href`
+    continua mostrando a foto completa sem crop;
+  - legendas alinhadas na mesma linha de base; última fila incompleta fica à esquerda,
+    com cards do mesmo tamanho;
   - cada miniatura é um link para o JPEG grande, então funciona sem JS;
   - com JS, a foto amplia num `<dialog>` com setas, ←/→, Esc, clique fora para fechar e foco
     devolvido (`main.js`, módulo 12).

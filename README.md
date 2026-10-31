@@ -174,6 +174,21 @@ campo `name` do `wrangler.jsonc`). Configuração em uso no painel (Worker → S
 | Caminhos observados | incluir `*` |
 | Variável de build | `SITE_BASE=https://laboratorio-araujo.gandratecnologia.workers.dev` |
 
+Builds de branches que **não** são `main` (preview do PR) usam outro comando de deploy no mesmo painel
+(Worker → Settings → Build → *Non-production branch deployments* / *Preview*):
+
+| Campo (preview) | Valor |
+|---|---|
+| Builds em branches não-produção | **ligado** |
+| Comando de build | `npm run build` (igual à produção) |
+| Comando de deploy (preview) | `npx wrangler versions upload` (ou `npm run deploy:preview`) |
+| Variável `SITE_BASE` | a mesma da produção (ou omitir: o build aceita `WORKERS_CI=1` e gera URLs relativas) |
+
+Não use `npx wrangler deploy` no preview: isso publicaria em produção. Não use `npx wrangler preview`
+(comando antigo / incompatível com nome de branch com `/`). Se o check *Workers Builds* falhar em **0 s**
+sem log útil, a causa está no painel (comando de preview, builds de non-main desligados, ou app GitHub
+sem acesso ao repo) — não há o que corrigir só no código.
+
 Endereço atual: <https://laboratorio-araujo.gandratecnologia.workers.dev>. Ao ligar um domínio próprio,
 troque o valor de `SITE_BASE` na variável de build.
 
