@@ -18,7 +18,8 @@
     "qa:live": "node tools/qa-live.mjs",
     "links:externos": "linkinator http://127.0.0.1:8766 --recurse --skip \"^(?!http://127.0.0.1:8766|https://www\\.gandra\\.tech)\"",
     "migrate:static": "node tools/migrate-static-site.mjs",
-    "images:prepare": "node tools/prepare-images.mjs"
+    "images:prepare": "node tools/prepare-images.mjs",
+    "deploy:preview": "npx wrangler versions upload"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
