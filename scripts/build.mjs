@@ -40,6 +40,7 @@ const tokens = {
   '{{WHATSAPP_DISPLAY}}': siteData.whatsappDisplay, '{{FINANCIAL_PHONE_DISPLAY}}': siteData.financialPhoneDisplay,
   '{{FINANCIAL_WHATSAPP_DISPLAY}}': siteData.financialWhatsappDisplay,
   '{{EMAIL}}': siteData.email, '{{CNPJ}}': siteData.cnpj, '{{LEGAL_NAME}}': siteData.legalName,
+  '{{TECHNICAL_LEAD_NAME}}': siteData.technicalLeadName || '', '{{TECHNICAL_LEAD_CRO}}': siteData.technicalLeadCro || '',
 };
 
 const cssBundle = [
