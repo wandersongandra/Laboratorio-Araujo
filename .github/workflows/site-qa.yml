@@ -33,10 +33,11 @@ jobs:
           node tools/qa-srcset.mjs
       - name: Instalar navegador de testes
         run: npx playwright install --with-deps chromium
-      - name: Verificar links e acessibilidade desktop e celular
+      - name: Verificar links, acessibilidade e seis larguras de tela
         run: |
           node tools/serve.mjs 8766 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           npm run links
           npm run a11y
+          npm run test:responsive

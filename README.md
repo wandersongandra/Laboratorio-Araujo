@@ -18,7 +18,8 @@ preços publicados), explica como enviar casos de todo o Brasil e leva o contato
 > [docs/QUALIDADE.md](docs/QUALIDADE.md) (validações e resultados) ·
 > [docs/FOTOS.md](docs/FOTOS.md) (origem das imagens e fotos reais) ·
 > [docs/PALAVRAS-CHAVE.md](docs/PALAVRAS-CHAVE.md) (mapa de palavras-chave) ·
-> [docs/ACOES-RELATORIO-2026-11.md](docs/ACOES-RELATORIO-2026-11.md) (achados, correções e pendências de validação).
+> [docs/ACOES-RELATORIO-2026-11.md](docs/ACOES-RELATORIO-2026-11.md) (achados e correções) ·
+> [docs/VALIDACAO-TECNICA-2026-11.md](docs/VALIDACAO-TECNICA-2026-11.md) (afirmações que precisam de confirmação do laboratório).
 
 **Cadastro profissional:** preencha `laboratoryCro`, `technicalLeadName` e `technicalLeadCro` em
 `src/site/data/site.json` somente com dados oficiais confirmados. O build exibe os registros no
@@ -73,10 +74,10 @@ $env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'
 npm run build
 ```
 
-`SITE_BASE` deve ser uma URL HTTPS sem query string ou fragmento. Em um build do Cloudflare Pages,
-`CF_PAGES_URL` é injetado pelo próprio Cloudflare e serve como fallback para o endereço automático
-`pages.dev`. Em Workers Builds, o build pode publicar sem domínio configurado usando URLs relativas;
-fora de um build automático do Cloudflare, `SITE_BASE` continua obrigatório.
+`SITE_BASE` deve conter apenas a origem HTTPS (sem porta, caminho, query ou fragmento).
+Se não for definido, o build utiliza `CF_PAGES_URL` quando disponível ou a origem absoluta
+`https://laboratorio-araujo.gandratecnologia.workers.dev`. O gerador nunca emite canonical,
+sitemap ou dados estruturados com host relativo. Ao comprar o domínio próprio, atualize `SITE_BASE`.
 
 O build monta CSS/JS a partir dos módulos, copia assets, combina o layout compartilhado com as
 rotas em `src/site/pages`, gera as 25 páginas + 404, o
@@ -157,9 +158,10 @@ SITE_BASE=https://seu-dominio-cloudflare.com.br npm run build
 npm run deploy
 ```
 
-No Cloudflare Pages, o build conectado ao GitHub pode usar `CF_PAGES_URL` automaticamente; em Workers
-Builds, o primeiro deploy pode usar URLs relativas enquanto não houver domínio configurado. Defina
-`SITE_BASE` depois com o endereço `workers.dev` gerado se quiser canonical, sitemap e JSON-LD absolutos.
+No Cloudflare Pages, o build conectado ao GitHub pode usar `CF_PAGES_URL` automaticamente. Em Workers
+Builds, a ausência de `SITE_BASE` mantém o endereço `workers.dev` atual como canonical, sitemap e JSON-LD
+absolutos. Quando o domínio próprio estiver ativo, defina `SITE_BASE` explicitamente para evitar
+que os mecanismos de busca continuem apontando para o endereço anterior.
 No Wrangler fora de um build automático, use `$env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'` antes dos comandos.
 `npm run deploy` executa o build e `wrangler deploy`; esta etapa requer autenticação Cloudflare.
 
@@ -188,7 +190,7 @@ Builds de branches que **não** são `main` (preview do PR) usam outro comando d
 | Builds em branches não-produção | **ligado** |
 | Comando de build | `npm run build` (igual à produção) |
 | Comando de deploy (preview) | `npx wrangler versions upload` (ou `npm run deploy:preview`) |
-| Variável `SITE_BASE` | a mesma da produção (ou omitir: o build aceita `WORKERS_CI=1` e gera URLs relativas) |
+| Variável `SITE_BASE` | a mesma da produção; sem ela, o build usa o endereço `workers.dev` existente |
 
 Não use `npx wrangler deploy` no preview: isso publicaria em produção. Não use `npx wrangler preview`
 (comando antigo / incompatível com nome de branch com `/`). Se o check *Workers Builds* falhar em **0 s**
