@@ -1,19 +1,20 @@
 # Qualidade — ferramentas, comandos e resultados
 
-Última atualização: 26/10/2026. Os checks locais usam o domínio informado em `SITE_BASE`; builds do
-Cloudflare Pages podem usar o `CF_PAGES_URL` automático; Workers Builds podem usar URLs relativas na
-primeira publicação. A
-validação externa deve ser executada contra o domínio oficial Cloudflare após cada publicação.
+Revisado em 04/11/2026. Os checks locais usam o domínio informado em `SITE_BASE`, se definido; builds do
+Cloudflare Pages podem usar `CF_PAGES_URL`. Sem essas variáveis, o build usa o endereço `workers.dev`
+existente, com URL absoluta e HTTPS. O domínio definitivo exige alterar o `SITE_BASE` de build.
+A validação externa deve ser executada contra o domínio oficial Cloudflare após cada publicação.
 
 ## Como rodar
 
 ```bash
-npm install                      # uma vez (PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 se já tiver Chromium)
+npm ci                           # instalação determinística do package-lock.json
 npm run build                    # build Node: dist/ (CSS/JS minificados, _headers, sitemap…)
 npm run qa                       # build + lint + QA estrutural Node
 npm run serve                    # servidor Node local em :8766 com cabeçalhos locais
 npm run a11y                     # axe-core em todas as páginas (1366 e 390 px)
 npm run links                    # linkinator (links internos)
+node tools/qa-srcset.mjs         # larguras reais de srcset (requer ImageMagick)
 npm run qa:live -- https://www.seudominio.com.br  # smoke test read-only após publicação
 ```
 
@@ -24,18 +25,20 @@ npm run qa:live -- https://www.seudominio.com.br  # smoke test read-only após p
 | `npm run lint:js` | ESLint 9 (`eslint.config.mjs`) | Erros de JS; proíbe `innerHTML`, `outerHTML`, `document.write`, `eval` |
 | `node tools/qa-static.mjs` | próprio | Title/description, um `<h1>`, hierarquia, `alt`, JSON-LD, referências internas, sitemap/robots, duplicidades e ausência de preços/PDFs indevidos |
 | `node tools/qa-live.mjs URL` | próprio + Fetch | URLs do sitemap, canonical, 404, headers de segurança, redirect da antiga tabela e PDF antigo após publicação |
-| `npm run a11y` | axe-core (WCAG 2.0/2.1/2.2 A e AA + boas práticas) | 21 páginas (20 + 404) × 2 larguras, mais o menu mobile aberto |
+| `npm run a11y` | axe-core (WCAG 2.0/2.1/2.2 A e AA + boas práticas) | 25 páginas + 404 × 2 larguras, mais o menu mobile aberto |
 | `npm run links` | linkinator 6 | Links quebrados |
 | `npx lighthouse@12` | Lighthouse | Desempenho, acessibilidade, boas práticas, SEO |
 | `npm audit` | npm | Vulnerabilidades nas dependências de desenvolvimento |
 
-## Resultado da revisão atual
+## Resultado da revisão atual (04/11/2026)
 
 - `SITE_BASE=https://dominio-oficial.example npm run build`: **OK**, 25 páginas + 404.
 - `node tools/qa-static.mjs`: **OK**, 0 falhas.
-- `npm audit --package-lock-only`: **OK**, 0 vulnerabilidades conhecidas.
-- `html-validate`, stylelint, ESLint e axe/Playwright: **pendentes** quando as dependências não
-  estão instaladas no ambiente.
+- `node tools/qa-srcset.mjs`: **OK**, 529 imagens responsivas distintas, 0 divergências (antes: 38).
+- Testes Node (`registry` e `site-base`): **7 aprovados**, nenhuma falha.
+- Na PR #10, o GitHub Actions confirmou `npm ci`, `npm run qa` e `qa-srcset` sem erros; o axe-core finalizou com **0 violações** nas 25 páginas mais a 404, nas duas larguras. Linkinator e auditoria apenas de dependências de execução estão incluídos no gate de manutenção.
+- O `npm ci` do primeiro workflow de 04/11/2026 apontou **4 vulnerabilidades moderadas em dependências da instalação**. A triagem entre devDependencies e dependências publicadas continua necessária; não usar a auditoria histórica abaixo como laudo atual de segurança.
+- No executor local, o `lint` não rodou por falta de ferramentas instaladas. O CI da PR é a evidência válida para essas etapas. Uma nova revisão deve continuar exigindo resultado verde de todos os jobs antes do merge.
 - `npm run qa:live`: deve ser executado contra o domínio oficial Cloudflare após a publicação.
 
 ## Baseline histórico de qualidade (26/10/2026)

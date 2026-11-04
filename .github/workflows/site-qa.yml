@@ -22,6 +22,8 @@ jobs:
           cache: npm
       - name: Instalar dependências reproduzíveis
         run: npm ci
+      - name: Auditar dependências de execução
+        run: npm audit --omit=dev --audit-level=moderate
       - name: Build, testes e lint
         run: npm run qa
       - name: Conferir dimensões de imagens responsivas
@@ -31,9 +33,10 @@ jobs:
           node tools/qa-srcset.mjs
       - name: Instalar navegador de testes
         run: npx playwright install --with-deps chromium
-      - name: Verificar acessibilidade desktop e celular
+      - name: Verificar links e acessibilidade desktop e celular
         run: |
           node tools/serve.mjs 8766 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          npm run links
           npm run a11y
