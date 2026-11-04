@@ -1,0 +1,39 @@
+name: Site QA
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SITE_BASE: https://laboratorio-araujo.gandratecnologia.workers.dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Instalar dependências reproduzíveis
+        run: npm ci
+      - name: Build, testes e lint
+        run: npm run qa
+      - name: Conferir dimensões de imagens responsivas
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y imagemagick
+          node tools/qa-srcset.mjs
+      - name: Instalar navegador de testes
+        run: npx playwright install --with-deps chromium
+      - name: Verificar acessibilidade desktop e celular
+        run: |
+          node tools/serve.mjs 8766 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          npm run a11y

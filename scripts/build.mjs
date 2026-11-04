@@ -9,6 +9,7 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { injectRegistryJsonLd, registryFromSite, registryMarkup } from './registry.mjs';
+import { resolveSiteBase } from './site-base.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const assets = join(root, 'src', 'assets');
@@ -22,21 +23,7 @@ if (!registry.technicalLeadName || !registry.laboratoryCro) {
   console.warn('atenção: cadastro profissional incompleto. Confirmar RT, CRO do RT e inscrição do laboratório antes da divulgação.');
 }
 const dist = join(root, 'dist');
-const configuredBase = process.env.SITE_BASE?.trim() || process.env.CF_PAGES_URL?.trim();
-const cloudflareBuild = process.env.CF_PAGES === '1' || process.env.WORKERS_CI === '1';
-if (!configuredBase && !cloudflareBuild) {
-  throw new Error('SITE_BASE é obrigatório fora de um build automático do Cloudflare.');
-}
-
-if (configuredBase) {
-  const parsedBase = new URL(configuredBase);
-  if (parsedBase.protocol !== 'https:' || parsedBase.username || parsedBase.password || parsedBase.search || parsedBase.hash) {
-    throw new Error('SITE_BASE deve ser uma URL HTTPS sem credenciais, query string ou fragmento.');
-  }
-}
-
-const base = configuredBase ? configuredBase.replace(/\/$/, '') : '';
-if (!base) console.warn('aviso: SITE_BASE não definido; URLs canônicas e sitemap serão relativos até o domínio Cloudflare ser configurado.');
+const base = resolveSiteBase();
 const tokens = {
   '{{SITE_BASE}}': base,
   '{{PHONE_1_TEL}}': siteData.phone1Tel, '{{PHONE_2_TEL}}': siteData.phone2Tel,

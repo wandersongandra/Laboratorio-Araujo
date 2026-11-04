@@ -1,23 +1,43 @@
 /** Smoke test do site publicado; não altera o ambiente remoto. */
 const base = (process.argv[2] || process.env.SITE_BASE || '').replace(/\/$/, '');
 if (!base) throw new Error('Informe SITE_BASE ou passe a URL como argumento.');
+const origin = new URL(base);
+if (origin.pathname !== '/' || origin.search || origin.hash ||
+    (origin.protocol !== 'https:' && origin.hostname !== '127.0.0.1' && origin.hostname !== 'localhost')) {
+  throw new Error('Passe apenas a origem HTTPS do site (HTTP é permitido somente em localhost).');
+}
 
 const failures = [];
 const fail = (message) => { failures.push(message); console.error(`  ✗ ${message}`); };
-const get = (path, options = {}) => fetch(`${base}${path}`, { redirect: 'manual', ...options });
+const get = async (path, options = {}) => {
+  try {
+    return await fetch(`${base}${path}`, {
+      redirect: 'manual', signal: AbortSignal.timeout(12_000), ...options,
+    });
+  } catch (error) {
+    fail(`${path}: falha de rede (${error.message})`);
+    return { status: 0, text: async () => '', headers: { get: () => null } };
+  }
+};
 
 const sitemapResponse = await get('/sitemap.xml');
 if (sitemapResponse.status !== 200) fail(`/sitemap.xml → ${sitemapResponse.status}`);
 const sitemap = await sitemapResponse.text();
 const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
+if (!locations.length) fail('/sitemap.xml sem URLs');
+if (locations.length !== new Set(locations).size) fail('/sitemap.xml contém URLs duplicadas');
 
-for (const location of locations) {
-  const path = new URL(location).pathname;
+await Promise.all(locations.map(async (location) => {
+  let target;
+  try { target = new URL(location); }
+  catch { fail(`sitemap: URL inválida: ${location}`); return; }
+  if (target.origin !== origin.origin) { fail(`sitemap: host inesperado: ${location}`); return; }
+  const path = target.pathname;
   const response = await get(path);
-  if (response.status !== 200) { fail(`${path} → ${response.status}`); continue; }
+  if (response.status !== 200) { fail(`${path} → ${response.status}`); return; }
   const html = await response.text();
   if (!html.includes(`<link rel="canonical" href="${location}"`)) fail(`${path}: canonical divergente`);
-}
+}));
 
 const notFound = await get('/qa-pagina-inexistente/');
 if (notFound.status !== 404) fail(`404 → ${notFound.status}`);

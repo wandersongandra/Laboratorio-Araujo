@@ -123,6 +123,19 @@ const sitemap = await readFile(join(dist, 'sitemap.xml'), 'utf8');
 const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 if (locations.length !== htmlFiles.length - 1) fail(`sitemap com ${locations.length} URLs; esperado ${htmlFiles.length - 1}`);
 const production = locations[0]?.match(/^(https?:\/\/[^/]+)/)?.[1];
+if (!production?.startsWith('https://')) fail('sitemap: domínio HTTPS ausente ou inválido');
+if (process.env.SITE_BASE && production !== process.env.SITE_BASE.replace(/\/$/, '')) {
+  fail(`sitemap: domínio ${production} diverge de SITE_BASE=${process.env.SITE_BASE}`);
+}
+const expectedLocations = new Set(htmlFiles.filter((path) => rel(path) !== '404.html').map((path) => {
+  const name = rel(path);
+  return `${production}/${name === 'index.html' ? '' : name.replace(/index\.html$/, '')}`;
+}));
+for (const loc of locations) {
+  if (!expectedLocations.has(loc)) fail(`sitemap: URL inexistente ou com domínio incorreto ${loc}`);
+}
+for (const expected of expectedLocations) if (!locations.includes(expected)) fail(`sitemap: URL ausente ${expected}`);
+if (new Set(locations).size !== locations.length) fail('sitemap: URLs duplicadas');
 const robots = await readFile(join(dist, 'robots.txt'), 'utf8');
 if (production && !robots.includes(`Sitemap: ${production}/sitemap.xml`)) fail('robots.txt sem Sitemap correspondente');
 
@@ -161,7 +174,9 @@ for (const path of htmlFiles) {
     inlineHashes.add(`'sha256-${createHash('sha256').update(block[1]).digest('base64')}'`);
   }
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
-  if (production && !canonical?.startsWith(`${production}/`)) fail(`${name}: canonical não é absoluto em ${production}`);
+  const expectedCanonical = name === 'index.html' ? `${production}/`
+    : `${production}/${name.replace(/index\.html$/, '')}`;
+  if (canonical !== expectedCanonical) fail(`${name}: canonical ${canonical || 'ausente'} difere de ${expectedCanonical}`);
 }
 
 const headersFile = await readFile(join(dist, '_headers'), 'utf8');

@@ -9,6 +9,9 @@ Este plano distingue correções no site de decisões que dependem do Laboratór
 - Correção dos textos que davam 50 anos completos em 2026, quando a fundação de 8/9/1975 já ultrapassa 50 anos.
 - Seção de avaliações públicas na home: citação literal de Bruno A. Lopes Salles e nota de cinco estrelas de Thatiana Vieira, ambas conforme captura do Google fornecida em 4/11/2026. A segunda avaliação não tinha texto e não recebeu uma citação inventada. Não foi publicada média agregada, contagem de avaliações ou CRO não verificado. Avaliações de pessoas ligadas à empresa ou ao desenvolvimento do site não foram usadas como depoimentos independentes.
 - Testes automatizados para não publicar RT parcial, escapar marcação e preservar o JSON-LD.
+- Revisão de pré-produção: corrigidos descritores incorretos de imagens responsivas (`srcset`) e referências duplicadas; adicionada a conferência de dimensão real (`node tools/qa-srcset.mjs`, requer ImageMagick). Corrigido o estado `aria-expanded` do submenu ao fechá-lo com Escape ou com o menu mobile.
+- URLs de SEO sempre usam uma origem HTTPS na raiz: domínio existente como fallback e `SITE_BASE` para a migração ao domínio próprio. Sitemap e canonicals passam a ser comparados rota a rota na QA local.
+- Adicionada verificação automática de PR com instalação reproduzível, lint, testes, checagem de imagens e axe em desktop/celular. O primeiro resultado da execução no GitHub deve ser verificado antes de liberar a alteração.
 
 ## Confirmar com o laboratório antes da próxima publicação
 
@@ -20,4 +23,4 @@ Este plano distingue correções no site de decisões que dependem do Laboratór
 
 ## Validação e publicação
 
-Com Node.js: `SITE_BASE=https://DOMINIO-REAL npm run build`, `npm run test:registry`, `node tools/qa-static.mjs`. A suíte completa requer as dependências de desenvolvimento instaladas (`npm ci`, `npm run qa`). A publicação exige revisão do laboratório e execução de CI antes de merge.
+Com Node.js: `SITE_BASE=https://DOMINIO-REAL npm run build`, `npm run test:registry`, `npm run test:base`, `node tools/qa-static.mjs` e `node tools/qa-srcset.mjs`. A suíte completa requer as dependências de desenvolvimento instaladas (`npm ci`, `npm run qa`). A publicação exige revisão do laboratório e execução de CI antes de merge. Para conectar o domínio, seguir [DOMINIO-PRODUCAO.md](./DOMINIO-PRODUCAO.md).
