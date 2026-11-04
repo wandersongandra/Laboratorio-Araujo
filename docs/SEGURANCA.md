@@ -1,6 +1,6 @@
 # Segurança do site
 
-Revisão de 24/10/2026, atualizada em 27/10/2026. Site estático: não há backend, banco, login, formulário, cookie ou
+Revisão de 24/10/2026, atualizada em 04/11/2026. Site estático: não há backend, banco, login, formulário, cookie ou
 dado pessoal coletado; a superfície de ataque se resume ao que o navegador carrega. O objetivo foi
 deixar o navegador recusar qualquer coisa que não seja do próprio site.
 
@@ -13,7 +13,8 @@ contra o domínio configurado em `SITE_BASE` após cada publicação.
 |---|---|
 | Arquivos internos no ar (`_headers`, `_redirects`, `.assetsignore`, `.env`, `.dev.vars`, `package.json`, `wrangler.jsonc`, `.git/`, `README.md`, mapas de código) | 404 (verificado por `tools/qa-live.mjs`) |
 | Erros de CSP / Trusted Types no console (25 páginas + 404, Chromium) | 0 |
-| `npm audit` (ferramentas de desenvolvimento) | 0 vulnerabilidades |
+| `npm audit --omit=dev --audit-level=moderate` (dependências publicadas) | 0 vulnerabilidades no CI de 04/11/2026 |
+| `npm ci` (incluindo ferramentas de desenvolvimento) | 4 alertas moderados no CI de 04/11/2026; requer triagem separada do runtime |
 | Segredos no repositório (gitleaks 8.30.1, todo o histórico) | nenhum |
 | Metadados EXIF/GPS nas imagens publicadas | nenhum |
 
@@ -147,7 +148,7 @@ Browser Integrity Check com escopo do site, sem bloquear Googlebot nem assets, e
 | 7 | Mapa do Google (único conteúdo de terceiro) | Carrega só depois do clique em "Carregar mapa"; iframe com `sandbox` (scripts, mesma origem e pop-ups para "Abrir no Maps"), `referrerpolicy` e `loading="lazy"`. A CSP só permite frames de `www.google.com` e `maps.google.com` |
 | 8 | Links externos com `target="_blank"` só com `noopener` | Todos com `rel="noopener noreferrer"`. Em 27/10/2026 o crédito gandra.tech do rodapé ainda estava só com `noopener` e foi corrigido; o QA agora impede regressão |
 | 9 | Mensagem pré-preenchida do WhatsApp | A URL é codificada no código do site antes do redirecionamento para o WhatsApp |
-| 10 | Dependências de desenvolvimento com 2 vulnerabilidades moderadas (`uuid` via linkinator) | `npm audit fix` → 0 |
+| 10 | Dependências de desenvolvimento com 2 vulnerabilidades moderadas (`uuid` via linkinator) na revisão histórica de outubro | `npm audit fix` → 0 naquela data; os 4 alertas moderados de novembro ainda exigem triagem específica |
 | 11 | `JSON-LD` dentro de `<script>` | Mantido em bloco dedicado e verificado pelo QA estrutural; não há interpolação de HTML executável |
 | 12 | Link com `#` malformado (ex.: `#%E0%A4%A`) | `decodeURIComponent` lançava erro e interrompia o JS da página (galeria, barra de leitura etc.). Corrigido em 27/10/2026 com `try/catch` em `10-acordeao.js` |
 | 13 | `HSTS` com `includeSubDomains` sem domínio próprio | Removido em 27/10/2026 (ver Cabeçalhos) |

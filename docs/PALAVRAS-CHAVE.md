@@ -1,6 +1,6 @@
 # Palavras-chave e SEO on-page — Laboratório Dental Araújo
 
-Data: 26/10/2026 · Produção oficial: Cloudflare Workers Assets · Domínio canônico: `SITE_BASE`, `CF_PAGES_URL` no Pages ou URLs relativas no primeiro Workers Build
+Data: 04/11/2026 · Produção oficial: Cloudflare Workers Assets · Domínio canônico: `SITE_BASE`, `CF_PAGES_URL` no Pages ou origem HTTPS `workers.dev` existente como fallback
 
 ## 1. Resumo
 

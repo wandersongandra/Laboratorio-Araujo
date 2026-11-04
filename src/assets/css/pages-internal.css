@@ -113,3 +113,9 @@
 .e404 h1{font-size:var(--s-h1);margin:20px 0 14px}
 .e404 p{color:var(--muted);max-width:36em;margin-bottom:28px}
 
+/* Consulta de fluxo digital: destaque editorial, sem prometer suporte a formatos não confirmados. */
+.digital-callout{scroll-margin-top:110px;background:var(--paper-2);border:1px solid var(--rule-2);border-left:4px solid var(--blue-d);padding:clamp(24px,3vw,38px);margin:32px 0 44px}
+.digital-callout .label{display:block;margin-bottom:14px;color:var(--blue-d)}
+.digital-callout h2{font-size:clamp(1.4rem,1.1rem + 1.2vw,2rem);margin:0 0 16px}
+.digital-callout p{max-width:65ch;color:var(--ink-2);margin:0 0 22px;line-height:1.65}
+.digital-callout .digital-callout__note{font-size:.79rem;color:var(--muted);margin:14px 0 0}

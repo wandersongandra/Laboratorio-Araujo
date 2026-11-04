@@ -14,16 +14,21 @@
   $$('.nav__more').forEach(b => b.addEventListener('click', () => {
     const g = b.closest('.nav__group'); const o = g.classList.toggle('open'); b.setAttribute('aria-expanded', o);
   }));
-  document.addEventListener('click', e => { $$('.nav__group.open').forEach(g => { if (!g.contains(e.target)) { g.classList.remove('open'); $('.nav__more', g).setAttribute('aria-expanded', false); } }); });
+  const closeGroups = () => $$('.nav__group.open').forEach(g => {
+    g.classList.remove('open');
+    $('.nav__more', g).setAttribute('aria-expanded', 'false');
+  });
+  document.addEventListener('click', e => { $$('.nav__group.open').forEach(g => { if (!g.contains(e.target)) { g.classList.remove('open'); $('.nav__more', g).setAttribute('aria-expanded', 'false'); } }); });
 
   const setMenu = open => {
     nav.classList.toggle('open', open); burger.classList.toggle('open', open);
     document.documentElement.classList.toggle('menu-open', open);
     burger.setAttribute('aria-expanded', open); burger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    if (!open) closeGroups();
   };
   burger.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
   $$('a', nav).forEach(a => a.addEventListener('click', () => setMenu(false)));
-  addEventListener('keydown', e => { if (e.key === 'Escape') { setMenu(false); $$('.nav__group.open').forEach(g => g.classList.remove('open')); } });
+  addEventListener('keydown', e => { if (e.key === 'Escape') { const wasOpen = nav.classList.contains('open'); setMenu(false); if (wasOpen) burger.focus(); } });
 
   const path = location.pathname.replace(/index\.html$/, '');
   $$('a[data-nav]', nav).forEach(a => { const h = a.getAttribute('href'); if (h !== '/' ? path.startsWith(h) : path === '/') { a.classList.add('active'); a.setAttribute('aria-current', 'page'); } });

@@ -99,6 +99,7 @@ summary:focus-visible{outline:2px solid var(--blue-d);outline-offset:4px}
 .footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
 .footer__logo{width:176px;margin-bottom:22px}
 .footer__nap{line-height:1.75;margin:0}
+.footer__registry{line-height:1.7;margin:16px 0 0;font-size:.84rem;color:#E3EAF3}
 .footer h2{font:500 .72rem/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:#8EA3BE;margin:6px 0 18px}
 .footer nav{display:flex;flex-direction:column;gap:9px}
 .footer__social{display:flex;gap:16px;margin-top:20px;font:500 .74rem/1 var(--mono);text-transform:uppercase;letter-spacing:.07em}

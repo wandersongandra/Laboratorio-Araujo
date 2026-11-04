@@ -1,9 +1,9 @@
 # Arquitetura do site — Laboratório Dental Araújo
 
-Atualizado em 26/10/2026. A hospedagem primária é Cloudflare Workers Assets, configurada em
+Atualizado em 04/11/2026. A hospedagem primária é Cloudflare Workers Assets, configurada em
 `wrangler.jsonc`. O domínio canônico é informado por `SITE_BASE` ou, em builds do Cloudflare Pages,
-por `CF_PAGES_URL`. Workers Builds também permitem a primeira publicação sem domínio, usando URLs
-relativas até que o endereço `workers.dev` seja configurado. O projeto é um site estático:
+por `CF_PAGES_URL`. Sem essas variáveis, o gerador usa o endereço `workers.dev` já existente,
+com URLs HTTPS absolutas. O projeto é um site estático:
 não há backend, banco de dados, API, formulário de aplicação ou servidor de aplicação.
 
 ## 1. Visão geral
@@ -143,7 +143,6 @@ com autorização explícita e após o domínio Cloudflare estar configurado.
 
 ## 8. Pendências conhecidas
 
-- Em builds locais fora do Cloudflare, o domínio Cloudflare oficial deve ser informado em `SITE_BASE`;
-  Pages fornece `CF_PAGES_URL` automaticamente, e Workers Builds pode publicar inicialmente com URLs
-  relativas até o endereço `workers.dev` ser definido.
+- O domínio próprio futuro deve ser configurado em `SITE_BASE` tanto no build de produção quanto na
+  rotina de QA. Até lá, o fallback HTTPS absoluto do endereço `workers.dev` atual permanece válido.
 - A documentação legal continua sendo modelo e precisa de revisão do laboratório e de advogado.
