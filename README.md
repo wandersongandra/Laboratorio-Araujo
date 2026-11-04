@@ -17,7 +17,13 @@ preços publicados), explica como enviar casos de todo o Brasil e leva o contato
 > [docs/SEGURANCA.md](docs/SEGURANCA.md) (cabeçalhos, CSP) ·
 > [docs/QUALIDADE.md](docs/QUALIDADE.md) (validações e resultados) ·
 > [docs/FOTOS.md](docs/FOTOS.md) (origem das imagens e fotos reais) ·
-> [docs/PALAVRAS-CHAVE.md](docs/PALAVRAS-CHAVE.md) (mapa de palavras-chave).
+> [docs/PALAVRAS-CHAVE.md](docs/PALAVRAS-CHAVE.md) (mapa de palavras-chave) ·
+> [docs/ACOES-RELATORIO-2026-11.md](docs/ACOES-RELATORIO-2026-11.md) (achados, correções e pendências de validação).
+
+**Cadastro profissional:** preencha `laboratoryCro`, `technicalLeadName` e `technicalLeadCro` em
+`src/site/data/site.json` somente com dados oficiais confirmados. O build exibe os registros no
+rodapé, na ficha técnica e no JSON-LD quando completos; enquanto faltarem, emite um alerta e
+não publica nomes ou inscrições fictícios.
 
 ---
 
