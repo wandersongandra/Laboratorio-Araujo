@@ -37,7 +37,10 @@ try {
             main: Boolean(document.querySelector('main')),
             h1: document.querySelectorAll('h1').length,
             brokenEagerImages: [...document.images].filter((image) =>
-              image.loading !== 'lazy' && image.complete && image.naturalWidth === 0,
+              image.loading !== 'lazy' && image.complete && image.naturalWidth === 0 &&
+              // O lightbox inicia fechado com uma imagem vazia deliberada; o teste
+              // interativo abaixo exige que ela seja substituída ao abrir.
+              !(image.matches('.lb__img') && image.getAttribute('src') === 'data:,'),
             ).map((image) => image.currentSrc || image.src),
           }));
           if (state.pageWidth > state.viewportWidth + 1) {
@@ -57,6 +60,21 @@ try {
             if (await burger.getAttribute('aria-expanded') !== 'false' ||
                 await submenu.getAttribute('aria-expanded') !== 'false') {
               fail(route, width, 'Escape não fechou menu e submenu corretamente');
+            }
+          }
+
+          if (route === '/trabalhos/' && (width === 320 || width === 1366)) {
+            const opener = page.locator('a[data-lb]').first();
+            await opener.click();
+            const dialog = page.locator('[data-lb-dialog]');
+            if (!await dialog.evaluate((node) => node.open)) fail(route, width, 'lightbox não abriu');
+            const loadedWidth = await page.locator('.lb__img').evaluate((image) =>
+              image.decode().then(() => image.naturalWidth));
+            if (loadedWidth < 1) fail(route, width, 'imagem ampliada não carregou');
+            await page.locator('[data-lb-close]').click();
+            if (await dialog.evaluate((node) => node.open)) fail(route, width, 'lightbox não fechou');
+            if (!await opener.evaluate((node) => document.activeElement === node)) {
+              fail(route, width, 'foco não retornou à foto ao fechar lightbox');
             }
           }
           inspected++;
