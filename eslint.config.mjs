@@ -22,7 +22,7 @@ export default [
     },
   },
   {
-    files: ['tools/**/*.mjs', 'eslint.config.mjs'],
+    files: ['tools/**/*.mjs', 'eslint.config.mjs', 'src/worker/**/*.mjs'],
     languageOptions: { ecmaVersion: 2022, sourceType: 'module', globals: { ...globals.node } },
   },
 ];

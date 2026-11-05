@@ -20,8 +20,9 @@ contra o domínio configurado em `SITE_BASE` após cada publicação.
 ## Arquitetura (o que existe e o que não existe)
 
 - **Existe:** páginas HTML estáticas, CSS/JS próprios, fontes WOFF2 próprias, imagens, um PDF
-  (ficha de requisição), `sitemap.xml`, `robots.txt`, `llms.txt`. Publicado pelo Worker
-  `laboratorio-araujo`, que **só serve assets** (não há `main` no `wrangler.jsonc`).
+  (ficha de requisição), `sitemap.xml`, `robots.txt`, `llms.txt`. O Worker `laboratorio-araujo`
+  serve esses assets. O script em `src/worker/index.mjs` só roda antes do asset para o 301 do
+  `workers.dev` estável e para o `noindex` dos outros hosts. Não há binding nem segredo.
 - **Não existe:** backend, API, login, cookies, formulário (`<form>`/POST), upload, banco ou
   armazenamento de dados. Por isso não há rate limit, Turnstile ou proteção de API a configurar:
   não há endpoint para proteger. O Worker responde 405 a `POST`, `PUT`, `DELETE`, `OPTIONS` e `TRACE`.
@@ -31,11 +32,12 @@ contra o domínio configurado em `SITE_BASE` após cada publicação.
 
 ## Cabeçalhos
 
-Fonte única: `src/site/files/_headers` (copiado para `dist/_headers` pelo build e aplicado pelo
-Workers Assets). O Worker não tem código e o site em `workers.dev` não tem Cloudflare Rules,
-então não há outra camada que repita cabeçalhos. A regra `/*` tem os cabeçalhos de segurança; as
-demais regras só têm `Cache-Control`/`Content-Type`, e o QA (`tools/qa-static.mjs`) falha se um
-mesmo cabeçalho aparecer em duas regras (o Workers Assets juntaria os valores).
+Fonte única dos assets: `src/site/files/_headers` (copiado para `dist/_headers` pelo build e
+aplicado pelo Workers Assets). No apex o Worker devolve a resposta do asset sem alterá-la, então
+esses cabeçalhos continuam valendo. A resposta 301 do `workers.dev` é gerada pelo script e repete
+os mesmos valores, com CSP `default-src 'none'` porque não há corpo. A regra `/*` tem os
+cabeçalhos de segurança; as demais regras só têm `Cache-Control`/`Content-Type`, e o QA
+(`tools/qa-static.mjs`) falha se um mesmo cabeçalho aparecer em duas regras.
 
 ### Antes (produção em 27/10/2026, commit `8a30fb6`)
 
@@ -78,11 +80,9 @@ x-permitted-cross-domain-policies: none
   não usa `innerHTML`/`eval`; com isso o navegador (Chromium) recusa qualquer injeção de HTML ou
   script por JS, mesmo que um bug futuro tente. Testado nas 25 páginas + 404, galeria, menu e
   mapa: 0 violações.
-- **HSTS `max-age=31536000`, sem `includeSubDomains` e sem `preload`.** Antes havia
-  `includeSubDomains`, o que contraria a regra do projeto enquanto não existir domínio próprio
-  validado. O domínio `.dev` inteiro já está na lista HSTS preload dos navegadores, então HTTPS
-  continua obrigatório em `workers.dev` de qualquer forma. **Quando houver domínio próprio:** só
-  ativar `includeSubDomains`/`preload` depois de confirmar que todos os subdomínios têm HTTPS.
+- **HSTS `max-age=31536000`, sem `includeSubDomains` e sem `preload`.** O apex já responde em
+  HTTPS. `includeSubDomains` e `preload` continuam desligados: o correio (MX) e outros
+  subdomínios não foram checados, e o preload é difícil de reverter.
 - **`X-Frame-Options: DENY` + `frame-ancestors 'none'`**: ninguém pode embutir o site (clickjacking).
 - **Permissions-Policy**: desliga câmera, microfone, geolocalização, pagamento, USB, serial, HID,
   MIDI, WebAuthn, XR etc. Só entram recursos que o Chromium reconhece (`bluetooth` foi testado e
@@ -106,6 +106,19 @@ x-permitted-cross-domain-policies: none
   de máquina, token `{{…}}` não substituído, `<form>`, `onclick=""`, arquivo proibido em `dist/`,
   canonical não absoluto, CSP fraca, hash de script divergente ou cabeçalho duplicado.
 - `tools/qa-live.mjs` confere, no site publicado, os 9 cabeçalhos e que os arquivos internos dão 404.
+
+## Domínio, workers.dev e preview
+
+O canônico é `https://laboratoriodentalaraujo.com.br`. `_redirects` não faz redirecionamento
+entre hosts. O Worker, com `assets.run_worker_first: true`, só emite 301 quando o host é
+exatamente `laboratorio-araujo.gandratecnologia.workers.dev`, e preserva caminho e query.
+Version URL, preview e qualquer outro host não são enviados ao apex; a resposta ganha
+`X-Robots-Tag: noindex`. Builds cujo `WORKERS_CI_BRANCH` não é `main` também gravam
+`noindex` no HTML e não publicam sitemap.
+
+HTTP→HTTPS e `www`→apex são regras da zona. O Worker não repete esses redirecionamentos.
+Não desligar o `workers.dev` de produção e não declarar `routes` no `wrangler.jsonc`: o
+deploy passaria a omitir o host que o 301 precisa atender.
 
 ## O que dá e o que não dá em `workers.dev`
 
@@ -169,7 +182,7 @@ descreve isso; se entrar analytics, atualize a política (seção Cookies) e a C
 - **Não** use `innerHTML`, `style=""`, `<style>`, `onclick=""` ou scripts de CDN: a CSP bloqueia,
   e o lint acusa.
 - Mudou o script inline? Nada a fazer: o build recalcula o hash.
-- Depois de publicar: `node tools/qa-live.mjs https://laboratorio-araujo.gandratecnologia.workers.dev`.
+- Depois de publicar: `node tools/qa-live.mjs https://laboratoriodentalaraujo.com.br`.
 - De tempos em tempos: `npm audit`.
 
 ### Adicionar Google Analytics 4 (se o dono quiser)

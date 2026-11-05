@@ -6,7 +6,7 @@ dentária em Belo Horizonte desde 1975 (Av. Afonso Pena, 262, sala 1602, Centro)
 preços publicados), explica como enviar casos de todo o Brasil e leva o contato para o WhatsApp de pedidos.
 
 - **Hospedagem oficial:** Cloudflare Workers Assets via Wrangler.
-- **Domínio canônico:** informado em `SITE_BASE`; no Cloudflare Pages, `CF_PAGES_URL` é usado automaticamente quando não há domínio personalizado.
+- **Domínio canônico:** `https://laboratoriodentalaraujo.com.br`. `SITE_BASE`, se existir, tem de ser exatamente essa origem.
 - **Páginas:** 25 (home, hub de serviços + 8 serviços, sobre, envio, perguntas, contato,
   blog + 6 artigos, política de privacidade e termos de uso), mais a 404.
 - **Tecnologia:** HTML e CSS estáticos gerados por Node.js/ESM, com JavaScript puro (sem
@@ -60,17 +60,16 @@ npm run build                    # recria dist/ (25 páginas + 404)
 npm run serve                    # http://127.0.0.1:8766 com os cabeçalhos locais
 ```
 
-Para gerar canonical, sitemap e JSON-LD para um domínio personalizado, configure a base antes do build:
+O build grava canonical, sitemap, Open Graph, JSON-LD, `robots.txt` e `llms.txt` no apex. Sem
+`SITE_BASE`, o padrão já é esse apex. Se a variável existir, só é aceita a origem
+`https://laboratoriodentalaraujo.com.br` (HTTPS, sem caminho). `workers.dev` e `www` são recusados.
 
-```powershell
-$env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'
-npm run build
+```bash
+SITE_BASE=https://laboratoriodentalaraujo.com.br npm run build
 ```
 
-`SITE_BASE` deve ser uma URL HTTPS sem query string ou fragmento. Em um build do Cloudflare Pages,
-`CF_PAGES_URL` é injetado pelo próprio Cloudflare e serve como fallback para o endereço automático
-`pages.dev`. Em Workers Builds, o build pode publicar sem domínio configurado usando URLs relativas;
-fora de um build automático do Cloudflare, `SITE_BASE` continua obrigatório.
+Branches que não são `main` (`WORKERS_CI_BRANCH` no Workers Builds, ou `SITE_PREVIEW=1`) geram páginas
+`noindex, nofollow` e um sitemap vazio. O sitemap de produção não lista preview nem a 404.
 
 O build monta CSS/JS a partir dos módulos, copia assets, combina o layout compartilhado com as
 rotas em `src/site/pages`, gera as 25 páginas + 404, o
@@ -83,6 +82,7 @@ Checagem completa antes de publicar (precisa de `npm install` e do Playwright co
 
 ```bash
 npm install
+npm test                         # domínio, redirect do workers.dev estável e preview noindex
 npm run qa                       # build + lint HTML/CSS/JS + QA estrutural Node
 npm run serve                    # em outro terminal, para os checks de navegador
 npm run a11y                     # acessibilidade (com npm run serve rodando)
@@ -147,17 +147,16 @@ ImageMagick local, remove metadados e gera WebP/AVIF/JPEG conforme o tipo. Detal
 O caminho oficial é o Wrangler, usando `wrangler.jsonc` e `dist/` como assets estáticos:
 
 ```bash
-SITE_BASE=https://seu-dominio-cloudflare.com.br npm run build
+SITE_BASE=https://laboratoriodentalaraujo.com.br npm run build
 npm run deploy
 ```
 
-No Cloudflare Pages, o build conectado ao GitHub pode usar `CF_PAGES_URL` automaticamente; em Workers
-Builds, o primeiro deploy pode usar URLs relativas enquanto não houver domínio configurado. Defina
-`SITE_BASE` depois com o endereço `workers.dev` gerado se quiser canonical, sitemap e JSON-LD absolutos.
-No Wrangler fora de um build automático, use `$env:SITE_BASE = 'https://seu-dominio-cloudflare.com.br'` antes dos comandos.
 `npm run deploy` executa o build e `wrangler deploy`; esta etapa requer autenticação Cloudflare.
+Não rode o deploy daqui sem autorização. Depois de publicar, valide o apex:
 
-Depois de publicar, use o mesmo valor de `SITE_BASE` no `npm run qa:live` para validar o domínio oficial.
+```bash
+npm run qa:live -- https://laboratoriodentalaraujo.com.br
+```
 
 ### Deploy automático (Workers Builds)
 
@@ -172,7 +171,7 @@ campo `name` do `wrangler.jsonc`). Configuração em uso no painel (Worker → S
 | Comando de build | `npm run build` |
 | Comando de deploy | `npx wrangler deploy` |
 | Caminhos observados | incluir `*` |
-| Variável de build | `SITE_BASE=https://laboratorio-araujo.gandratecnologia.workers.dev` |
+| Variável de build | `SITE_BASE=https://laboratoriodentalaraujo.com.br` |
 
 Builds de branches que **não** são `main` (preview do PR) usam outro comando de deploy no mesmo painel
 (Worker → Settings → Build → *Non-production branch deployments* / *Preview*):
@@ -182,15 +181,18 @@ Builds de branches que **não** são `main` (preview do PR) usam outro comando d
 | Builds em branches não-produção | **ligado** |
 | Comando de build | `npm run build` (igual à produção) |
 | Comando de deploy (preview) | `npx wrangler versions upload` (ou `npm run deploy:preview`) |
-| Variável `SITE_BASE` | a mesma da produção (ou omitir: o build aceita `WORKERS_CI=1` e gera URLs relativas) |
+| Variável `SITE_BASE` | a mesma da produção. O branch diferente de `main` já sai `noindex` e fora do sitemap |
 
 Não use `npx wrangler deploy` no preview: isso publicaria em produção. Não use `npx wrangler preview`
 (comando antigo / incompatível com nome de branch com `/`). Se o check *Workers Builds* falhar em **0 s**
 sem log útil, a causa está no painel (comando de preview, builds de non-main desligados, ou app GitHub
 sem acesso ao repo) — não há o que corrigir só no código.
 
-Endereço atual: <https://laboratorio-araujo.gandratecnologia.workers.dev>. Ao ligar um domínio próprio,
-troque o valor de `SITE_BASE` na variável de build.
+Endereço canônico: <https://laboratoriodentalaraujo.com.br>. O host estável
+`laboratorio-araujo.gandratecnologia.workers.dev` responde 301 para o mesmo caminho e a mesma query.
+Previews e version URLs não redirecionam e recebem `X-Robots-Tag: noindex`. Não desligue o
+`workers.dev` de produção e não acrescente `routes` no `wrangler.jsonc`: isso removeria o 301.
+HTTP→HTTPS e `www`→apex ficam nas regras da zona, não no Worker.
 
 Se os pushes pararem de gerar builds e o painel mostrar "Este projeto está desconectado da sua conta Git",
 o app **Cloudflare Workers and Pages** perdeu acesso ao repositório: em GitHub → Settings → Applications →
@@ -199,10 +201,9 @@ criar outro Worker nem commits vazios.
 
 ## Definir ou trocar o domínio canônico
 
-1. Configure o domínio personalizado no projeto Cloudflare e aponte o DNS conforme o painel.
-2. Defina **`SITE_BASE`** (sem barra no final) no ambiente de build/deploy; no Pages, o endereço automático
-   pode ser obtido por `CF_PAGES_URL`, e em Workers use o `workers.dev` gerado pelo projeto.
-3. Rode o build e publique. Cadastre o domínio no Search Console / Bing e envie o sitemap.
+1. O apex já é o domínio do Worker. `www` e HTTP são regras da zona.
+2. Mantenha **`SITE_BASE=https://laboratoriodentalaraujo.com.br`** (sem barra no final) no build de produção.
+3. Publique a `main` pelo Workers Builds. Cadastre o apex no Search Console / Bing e envie `https://laboratoriodentalaraujo.com.br/sitemap.xml`.
 
 ## O que não está neste repositório (de propósito)
 
