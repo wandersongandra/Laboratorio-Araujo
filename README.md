@@ -180,13 +180,13 @@ Builds de branches que **não** são `main` (preview do PR) usam outro comando d
 |---|---|
 | Builds em branches não-produção | **ligado** |
 | Comando de build | `npm run build` (igual à produção) |
-| Comando de deploy (preview) | `npx wrangler versions upload` (ou `npm run deploy:preview`) |
+| Comando de deploy (preview) | `npx wrangler preview` (ou `npm run deploy:preview`) |
 | Variável `SITE_BASE` | a mesma da produção. O branch diferente de `main` já sai `noindex` e fora do sitemap |
 
-Não use `npx wrangler deploy` no preview: isso publicaria em produção. Não use `npx wrangler preview`
-(comando antigo / incompatível com nome de branch com `/`). Se o check *Workers Builds* falhar em **0 s**
+Não use `npx wrangler deploy` no preview: isso publicaria em produção. `npx wrangler preview` exige o bloco
+`"previews": {}` no `wrangler.jsonc`. Assets e o script ficam no topo. Se o check *Workers Builds* falhar em **0 s**
 sem log útil, a causa está no painel (comando de preview, builds de non-main desligados, ou app GitHub
-sem acesso ao repo) — não há o que corrigir só no código.
+sem acesso ao repo).
 
 Endereço canônico: <https://laboratoriodentalaraujo.com.br>. O host estável
 `laboratorio-araujo.gandratecnologia.workers.dev` responde 301 para o mesmo caminho e a mesma query.

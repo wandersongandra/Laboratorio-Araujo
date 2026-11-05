@@ -15,5 +15,8 @@
     // antes do asset para o 301 do workers.dev estável. Não declare routes:
     // isso faria o Wrangler inferir workers_dev=false e derrubar o 301.
     "run_worker_first": true
-  }
+  },
+  // Obrigatório para `npx wrangler preview` no Wrangler 4.153. O bloco fica
+  // vazio: assets, compatibilidade e o script permanecem no topo, em produção.
+  "previews": {}
 }
