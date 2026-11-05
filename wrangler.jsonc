@@ -4,11 +4,7 @@
   "main": "src/worker/index.mjs",
   "compatibility_date": "2026-10-26",
   "observability": {
-    "enabled": true,
-    "traces": {
-      "enabled": true,
-      "head_sampling_rate": 0.01
-    }
+    "enabled": true
   },
   "assets": {
     "directory": "./dist",

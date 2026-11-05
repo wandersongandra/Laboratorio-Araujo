@@ -94,7 +94,6 @@ export async function handleRequest(request, env) {
   const url = new URL(request.url);
   const decision = classifyRequest(url, request.method);
   if (decision.action === 'redirect') {
-    console.log(JSON.stringify({ event: 'canonical_redirect', fromHost: normalizeHost(url.hostname), status: 301 }));
     return new Response(null, { status: 301, headers: redirectHeaders(decision.location) });
   }
   const asset = await env.ASSETS.fetch(request);
