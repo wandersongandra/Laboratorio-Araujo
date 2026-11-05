@@ -1,20 +1,20 @@
 # Qualidade — ferramentas, comandos e resultados
 
-Última atualização: 26/10/2026. Os checks locais usam o domínio informado em `SITE_BASE`; builds do
-Cloudflare Pages podem usar o `CF_PAGES_URL` automático; Workers Builds podem usar URLs relativas na
-primeira publicação. A
-validação externa deve ser executada contra o domínio oficial Cloudflare após cada publicação.
+Última atualização: 05/11/2026. Os checks locais usam o apex
+`https://laboratoriodentalaraujo.com.br`. A validação externa deve ser executada contra esse
+domínio depois de cada publicação.
 
 ## Como rodar
 
 ```bash
 npm install                      # uma vez (PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 se já tiver Chromium)
+npm test                         # apex, 301 do workers.dev estável, preview noindex
 npm run build                    # build Node: dist/ (CSS/JS minificados, _headers, sitemap…)
 npm run qa                       # build + lint + QA estrutural Node
 npm run serve                    # servidor Node local em :8766 com cabeçalhos locais
 npm run a11y                     # axe-core em todas as páginas (1366 e 390 px)
 npm run links                    # linkinator (links internos)
-npm run qa:live -- https://www.seudominio.com.br  # smoke test read-only após publicação
+npm run qa:live -- https://laboratoriodentalaraujo.com.br  # smoke test read-only após publicação
 ```
 
 | Comando | Ferramenta | O que verifica |

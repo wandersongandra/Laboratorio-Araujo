@@ -8,6 +8,7 @@ import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveBuildPolicy } from '../src/worker/canonical.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const assets = join(root, 'src', 'assets');
@@ -16,21 +17,9 @@ const sourceFiles = join(root, 'src', 'site', 'files');
 const sourceLayout = join(root, 'src', 'site', 'layout');
 const siteData = JSON.parse(await readFile(join(root, 'src', 'site', 'data', 'site.json'), 'utf8'));
 const dist = join(root, 'dist');
-const configuredBase = process.env.SITE_BASE?.trim() || process.env.CF_PAGES_URL?.trim();
-const cloudflareBuild = process.env.CF_PAGES === '1' || process.env.WORKERS_CI === '1';
-if (!configuredBase && !cloudflareBuild) {
-  throw new Error('SITE_BASE é obrigatório fora de um build automático do Cloudflare.');
-}
-
-if (configuredBase) {
-  const parsedBase = new URL(configuredBase);
-  if (parsedBase.protocol !== 'https:' || parsedBase.username || parsedBase.password || parsedBase.search || parsedBase.hash) {
-    throw new Error('SITE_BASE deve ser uma URL HTTPS sem credenciais, query string ou fragmento.');
-  }
-}
-
-const base = configuredBase ? configuredBase.replace(/\/$/, '') : '';
-if (!base) console.warn('aviso: SITE_BASE não definido; URLs canônicas e sitemap serão relativos até o domínio Cloudflare ser configurado.');
+const policy = resolveBuildPolicy(process.env);
+if (policy.preview) console.warn('aviso: build de preview; páginas noindex e fora do sitemap.');
+const base = policy.origin;
 const tokens = {
   '{{SITE_BASE}}': base,
   '{{PHONE_1_TEL}}': siteData.phone1Tel, '{{PHONE_2_TEL}}': siteData.phone2Tel,
@@ -197,9 +186,37 @@ await copyTree(sourceFiles, dist);
 const cssVersion = hash(Buffer.from(cssFile));
 const jsVersion = hash(Buffer.from(jsFile));
 await replaceTextFiles(dist, cssVersion, jsVersion);
+if (policy.preview) await writePreviewIndexing(dist);
 
 const pages = (await walkHtml(dist)).length;
-console.log(`ok: ${pages - 1} paginas + 404 -> ${dist}`);
+console.log(`ok: ${pages - 1} paginas + 404 -> ${dist} (${policy.preview ? 'preview noindex' : base})`);
+
+async function writePreviewIndexing(dir) {
+  const robotsPath = join(dir, 'robots.txt');
+  const robots = (await readFile(robotsPath, 'utf8')).replace(/^\s*Sitemap:.*(?:\r?\n)?/gm, '');
+  await writeFile(robotsPath, robots.endsWith('\n') ? robots : `${robots}\n`, 'utf8');
+  await writeFile(join(dir, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n</urlset>\n', 'utf8');
+  await rewritePreviewRobots(dir);
+}
+
+async function rewritePreviewRobots(dir) {
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      await rewritePreviewRobots(path);
+      continue;
+    }
+    if (!entry.name.endsWith('.html')) continue;
+    const html = await readFile(path, 'utf8');
+    const next = html
+      .replaceAll('<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">', '<meta name="robots" content="noindex, nofollow">')
+      .replaceAll('<meta name="robots" content="noindex, follow">', '<meta name="robots" content="noindex, nofollow">');
+    if (!next.includes('content="noindex, nofollow"') || next.includes('index, follow')) {
+      throw new Error(`meta robots de preview ausente ou ainda indexável: ${relative(dist, path)}`);
+    }
+    await writeFile(path, next, 'utf8');
+  }
+}
 
 async function walkHtml(dir) {
   const result = [];
