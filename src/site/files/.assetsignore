@@ -10,5 +10,17 @@ node_modules
 **/*.map
 **/*.md
 **/*.log
+**/*.bak
+**/*.old
+**/*.orig
+**/*.sql
+**/*.sqlite
+**/*.sqlite3
+**/*.dump
+**/*.swp
+**/*.swo
+**/*~
+**/*.pem
+**/*.key
 **/.DS_Store
 **/Thumbs.db

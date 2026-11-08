@@ -14,12 +14,13 @@
     "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
     "links": "linkinator http://127.0.0.1:8766 --recurse --skip \"^(?!http://127.0.0.1:8766)\"",
     "a11y": "node tools/a11y.mjs",
+    "test": "node --test tools/canonical.test.mjs",
     "qa": "npm run build && npm run lint && node tools/qa-static.mjs",
     "qa:live": "node tools/qa-live.mjs",
     "links:externos": "linkinator http://127.0.0.1:8766 --recurse --skip \"^(?!http://127.0.0.1:8766|https://www\\.gandra\\.tech)\"",
     "migrate:static": "node tools/migrate-static-site.mjs",
     "images:prepare": "node tools/prepare-images.mjs",
-    "deploy:preview": "npx wrangler versions upload"
+    "deploy:preview": "npx wrangler preview"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",

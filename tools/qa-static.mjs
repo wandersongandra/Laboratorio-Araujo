@@ -119,22 +119,36 @@ for (const path of textFiles) {
 for (const pages of titles.values()) if (pages.length > 1) fail(`title duplicado: ${pages.join(', ')}`);
 for (const pages of descriptions.values()) if (pages.length > 1) fail(`description duplicada: ${pages.join(', ')}`);
 
+const CANONICAL_ORIGIN = 'https://laboratoriodentalaraujo.com.br';
 const sitemap = await readFile(join(dist, 'sitemap.xml'), 'utf8');
 const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
-if (locations.length !== htmlFiles.length - 1) fail(`sitemap com ${locations.length} URLs; esperado ${htmlFiles.length - 1}`);
-const production = locations[0]?.match(/^(https?:\/\/[^/]+)/)?.[1];
 const robots = await readFile(join(dist, 'robots.txt'), 'utf8');
-if (production && !robots.includes(`Sitemap: ${production}/sitemap.xml`)) fail('robots.txt sem Sitemap correspondente');
+const indexable = locations.length > 0;
+if (indexable && locations.length !== htmlFiles.length - 1) fail(`sitemap com ${locations.length} URLs; esperado ${htmlFiles.length - 1}`);
+if (!indexable && locations.length !== 0) fail('sitemap de preview deveria estar vazio');
+if (indexable) {
+  if (locations.some((location) => !location.startsWith(`${CANONICAL_ORIGIN}/`) || location.includes('/404'))) {
+    fail('sitemap com URL fora do apex ou com a 404');
+  }
+  if (!robots.includes(`Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml`)) fail('robots.txt sem Sitemap do apex');
+  for (const bot of ['Googlebot', 'Bingbot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot']) {
+    if (!robots.includes(`User-agent: ${bot}`)) fail(`robots.txt sem ${bot}`);
+  }
+  if (/^\s*Disallow\s*:/m.test(robots)) fail('robots.txt bloqueia crawlers');
+} else if (/^\s*Sitemap:/m.test(robots)) fail('preview publica Sitemap');
+if (/^\s*Disallow\s*:\s*\/\s*$/m.test(robots)) fail('robots.txt com bloqueio geral');
 
 const pdfs = files.filter((path) => path.endsWith('.pdf')).map(rel);
 for (const pdf of pdfs) if (pdf !== 'assets/docs/requisicao-laboratorio-de-protese.pdf') fail(`PDF não permitido: ${pdf}`);
 
 // ---------- segurança da saída publicada (ver docs/SEGURANCA.md) ----------
-const forbiddenFiles = /(^|\/)(\.env(\..*)?|\.dev\.vars.*|\.git|\.DS_Store|Thumbs\.db)$|\.(map|md|log|pem|key)$/;
+const forbiddenFiles = /(^|\/)(\.env(\..*)?|\.dev\.vars.*|\.git|\.DS_Store|Thumbs\.db)$|\.(map|md|log|pem|key|bak|old|orig|sql|sqlite|sqlite3|dump|swp|swo)$/;
 for (const path of files) if (forbiddenFiles.test(rel(path))) fail(`arquivo que não deve ser publicado: ${rel(path)}`);
 
 const leakPatterns = [
   [/netlify/i, 'referência a Netlify'],
+  [/workers\.dev/i, 'URL workers.dev'],
+  [/pages\.dev/i, 'URL pages.dev'],
   [/sourceMappingURL/, 'source map referenciado'],
   [/\/workspace\/|\/opt\/buildhome|\/home\/[a-z]|\/Users\/[A-Za-z]|[A-Z]:\\Users\\/, 'caminho local de máquina'],
   [/\{\{[A-Z0-9_]+\}\}/, 'token de template não substituído'],
@@ -161,7 +175,26 @@ for (const path of htmlFiles) {
     inlineHashes.add(`'sha256-${createHash('sha256').update(block[1]).digest('base64')}'`);
   }
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
-  if (production && !canonical?.startsWith(`${production}/`)) fail(`${name}: canonical não é absoluto em ${production}`);
+  const robotsMeta = html.match(/<meta name="robots" content="([^"]*)"/)?.[1] || '';
+  const originInGraph = html.includes(`"@id":"${CANONICAL_ORIGIN}/#laboratorio"`);
+  if (!originInGraph) fail(`${name}: JSON-LD sem o apex canônico`);
+  if (!indexable) {
+    if (robotsMeta !== 'noindex, nofollow') fail(`${name}: preview sem noindex, nofollow (${robotsMeta})`);
+  } else if (name === '404.html') {
+    if (!robotsMeta.includes('noindex')) fail(`${name}: 404 sem noindex`);
+    if (!canonical?.startsWith(`${CANONICAL_ORIGIN}/`)) fail(`${name}: canonical fora do apex`);
+  } else {
+    if (robotsMeta !== 'index, follow, max-image-preview:large, max-snippet:-1') {
+      fail(`${name}: indexação de produção inesperada (${robotsMeta})`);
+    }
+    if (!canonical?.startsWith(`${CANONICAL_ORIGIN}/`) || !locations.includes(canonical)) {
+      fail(`${name}: canonical ausente do sitemap ou fora do apex`);
+    }
+  }
+  for (const meta of html.matchAll(/<(?:meta[^>]+(?:property|name)="(?:og:url|og:image|twitter:image)"[^>]*content="([^"]+)"|meta[^>]+content="([^"]+)"[^>]*(?:property|name)="(?:og:url|og:image|twitter:image)")/g)) {
+    const value = meta[1] || meta[2];
+    if (value && !value.startsWith(`${CANONICAL_ORIGIN}/`)) fail(`${name}: metadado social fora do apex`);
+  }
 }
 
 const headersFile = await readFile(join(dist, '_headers'), 'utf8');
@@ -192,6 +225,11 @@ const csp = globalHeaders.get('content-security-policy') || '';
 for (const weak of ["'unsafe-eval'", "'unsafe-inline'", "'unsafe-hashes'", 'http:', ' * ', ' *;']) {
   if (` ${csp} `.includes(weak)) fail(`CSP contém ${weak.trim()}`);
 }
+if (!csp.includes("require-trusted-types-for 'script'") || !csp.includes("trusted-types 'none'")) {
+  fail('CSP sem Trusted Types');
+}
+const hsts = globalHeaders.get('strict-transport-security') || '';
+if (/includeSubDomains|preload/i.test(hsts)) fail(`HSTS não pode usar includeSubDomains nem preload: ${hsts}`);
 for (const directive of ["object-src 'none'", "base-uri 'self'", "frame-ancestors 'none'", "form-action 'none'"]) {
   if (!csp.includes(directive)) fail(`CSP sem ${directive}`);
 }
@@ -201,6 +239,11 @@ for (const source of scriptSrc.filter((item) => item.startsWith("'sha256-"))) {
   if (!inlineHashes.has(source)) fail(`CSP com hash de script que não existe mais: ${source}`);
 }
 const otherRules = headersFile.split(/\r?\n(?=\S)/).filter((block) => !block.startsWith('#') && block !== globalRule);
+const assetIgnore = await readFile(join(dist, '.assetsignore'), 'utf8');
+for (const pattern of ['.env', '.git', '**/*.map', '**/*.bak', '**/*.old', '**/*.sql', '**/*.swp', '**/*.pem', '**/*.key']) {
+  if (!assetIgnore.includes(pattern)) fail(`.assetsignore sem ${pattern}`);
+}
+
 for (const block of otherRules) {
   for (const line of block.split(/\r?\n/).slice(1)) {
     const key = line.match(/^\s+([A-Za-z-]+):/)?.[1].toLowerCase();

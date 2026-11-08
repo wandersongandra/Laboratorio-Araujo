@@ -17,10 +17,14 @@ for (const location of locations) {
   if (response.status !== 200) { fail(`${path} → ${response.status}`); continue; }
   const html = await response.text();
   if (!html.includes(`<link rel="canonical" href="${location}"`)) fail(`${path}: canonical divergente`);
+  if (/name="robots" content="[^"]*noindex/.test(html)) fail(`${path}: noindex em URL do sitemap`);
+  if (html.includes('workers.dev') || html.includes('pages.dev')) fail(`${path}: host provisório no HTML`);
 }
 
 const notFound = await get('/qa-pagina-inexistente/');
 if (notFound.status !== 404) fail(`404 → ${notFound.status}`);
+const notFoundHtml = await notFound.text();
+if (!/name="robots" content="[^"]*noindex/.test(notFoundHtml)) fail('404 sem noindex');
 const expectedHeaders = {
   'content-security-policy': /frame-ancestors 'none'/,
   'strict-transport-security': /^max-age=\d+$/,

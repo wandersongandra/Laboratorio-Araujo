@@ -1,10 +1,9 @@
 # Arquitetura do site — Laboratório Dental Araújo
 
-Atualizado em 26/10/2026. A hospedagem primária é Cloudflare Workers Assets, configurada em
-`wrangler.jsonc`. O domínio canônico é informado por `SITE_BASE` ou, em builds do Cloudflare Pages,
-por `CF_PAGES_URL`. Workers Builds também permitem a primeira publicação sem domínio, usando URLs
-relativas até que o endereço `workers.dev` seja configurado. O projeto é um site estático:
-não há backend, banco de dados, API, formulário de aplicação ou servidor de aplicação.
+Atualizado em 05/11/2026. A hospedagem primária é Cloudflare Workers Assets, configurada em
+`wrangler.jsonc`, com um script mínimo em `src/worker/index.mjs`. O domínio canônico é
+`https://laboratoriodentalaraujo.com.br`. O projeto é um site estático: não há backend, banco
+de dados, API, formulário de aplicação ou servidor de aplicação.
 
 ## 1. Visão geral
 
@@ -17,7 +16,7 @@ não há backend, banco de dados, API, formulário de aplicação ou servidor de
 | Estilo | `src/assets/css/*.css` | `dist/assets/css/style.css` |
 | Comportamento | `src/assets/js/modules/*.js` | `dist/assets/js/main.js` |
 | Build | `scripts/build.mjs` | árvore publicável em `dist/` |
-| Hospedagem | `wrangler.jsonc` | Cloudflare Workers Assets |
+| Hospedagem | `wrangler.jsonc` e `src/worker/index.mjs` | Assets no apex; 301 só do workers.dev estável |
 
 O mapa do Google é carregado somente após a ação do visitante na página de contato. Não há
 processamento de dados no servidor do projeto.
@@ -132,18 +131,15 @@ cascata, os tokens visuais, as imagens, a estrutura de componentes ou as intera�
 
 ## 7. Publicação
 
-```powershell
-$env:SITE_BASE = 'https://www.seudominio.com.br'
-npm run build
+```bash
+SITE_BASE=https://laboratoriodentalaraujo.com.br npm run build
 npx wrangler deploy --dry-run
 ```
 
-O dry-run valida a leitura da saída pelo Wrangler sem publicar. O deploy real só deve ser feito
-com autorização explícita e após o domínio Cloudflare estar configurado.
+O dry-run valida o pacote sem publicar. O deploy real só deve ser feito com autorização.
 
 ## 8. Pendências conhecidas
 
-- Em builds locais fora do Cloudflare, o domínio Cloudflare oficial deve ser informado em `SITE_BASE`;
-  Pages fornece `CF_PAGES_URL` automaticamente, e Workers Builds pode publicar inicialmente com URLs
-  relativas até o endereço `workers.dev` ser definido.
+- `SITE_BASE` vazio usa o apex. Qualquer outra origem faz o build falhar. Preview (`WORKERS_CI_BRANCH`
+  diferente de `main`, ou `SITE_PREVIEW=1`) fica `noindex` e sem sitemap.
 - A documentação legal continua sendo modelo e precisa de revisão do laboratório e de advogado.
