@@ -9,8 +9,9 @@
 .header.is-stuck{border-color:var(--rule)}
 .header.is-hidden{transform:translateY(-100%)}
 .header__inner{display:flex;align-items:center;gap:24px;height:var(--hdr)}
-.brand{display:block;flex:none}
-.brand img{width:auto;height:64px;max-width:min(220px,62vw)}
+.brand{display:block;flex:none;line-height:0}
+.brand img{width:auto;height:64px;max-width:min(220px,62vw);padding:4px;background:#fff;border-radius:12px;box-shadow:0 0 0 1px rgb(11 37 69 / .08),0 1px 2px rgb(0 0 0 / .06),0 8px 24px -8px rgb(40 30 90 / .18)}
+.brand:hover img{box-shadow:0 0 0 1px rgb(11 37 69 / .12),0 2px 4px rgb(0 0 0 / .07),0 12px 28px -8px rgb(40 30 90 / .26)}
 .nav{display:flex;align-items:center;gap:2px;margin-left:auto}
 .nav>a,.nav__group>a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;font-size:.94rem;font-weight:500;color:var(--ink-2);text-decoration:none;position:relative}
 .nav>a::after,.nav__group>a::after{content:"";position:absolute;left:12px;right:12px;bottom:9px;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
