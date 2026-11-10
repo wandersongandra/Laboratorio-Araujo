@@ -3,7 +3,7 @@ const base = (process.argv[2] || process.env.SITE_BASE || '').replace(/\/$/, '')
 if (!base) throw new Error('Informe SITE_BASE ou passe a URL como argumento.');
 
 const failures = [];
-const fail = (message) => { failures.push(message); console.error(`  ✗ ${message}`); };
+const fail = (message) => { failures.push(message); console.error(`  x ${message}`); };
 const get = (path, options = {}) => fetch(`${base}${path}`, { redirect: 'manual', ...options });
 
 const sitemapResponse = await get('/sitemap.xml');
@@ -36,7 +36,7 @@ for (const path of ['/', '/contato/', '/assets/fonts/plex-sans.woff2', '/qa-pagi
   const response = await get(path);
   for (const [header, pattern] of Object.entries(expectedHeaders)) {
     const value = response.headers.get(header);
-    // Header repetido chega aqui unido por ", " — sinal de regra duplicada.
+    // Header repetido chega unido por ", ". Isso indica regra duplicada.
     if (!value) fail(`${path}: header ausente: ${header}`);
     else if (!pattern.test(value)) fail(`${path}: ${header} inesperado: ${value}`);
   }

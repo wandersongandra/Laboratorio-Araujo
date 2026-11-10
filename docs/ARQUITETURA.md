@@ -1,4 +1,4 @@
-# Arquitetura do site — Laboratório Dental Araújo
+# Arquitetura do site do Laboratório Dental Araújo
 
 Atualizado em 26/10/2026. A hospedagem primária é Cloudflare Workers Assets, configurada em
 `wrangler.jsonc`. O domínio canônico é informado por `SITE_BASE` ou, em builds do Cloudflare Pages,

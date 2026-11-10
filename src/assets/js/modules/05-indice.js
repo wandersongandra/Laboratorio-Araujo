@@ -1,4 +1,4 @@
-/* ---------- 5. Índice de serviços: miniatura acompanha o cursor (desktop) ---------- */
+/* No desktop, a miniatura do índice segue o ponteiro. */
   const idx = $('.idx');
   if (idx && matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce) {
     idx.addEventListener('pointermove', e => {

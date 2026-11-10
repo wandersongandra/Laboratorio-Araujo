@@ -1,4 +1,3 @@
-/* ---------- 9. Linha do tempo: barra de progresso preenchida conforme a rolagem ---------- */
   const tlw = $('[data-tl]');
   if (tlw) {
     const steps = $$('.tl li', tlw);

@@ -1,4 +1,3 @@
-/* ---------- 4. barra utilitária + cabeçalho + navegação ---------- */
 .util{background:var(--navy);color:#C9D5E4;font:500 .72rem/1 var(--mono);letter-spacing:.04em}
 .util .container{display:flex;gap:28px;align-items:center;height:34px}
 .util a{color:#fff;text-decoration:none}

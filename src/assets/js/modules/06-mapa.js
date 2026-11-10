@@ -1,4 +1,4 @@
-/* ---------- 6. Mapa sob demanda (nada é carregado do Google antes do clique) ---------- */
+/* O iframe do Google só é pedido depois do clique. */
   $('#loadMap')?.addEventListener('click', () => {
     const m = $('#map'), f = document.createElement('iframe');
     f.title = 'Mapa: Laboratório Dental Araújo, Av. Afonso Pena 262, Belo Horizonte';

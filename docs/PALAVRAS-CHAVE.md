@@ -1,4 +1,4 @@
-# Palavras-chave e SEO on-page — Laboratório Dental Araújo
+# Palavras-chave e SEO on-page do Laboratório Dental Araújo
 
 Data: 26/10/2026 · Produção oficial: Cloudflare Workers Assets · Domínio canônico: `SITE_BASE`, `CF_PAGES_URL` no Pages ou URLs relativas no primeiro Workers Build
 
@@ -23,11 +23,11 @@ Data: 26/10/2026 · Produção oficial: Cloudflare Workers Assets · Domínio ca
 |---|---|---|
 | Google Autocomplete (`suggestqueries.google.com`, `hl=pt-BR`, `gl=br`), 4 lotes, 135 consultas | Termos que existem nas buscas reais e as variações mais comuns | Não informa volume. Algumas consultas voltam vazias, entre elas "coroa de zircônia", "coroa metalocerâmica" e "coroa sobre implante" |
 | Pesquisa web (resultados de busca) | Concorrentes que aparecem para "laboratório de prótese dentária BH" e termos de serviço | Visão aproximada, não é a página do Google em tempo real |
-| Google SERP direto | — | Pediu captcha em navegador automático. **Não foi contornado** |
-| Bing em navegador automático | — | Trouxe resultados irrelevantes; descartado |
-| "As pessoas também perguntam" (PAA) | — | Não ficou acessível sem o Google SERP. As perguntas da FAQ vieram do autocompletar nas formas "X ou Y" e "o que é" |
+| Google SERP direto | - | Pediu captcha em navegador automático. **Não foi contornado** |
+| Bing em navegador automático | - | Trouxe resultados irrelevantes; descartado |
+| "As pessoas também perguntam" (PAA) | - | Não ficou acessível sem o Google SERP. As perguntas da FAQ vieram do autocompletar nas formas "X ou Y" e "o que é" |
 | Concorrentes | **BH:** Dentatech, Glaucia Galvão, Amauri, Labordent, TECLAB, 3D Dental Lab, Exclusive Dent. **Nacionais:** Shiratori, Protética Dente, Ultra, Hirama | Quase todos se posicionam como "fluxo digital/CAD-CAM" |
-| Lei nº 6.710/1979 (planalto.gov.br) | Art. 4º: o técnico não pode atender o paciente diretamente nem fazer propaganda ao público em geral. Parágrafo único: a propaganda dirigida a dentistas deve trazer o nome do laboratório, o responsável e o número de inscrição no CRO | — |
+| Lei nº 6.710/1979 (planalto.gov.br) | Art. 4º: o técnico não pode atender o paciente diretamente nem fazer propaganda ao público em geral. Parágrafo único: a propaganda dirigida a dentistas deve trazer o nome do laboratório, o responsável e o número de inscrição no CRO | - |
 | Literatura (resumos conferidos no Europe PMC e nos sites das revistas) | Sailer 2015, Pjetursson 2015 e 2018, Hill 2014, Rev Odontol UNESP 2019, Arch Health Invest 2017 | O PubMed bloqueia leitura automática (403/203); o link continua correto |
 
 **Posicionamento resultante:**
@@ -67,13 +67,13 @@ Prioridade (estimada):
 | `/servicos/placas-de-bruxismo-e-ortodontia/` | placa de bruxismo (laboratório) (B) | placa miorrelaxante, placa de clareamento, protetor bucal personalizado, contenção ortodôntica, aparelho anti-ronco | "placa de bruxismo laboratorio", "laboratório que faz placa de bruxismo", "placa miorrelaxante acrilica", "protetor bucal personalizado dentista", "contenção ortodôntica estética" |
 | `/envio-para-todo-brasil/` | laboratório de prótese que atende todo o Brasil (A) | coleta em BH, Grande BH (Contagem, Betim) e MG; envio pelos Correios | Variações por cidade: "laboratório de prótese dentária em [cidade]" e "laboratorio de protese dentaria contagem/betim/divinópolis/ipatinga/juiz de fora/montes claros/uberlândia" |
 | `/sobre/` | Laboratório Dental Araújo (marca) | história, desde 1976 | "laboratório dental araújo" já aparece no autocompletar |
-| `/perguntas-frequentes/` | dúvidas sobre laboratório de prótese | prazo, garantia, envio, requisição, atendimento a pacientes | — |
-| `/contato/` | contato Laboratório Dental Araújo | telefone, WhatsApp, endereço | — |
+| `/perguntas-frequentes/` | dúvidas sobre laboratório de prótese | prazo, garantia, envio, requisição, atendimento a pacientes | - |
+| `/contato/` | contato Laboratório Dental Araújo | telefone, WhatsApp, endereço | - |
 | `/blog/zirconia-ou-e-max-qual-indicar/` | zircônia ou E-Max (C) | dissilicato de lítio x zircônia, faceta de E-Max ou zircônia | "e max ou zirconia", "dissilicato de litio x zirconia" |
 | `/blog/metaloceramica-ou-zirconia/` **(novo)** | metalocerâmica ou zircônia (C) | metalocerâmica x zircônia, ponte de zircônia ou metalocerâmica, coroa de zircônia sobre implante | "metalocerâmica ou zircônia" |
 | `/blog/ppr-ou-protese-flexivel/` **(novo)** | PPR ou prótese flexível (C) | prótese flexível ou PPR, indicação da prótese flexível | "protese flexivel ou ppr" |
 | `/blog/requisicao-para-laboratorio-de-protese/` **(novo)** | requisição para laboratório de prótese (C) | modelo de requisição de prótese, requisição em PDF, ordem de serviço | "requisição para laboratório de prótese dentária pdf" |
-| `/blog/como-enviar-um-caso-para-o-laboratorio-de-protese/` | como enviar caso para laboratório de prótese (C) | enviar e embalar moldagem, coleta em BH | — |
+| `/blog/como-enviar-um-caso-para-o-laboratorio-de-protese/` | como enviar caso para laboratório de prótese (C) | enviar e embalar moldagem, coleta em BH | - |
 | `/blog/barra-de-protocolo-etapas-e-prazos/` | prótese protocolo: etapas (C) | barra de protocolo passo a passo, moldagem de transferência, assentamento passivo | "prótese protocolo etapas", "moldagem de transferência protocolo", "assentamento passivo" |
 
 **Regras contra canibalização aplicadas:**

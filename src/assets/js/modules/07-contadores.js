@@ -1,4 +1,3 @@
-/* ---------- 7. Contadores (números da home): contam até o valor real ao entrar na tela ---------- */
   // O HTML já traz o número final (visível sem JS e para buscadores); aqui só se anima a contagem.
   const cnt = $$('[data-count]');
   if (cnt.length && !reduce && 'IntersectionObserver' in window) {

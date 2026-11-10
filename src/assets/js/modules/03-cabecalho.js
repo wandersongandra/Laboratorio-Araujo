@@ -1,4 +1,3 @@
-/* ---------- 3. Cabeçalho, submenu e menu mobile ---------- */
   const header = $('.header'), nav = $('#nav'), burger = $('#burger');
   let lastY = 0, ticking = false;
   const onScroll = () => {

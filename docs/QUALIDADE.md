@@ -1,4 +1,4 @@
-# Qualidade — ferramentas, comandos e resultados
+# Qualidade: ferramentas, comandos e resultados
 
 Última atualização: 26/10/2026. Os checks locais usam o domínio informado em `SITE_BASE`; builds do
 Cloudflare Pages podem usar o `CF_PAGES_URL` automático; Workers Builds podem usar URLs relativas na
@@ -97,7 +97,7 @@ Capturas: `screenshots/antes-v2-*.png` e `screenshots/depois-v2-*.png` (home e z
 | Mapa sob a CSP | carrega no ar (iframe do Google Maps) sem erro de console |
 | Segurança | ver [SEGURANCA.md](SEGURANCA.md): Observatory A+ |
 
-### Lighthouse — antes × depois
+### Lighthouse: antes e depois
 
 "Antes" = site no ar antes da revisão de design/segurança; "depois" = no ar após o deploy de 24/10/2026.
 Lighthouse 12, Chromium headless, perfil padrão (mobile: Moto G com 4G lento simulado).
@@ -108,14 +108,14 @@ Lighthouse 12, Chromium headless, perfil padrão (mobile: Moto G com 4G lento si
 | Política de privacidade | desktop | 100 | 100 | 100 | 100 | 0,5 s | 0 | 0 ms |
 | Termos de uso | mobile | 99 | 100 | 100 | 100 | 2,1 s | 0 | 0 ms |
 | Termos de uso | desktop | 100 | 100 | 100 | 100 | 0,5 s | 0 | 0 ms |
-| Home | mobile — antes | 82 | 100 | 100 | 100 | 3,3 s | — | — |
-| Home | mobile — **depois** | **100** | 100 | 100 | 100 | 1,9 s | 0,001 | 0 ms |
-| Home | desktop — antes | 98 | 100 | 100 | 100 | — | — | — |
-| Home | desktop — **depois** | **100** | 100 | 100 | 100 | 0,5 s | 0,001 | 0 ms |
-| Zircônia e E-Max | mobile — antes | 86 | 100 | 100 | 100 | — | — | — |
-| Zircônia e E-Max | mobile — **depois** | **100** | 100 | 100 | 100 | 1,8 s | 0,02 | 0 ms |
-| Zircônia e E-Max | desktop — antes | 98 | 100 | 100 | 100 | — | — | — |
-| Zircônia e E-Max | desktop — **depois** | **100** | 100 | 100 | 100 | 0,5 s | 0,001 | 0 ms |
+| Home | mobile: antes | 82 | 100 | 100 | 100 | 3,3 s | - | - |
+| Home | mobile: **depois** | **100** | 100 | 100 | 100 | 1,9 s | 0,001 | 0 ms |
+| Home | desktop: antes | 98 | 100 | 100 | 100 | - | - | - |
+| Home | desktop: **depois** | **100** | 100 | 100 | 100 | 0,5 s | 0,001 | 0 ms |
+| Zircônia e E-Max | mobile: antes | 86 | 100 | 100 | 100 | - | - | - |
+| Zircônia e E-Max | mobile: **depois** | **100** | 100 | 100 | 100 | 1,8 s | 0,02 | 0 ms |
+| Zircônia e E-Max | desktop: antes | 98 | 100 | 100 | 100 | - | - | - |
+| Zircônia e E-Max | desktop: **depois** | **100** | 100 | 100 | 100 | 0,5 s | 0,001 | 0 ms |
 
 Os documentos legais foram medidos no servidor local (24/10/2026). As notas variam alguns pontos entre execuções (rede e CPU). No servidor local, sem CDN, o
 desempenho mobile ficou em 94–95.
