@@ -10,7 +10,7 @@ const failures = [];
 
 function fail(message) {
   failures.push(message);
-  console.error(`  ✗ ${message}`);
+  console.error(`  x ${message}`);
 }
 
 async function walk(dir) {
@@ -129,7 +129,7 @@ if (production && !robots.includes(`Sitemap: ${production}/sitemap.xml`)) fail('
 const pdfs = files.filter((path) => path.endsWith('.pdf')).map(rel);
 for (const pdf of pdfs) if (pdf !== 'assets/docs/requisicao-laboratorio-de-protese.pdf') fail(`PDF não permitido: ${pdf}`);
 
-// ---------- segurança da saída publicada (ver docs/SEGURANCA.md) ----------
+// Regras de publicação: ver docs/SEGURANCA.md
 const forbiddenFiles = /(^|\/)(\.env(\..*)?|\.dev\.vars.*|\.git|\.DS_Store|Thumbs\.db)$|\.(map|md|log|pem|key)$/;
 for (const path of files) if (forbiddenFiles.test(rel(path))) fail(`arquivo que não deve ser publicado: ${rel(path)}`);
 

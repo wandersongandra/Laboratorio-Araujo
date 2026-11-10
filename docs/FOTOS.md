@@ -217,7 +217,7 @@ deve estar disponível no PATH. Para usar uma foto publicada, atualize os caminh
 O componente existe, mas está desligado no HTML publicado. Ele só deve ser
 ligado com pares reais do mesmo caso e com autorização.
 
-## Fotos novas (outubro/2026) — chat do laboratório
+## Fotos novas (outubro/2026), chat do laboratório
 
 Em 28–29/10/2026 o laboratório enviou 17 fotos originais (nomes oficiais do dono) para
 complementar a galeria `/trabalhos/`. Ficaram só na galeria (sem trocar capas de serviço).

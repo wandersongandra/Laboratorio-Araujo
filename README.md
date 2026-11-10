@@ -187,7 +187,7 @@ Builds de branches que **não** são `main` (preview do PR) usam outro comando d
 Não use `npx wrangler deploy` no preview: isso publicaria em produção. Não use `npx wrangler preview`
 (comando antigo / incompatível com nome de branch com `/`). Se o check *Workers Builds* falhar em **0 s**
 sem log útil, a causa está no painel (comando de preview, builds de non-main desligados, ou app GitHub
-sem acesso ao repo) — não há o que corrigir só no código.
+sem acesso ao repo). Não há o que corrigir só no código.
 
 Endereço atual: <https://laboratorio-araujo.gandratecnologia.workers.dev>. Ao ligar um domínio próprio,
 troque o valor de `SITE_BASE` na variável de build.

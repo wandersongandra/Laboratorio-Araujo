@@ -1,6 +1,6 @@
 # Correção de legendas da galeria (out/2026)
 
-O laboratório conferiu fotos do site e corrigiu 4 legendas. Sem merge automático — ramo `content/legendas-galeria-2026-10`.
+O laboratório conferiu fotos do site e corrigiu 4 legendas. Sem merge automático. Ramo `content/legendas-galeria-2026-10`.
 
 | Slug (arquivo) | Antes | Depois (dono) | Categoria |
 |---|---|---|---|

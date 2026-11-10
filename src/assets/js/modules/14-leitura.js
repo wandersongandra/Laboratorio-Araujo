@@ -1,4 +1,3 @@
-/* ---------- 14. Barra de leitura no topo ---------- */
   if (!reduce) {
     const line = document.createElement('div');
     line.className = 'scroll-line';

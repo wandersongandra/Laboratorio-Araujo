@@ -11,7 +11,7 @@ const bundle = [
   '05-indice.js', '06-mapa.js', '07-contadores.js', '08-faixa.js', '09-timeline.js',
   '10-acordeao.js', '11-antes-depois.js', '12-galeria.js', '13-atmosfera.js', '14-leitura.js',
 ];
-const header = '/**\n * Laboratório Dental Araújo — interações (JS gerado a partir de src/assets/js/modules).\n */\n';
+const header = '/**\n * Laboratório Dental Araújo. Interações (JS gerado a partir de src/assets/js/modules).\n */\n';
 const modules = await Promise.all(bundle.map((name) => readFile(join(root, 'src', 'assets', 'js', 'modules', name), 'utf8')));
 const source = `${header}(() => {\n  'use strict';\n${modules.join('')}})();\n`;
 const result = spawnSync(process.execPath, [eslint, '--stdin', '--stdin-filename', 'src/assets/js/main.js'], {

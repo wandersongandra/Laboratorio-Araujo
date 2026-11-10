@@ -1,4 +1,3 @@
-/* ---------- 13. Atmosfera: luz e inclinação nas fotos de destaque ---------- */
   const stages = $$('.hero, .phero--photo');
   if (!reduce && stages.length && matchMedia('(pointer: fine)').matches) {
     stages.forEach(stage => {

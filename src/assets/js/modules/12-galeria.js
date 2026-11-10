@@ -1,4 +1,3 @@
-/* ---------- 12. Galeria /trabalhos/: ampliação acessível em <dialog> ---------- */
   // Sem JS (ou sem <dialog>), cada foto é um link comum para o JPEG grande.
   const lb = $('[data-lb-dialog]'), shots = $$('[data-lb]');
   if (lb && shots.length && typeof lb.showModal === 'function') {

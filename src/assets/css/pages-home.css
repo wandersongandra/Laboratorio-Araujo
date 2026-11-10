@@ -1,4 +1,3 @@
-/* ---------- 6. home · hero ---------- */
 .hero{padding:clamp(40px,6vw,88px) 0 clamp(56px,7vw,104px);position:relative;overflow:hidden}
 .hero__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px;align-items:start}
 .hero__text{grid-column:1/8;padding-top:clamp(8px,3vw,48px)}
@@ -20,13 +19,11 @@
 .specs b{display:block;font:500 clamp(1.6rem,1.2rem + 1.2vw,2.3rem)/1 var(--serif);letter-spacing:-.02em;color:var(--ink)}
 .specs>div>span{display:block;margin-top:8px;font:500 .72rem/1.35 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 
-/* ---------- 6. home · números (contadores) ---------- */
-/* largura fixa por nº de dígitos: a contagem 0 → 400 não empurra o texto ao lado (sem CLS) */
+/* largura fixa por nº de dígitos: a contagem de 0 a 400 não empurra o texto ao lado (sem CLS) */
 .cnt{display:inline-block;font-variant-numeric:tabular-nums lining-nums;text-align:left}
 .cnt.n2{min-width:2.1ch}
 .cnt.n3{min-width:3.1ch}
 
-/* ---------- 6. home · faixa horizontal de fotos ---------- */
 .strip{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 0 22px;background:var(--paper)}
 .strip__head{display:flex;align-items:center;gap:18px;margin-bottom:16px}
 .strip__head .label{margin:0;font-size:.72rem}
@@ -43,7 +40,6 @@
 .strip img{display:block;height:clamp(150px,18vw,230px);width:auto;max-width:none;background:var(--paper-2);box-shadow:0 0 0 1px var(--rule);transition:transform .6s var(--ease)}
 .strip figcaption{margin-top:8px;font:500 .68rem/1.3 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 
-/* ---------- 6. home · cartões de serviço ---------- */
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:0;list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
 .tiles li{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .tile{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-content:start;height:100%;padding:16px 16px 20px;color:var(--ink);text-decoration:none;background:var(--paper);transition:background .3s var(--ease),transform .35s var(--ease),box-shadow .35s var(--ease)}
@@ -61,7 +57,6 @@
 }
 .tile:focus-visible{outline:2px solid var(--blue-d);outline-offset:-2px}
 
-/* ---------- 6. home · índice de serviços ---------- */
 .idx{border-top:1px solid var(--ink);list-style:none;margin:0;padding:0}
 .idx__row{position:relative;border-bottom:1px solid var(--rule)}
 .idx__row a{display:grid;grid-template-columns:64px minmax(0,5fr) minmax(0,4fr) 150px 32px;gap:24px;align-items:baseline;padding:26px 0;color:var(--ink);text-decoration:none;position:relative;z-index:1;transition:padding .35s var(--ease)}
@@ -80,7 +75,6 @@
   .idx__row:hover{background:var(--white)}
 }
 
-/* ---------- 6. home · linha do tempo do processo ---------- */
 .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;list-style:none;margin:0;padding:0;counter-reset:tl;position:relative}
 .tl::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:
   repeating-linear-gradient(to right,rgba(255,255,255,.55) 0 1px,transparent 1px 12px) top/100% 7px no-repeat,
@@ -101,7 +95,6 @@
 .story__fig .frame{aspect-ratio:3/2;overflow:hidden;background:var(--paper-2)}
 .story__fig img{width:100%;height:100%;object-fit:cover}
 
-/* ---------- 6. antes e depois (componente pronto; só aparece com pares reais) ---------- */
 .bas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
 .ba{margin:0;max-width:760px}
 .ba__frame{position:relative;display:grid;gap:8px}
@@ -118,7 +111,6 @@
 .ba--on .ba__range{display:block;position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
 .ba--on .ba__range:focus-visible+*,.ba--on .ba__frame:focus-within{outline:2px solid var(--blue-d);outline-offset:3px}
 
-/* ---------- 6. home · história / bloco tipográfico ---------- */
 .story{display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px;align-items:start}
 .story__q{grid-column:1/8;font:500 clamp(1.7rem,1.2rem + 1.9vw,2.85rem)/1.16 var(--serif);letter-spacing:-.02em;margin:0;color:var(--ink)}
 .story__q em{color:var(--blue-d)}
@@ -134,13 +126,11 @@
 .photo-slot__hint{opacity:.75}
 .photo-slot .ico{width:28px;height:28px;margin:0 auto 10px;color:var(--rule-2)}
 
-/* ---------- 6. home · ficha técnica (fatos) ---------- */
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin:0;border-top:1px solid var(--ink)}
 .facts>div{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--rule)}
 .facts dt{font:500 .72rem/1.6 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
 .facts dd{margin:0;font-size:.98rem}
 
-/* ---------- 6. home · condições de trabalho (livro-razão) ---------- */
 .ledger-wrap{display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px;align-items:start}
 .ledger-wrap .ledger{grid-column:1/9}
 .ledger-wrap aside{grid-column:10/13}

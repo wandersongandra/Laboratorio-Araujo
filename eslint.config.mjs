@@ -1,4 +1,4 @@
-// ESLint (flat config) — JavaScript do site: navegador, ES2022, script clássico (não módulo).
+// ESLint em flat config. JavaScript do site: navegador, ES2022, script clássico, não módulo.
 import js from '@eslint/js';
 import globals from 'globals';
 

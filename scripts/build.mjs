@@ -52,8 +52,8 @@ const jsBundle = [
   '10-acordeao.js', '11-antes-depois.js', '12-galeria.js', '13-atmosfera.js', '14-leitura.js',
 ];
 
-const cssHeader = '/* Laboratório Dental Araújo — CSS gerado (bundle). Fontes em src/assets/css/; ver docs/ARQUITETURA.md. */\n';
-const jsHeader = '/**\n * Laboratório Dental Araújo — interações (JS gerado a partir de src/assets/js/modules).\n */\n';
+const cssHeader = '/* Laboratório Dental Araújo. CSS gerado (bundle). Fontes em src/assets/css/; ver docs/ARQUITETURA.md. */\n';
+const jsHeader = '/**\n * Laboratório Dental Araújo. Interações (JS gerado a partir de src/assets/js/modules).\n */\n';
 
 function minifyCss(source) {
   let css = '';

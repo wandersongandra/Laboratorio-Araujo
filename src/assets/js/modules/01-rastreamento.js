@@ -1,4 +1,4 @@
-/* ---------- 1. Rastreamento de conversões (GA4 / GTM) ---------- */
+/* Cliques com data-track vão para o dataLayer e, se existir, para o gtag. */
   window.dataLayer = window.dataLayer || [];
   document.addEventListener('click', e => {
     const el = e.target.closest('[data-track]'); if (!el) return;

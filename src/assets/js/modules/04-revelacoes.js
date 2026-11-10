@@ -1,4 +1,3 @@
-/* ---------- 4. Revelações discretas ao rolar ---------- */
   const rv = $$('.rv, .rv-img');
   if (!reduce && 'IntersectionObserver' in window) {
     // .rv-img começa recortado (clip-path) e não "intersecta": observa-se o elemento pai
